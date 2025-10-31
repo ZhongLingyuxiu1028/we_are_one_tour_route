@@ -1,6 +1,6 @@
 [
   {
-    "name": "#01 香港体育馆",
+    "name": "#01 香港站",
     "location": "香港体育馆",
     "setlist-name": "hongkong",
     "date": "2025-10-09 至 2025-10-13",
@@ -10,7 +10,7 @@
     "country": "China"
   },
   {
-    "name": "#02 佛山国际体育文化演艺中心",
+    "name": "#02 佛山站",
     "location": "佛山国际体育文化演艺中心",
     "setlist-name": "foshan",
     "date": "2025-11-15 至 2025-11-16",
@@ -20,7 +20,7 @@
     "country": "China"
   },
   {
-    "name": "#03 成都东安湖体育公园多功能体育馆",
+    "name": "#03 成都站",
     "location": "成都东安湖体育公园多功能体育馆",
     "setlist-name": "chengdu",
     "date": "2025-11-29",
@@ -30,7 +30,7 @@
     "country": "China"
   },
   {
-    "name": "#04 武汉体育中心体育馆（未官宣）",
+    "name": "#04 武汉站（未官宣）",
     "location": "武汉体育中心体育馆（未官宣）",
     "setlist-name": "wuhan",
     "date": "2025-12-20",
