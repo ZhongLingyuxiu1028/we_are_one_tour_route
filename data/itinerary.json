@@ -1,6 +1,8 @@
 [
   {
     "name": "#01 香港体育馆",
+    "location": "香港体育馆",
+    "setlist-name": "_01_hongkong",
     "date": "2025-10-09 至 2025-10-13",
     "coord": [114.181944, 22.301389],
     "city": "香港",
@@ -9,25 +11,31 @@
   },
   {
     "name": "#02 佛山国际体育文化演艺中心",
+    "location": "佛山国际体育文化演艺中心",
+    "setlist-name": "_02_foshan",
     "date": "2025-11-15 至 2025-11-16",
     "coord": [113.140953, 22.959949],
-    "city": "佛山",
+    "city": "佛山市",
     "province": "广东省",
     "country": "China"
   },
   {
     "name": "#03 成都东安湖体育公园多功能体育馆",
+    "location": "成都东安湖体育公园多功能体育馆",
+    "setlist-name": "_03_chengdu",
     "date": "2025-11-29",
     "coord": [104.13, 30.53],
-    "city": "成都",
+    "city": "成都市",
     "province": "四川省",
     "country": "China"
   },
   {
     "name": "#04 武汉体育中心体育馆（未官宣）",
+    "location": "武汉体育中心体育馆（未官宣）",
+    "setlist-name": "",
     "date": "2025-12-20",
     "coord": [114.133882, 30.636740],
-    "city": "武汉（未官宣）",
+    "city": "武汉市（未官宣）",
     "province": "湖北省",
     "country": "China"
   }

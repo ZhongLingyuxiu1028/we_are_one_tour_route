@@ -1,3 +1,5 @@
+// js/app.js
+
 function getToday() {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -201,3 +203,8 @@ window.addEventListener('resize', function() {
         chart.resize();
     }
 });
+
+// 暴露函数给全局，供 tabs.js 调用
+window.renderMap = renderMap;
+window.switchMap = switchMap;
+window.itineraryData = itineraryData;
