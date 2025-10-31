@@ -98,8 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // 生成城市选择器HTML
         let cityOptions = '';
         itinerary.forEach((event, index) => {
-            // 修正：使用 event['setlist-name'] 访问JSON中的字段
-            const setlistName = event['setlist-name'] || `_0${index + 1}_${event.city.replace('（未官宣）', '').replace(' ', '')}`;
+            // 修正：使用 event['setlist-name'] 访问JSON中的字段，并进行文件名标准化
+            let setlistName = event['setlist-name'] || `_0${index + 1}_${event.city.replace('（未官宣）', '').replace(' ', '')}`;
+
+            // 标准化文件名：转为小写，替换特殊字符
+            setlistName = setlistName.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+
             cityOptions += `<option value="${setlistName}" data-index="${index}">${event.name} (${event.date})</option>`;
         });
 
@@ -128,8 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('songListContent').innerHTML = '<div class="loading">正在加载歌单...</div>';
 
             try {
-                // 构建文件路径 - 使用修正后的字段值
-                const filePath = `data/setlist/${selectedValue}.md`;
+                // 构建文件路径 - 使用相对路径
+                const filePath = `./data/setlist/${selectedValue}.md`;
+                console.log('尝试加载文件:', filePath); // 调试信息
+
                 const response = await fetch(filePath);
 
                 if (response.ok) {
@@ -141,18 +147,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     document.getElementById('songListContent').innerHTML = `
                     <div class="city-info">
-                        <strong>演出信息</strong><br>
-                        <b>场馆</b>: ${eventInfo.location}<br>
-                        <b>日期</b>: ${eventInfo.date}<br>
-                        <b>地点</b>: ${eventInfo.province} ${eventInfo.city}
+                        <strong>演出信息:</strong><br>
+                        场馆: ${eventInfo.name}<br>
+                        日期: ${eventInfo.date}<br>
+                        地点: ${eventInfo.province} ${eventInfo.city}
                     </div>
                     <div class="content-body">${html}</div>
                 `;
+
+                    console.log('文件加载成功:', filePath); // 调试信息
+                } else if (response.status === 404) {
+                    console.error('文件不存在:', filePath); // 调试信息
+                    document.getElementById('songListContent').innerHTML = `<div class="warning">⚠️ 歌单文件尚未发布 (${selectedValue}.md)</div>`;
                 } else {
-                    document.getElementById('songListContent').innerHTML = '<div class="error">⚠️ 该城市歌单暂未开放</div>';
+                    console.error('请求失败:', filePath, response.status); // 调试信息
+                    document.getElementById('songListContent').innerHTML = `<div class="error">❌ 请求失败，状态码: ${response.status}</div>`;
                 }
             } catch (err) {
-                document.getElementById('songListContent').innerHTML = '<div class="error">❌ 加载歌单失败，请稍后再试。</div>';
+                console.error('加载歌单失败:', err); // 调试信息
+                document.getElementById('songListContent').innerHTML = `<div class="error">❌ 加载歌单失败，请稍后再试。<br>错误: ${err.message}</div>`;
             }
         });
     }
