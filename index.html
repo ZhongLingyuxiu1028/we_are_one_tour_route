@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>We Are One Tour Route</title>
+    <script src="lib/echarts.min.js"></script>
+    <script src="lib/china.js"></script>
+    <script src="lib/world.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        #map {
+            width: 100%;
+            height: calc(100vh - 180px); /* 视口高度减去标题、按钮、间距等 */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .controls {
+            margin-top: 15px;
+            text-align: center;
+        }
+        button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        button.active {
+            background: #1976D2;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h2 style="text-align: center;">林子祥 & 叶蒨文 ❤️ 白头到老演唱会</h2>
+<h4 style="text-align: center;">- George Lam & Sally Yeh ❤️ We Are One -</h4>
+
+<div class="controls" style="text-align: center;">
+    <button id="btnChina">中国地图</button>
+    <button id="btnWorld">世界地图</button>
+</div>
+<br/>
+<div id="map"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
