@@ -132,14 +132,29 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('songListContent').innerHTML = '<div class="loading">正在加载歌单...</div>';
 
             try {
-                // 构建文件路径 - 使用相对路径
+                // 构建文件路径
                 const filePath = `./data/setlist/${selectedValue}.md`;
-                console.log('尝试加载文件:', filePath); // 调试信息
 
-                const response = await fetch(filePath);
+                console.log('尝试加载文件:', filePath);
+
+                // 使用fetch请求，添加错误处理
+                const response = await fetch(filePath, {
+                    method: 'GET',
+                    headers: {
+                        'Cache-Control': 'no-cache'
+                    }
+                });
 
                 if (response.ok) {
                     const text = await response.text();
+
+                    // 检查内容是否为空
+                    if (!text.trim()) {
+                        console.warn('文件内容为空:', filePath);
+                        throw new Error('文件内容为空');
+                    }
+
+                    // 使用marked解析Markdown
                     const html = marked.parse(text);
 
                     // 找到对应的城市信息用于显示
@@ -155,17 +170,51 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="content-body">${html}</div>
                 `;
 
-                    console.log('文件加载成功:', filePath); // 调试信息
+                    console.log('文件加载成功:', filePath);
                 } else if (response.status === 404) {
-                    console.error('文件不存在:', filePath); // 调试信息
-                    document.getElementById('songListContent').innerHTML = `<div class="warning">⚠️ 歌单文件尚未发布 (${selectedValue}.md)</div>`;
+                    // 文件不存在时的处理
+                    console.warn('文件不存在:', filePath);
+
+                    // 检查是否是武汉（未官宣）的情况
+                    const eventInfo = itinerary[parseInt(selectedIndex)];
+                    const isUnofficial = eventInfo.city.includes('（未官宣）') || eventInfo['setlist-name'] === '';
+
+                    document.getElementById('songListContent').innerHTML = `
+                    <div class="warning">
+                        ${isUnofficial
+                        ? '⚠️ 该城市演出信息暂未官宣，歌单待发布'
+                        : `⚠️ 歌单文件尚未发布 (${selectedValue}.md)`}
+                        <br><small>预期路径: ${filePath}</small>
+                    </div>
+                `;
                 } else {
-                    console.error('请求失败:', filePath, response.status); // 调试信息
-                    document.getElementById('songListContent').innerHTML = `<div class="error">❌ 请求失败，状态码: ${response.status}</div>`;
+                    console.error('请求失败:', filePath, response.status);
+                    document.getElementById('songListContent').innerHTML = `
+                    <div class="error">
+                        ❌ 请求失败，状态码: ${response.status}<br>
+                        <small>路径: ${filePath}</small>
+                    </div>
+                `;
                 }
             } catch (err) {
-                console.error('加载歌单失败:', err); // 调试信息
-                document.getElementById('songListContent').innerHTML = `<div class="error">❌ 加载歌单失败，请稍后再试。<br>错误: ${err.message}</div>`;
+                console.error('加载歌单失败:', err);
+
+                // 检查是否是网络问题
+                if (err.name === 'TypeError' && err.message.includes('fetch')) {
+                    document.getElementById('songListContent').innerHTML = `
+                    <div class="error">
+                        ❌ 网络连接问题，请检查文件路径是否正确<br>
+                        <small>错误: ${err.message}</small>
+                    </div>
+                `;
+                } else {
+                    document.getElementById('songListContent').innerHTML = `
+                    <div class="error">
+                        ❌ 加载歌单失败，请稍后再试<br>
+                        <small>错误: ${err.message}</small>
+                    </div>
+                `;
+                }
             }
         });
     }
