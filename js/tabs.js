@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('songListContent').innerHTML = `
                     <div class="city-info">
                         <strong>演出信息:</strong><br>
-                        场馆: ${eventInfo.name}<br>
+                        场馆: ${eventInfo.location}<br>
                         日期: ${eventInfo.date}<br>
                         地点: ${eventInfo.province} ${eventInfo.city}
                     </div>
