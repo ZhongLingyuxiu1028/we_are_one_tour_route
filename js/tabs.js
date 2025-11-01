@@ -45,31 +45,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.switchMap) window.switchMap('world');
     });
 
-    // 致谢名单 - 现在也可以支持HTML格式
+    // 致谢名单
     btnStaffs.addEventListener('click', async () => {
         setActive(btnStaffs);
         showContent();
         contentEl.innerHTML = '<div class="loading">正在加载致谢名单...</div>';
         try {
-            // 尝试加载HTML格式的致谢名单
-            const response = await fetch('data/staffs.html');
+            const response = await fetch('data/staffs.md');
             if (response.ok) {
-                const html = await response.text();
+                const text = await response.text();
+                const html = marked.parse(text);
                 contentEl.innerHTML = `
+                    <!--<div class="content-header">🙏 致谢名单</div>-->
                     <div class="content-body">${html}</div>
                 `;
             } else {
-                // 如果HTML不存在，尝试加载MD格式
-                const mdResponse = await fetch('data/staffs.md');
-                if (mdResponse.ok) {
-                    const text = await mdResponse.text();
-                    const html = marked.parse(text);
-                    contentEl.innerHTML = `
-                        <div class="content-body">${html}</div>
-                    `;
-                } else {
-                    contentEl.innerHTML = '<div class="error">⚠️ 致谢名单未找到</div>';
-                }
+                contentEl.innerHTML = '<div class="error">⚠️ 致谢名单未找到</div>';
             }
         } catch (err) {
             contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
