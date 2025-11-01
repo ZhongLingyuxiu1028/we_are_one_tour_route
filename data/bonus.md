@@ -3,9 +3,9 @@
 
 ## Bonus 1：Opening 照片出处 💑
 
-<img src="../img/10s.jpg" alt="10s" style="width:20%;"> <img src="../img/9s.jpg" alt="9s" style="width:20%;"> <img src="../img/8s.jpg" alt="8s" style="width:20%;"> <img src="../img/7s.jpg" alt="7s" style="width:20%;"><br/>
-<img src="../img/6s.jpg" alt="6s" style="width:20%;"> <img src="../img/5s.jpg" alt="5s" style="width:20%;"> <img src="../img/4s.jpg" alt="4s" style="width:20%;"><br/>
-<img src="../img/3s.jpg" alt="3s" style="width:20%;"> <img src="../img/2s.jpg" alt="2s" style="width:20%;"> <img src="../img/1s.jpg" alt="1s" style="width:20%;"><br/>
+<img src="/img/10s.jpg" alt="10s" style="width:20%;"> <img src="/img/9s.jpg" alt="9s" style="width:20%;"> <img src="/img/8s.jpg" alt="8s" style="width:20%;"> <img src="../img/7s.jpg" alt="7s" style="width:20%;"><br/>
+<img src="/img/6s.jpg" alt="6s" style="width:20%;"> <img src="/img/5s.jpg" alt="5s" style="width:20%;"> <img src="/img/4s.jpg" alt="4s" style="width:20%;"><br/>
+<img src="/img/3s.jpg" alt="3s" style="width:20%;"> <img src="/img/2s.jpg" alt="2s" style="width:20%;"> <img src="/img/1s.jpg" alt="1s" style="width:20%;"><br/>
 
 | No. | 内容              | 出处                          | 
 |-----|-----------------|-----------------------------|
