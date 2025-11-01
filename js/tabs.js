@@ -45,22 +45,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.switchMap) window.switchMap('world');
     });
 
-    // 致谢名单
+    // 致谢名单 - 现在也可以支持HTML格式
     btnStaffs.addEventListener('click', async () => {
         setActive(btnStaffs);
         showContent();
         contentEl.innerHTML = '<div class="loading">正在加载致谢名单...</div>';
         try {
-            const response = await fetch('data/staffs.md');
+            // 尝试加载HTML格式的致谢名单
+            const response = await fetch('data/staffs.html');
             if (response.ok) {
-                const text = await response.text();
-                const html = marked.parse(text);
+                const html = await response.text();
                 contentEl.innerHTML = `
-                    <!--<div class="content-header">🙏 致谢名单</div>-->
                     <div class="content-body">${html}</div>
                 `;
             } else {
-                contentEl.innerHTML = '<div class="error">⚠️ 致谢名单未找到</div>';
+                // 如果HTML不存在，尝试加载MD格式
+                const mdResponse = await fetch('data/staffs.md');
+                if (mdResponse.ok) {
+                    const text = await mdResponse.text();
+                    const html = marked.parse(text);
+                    contentEl.innerHTML = `
+                        <div class="content-body">${html}</div>
+                    `;
+                } else {
+                    contentEl.innerHTML = '<div class="error">⚠️ 致谢名单未找到</div>';
+                }
             }
         } catch (err) {
             contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
@@ -132,13 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('songListContent').innerHTML = '<div class="loading">正在加载歌单...</div>';
 
             try {
-                // 构建文件路径
-                const filePath = `./data/setlist/${selectedValue}.md`;
+                // 构建HTML文件路径
+                const htmlFilePath = `./data/setlist/${selectedValue}.html`;
 
-                console.log('尝试加载文件:', filePath);
+                console.log('尝试加载HTML文件:', htmlFilePath);
 
-                // 使用fetch请求，添加错误处理
-                const response = await fetch(filePath, {
+                // 尝试加载HTML文件
+                const response = await fetch(htmlFilePath, {
                     method: 'GET',
                     headers: {
                         'Cache-Control': 'no-cache'
@@ -146,16 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    const text = await response.text();
+                    const html = await response.text();
 
                     // 检查内容是否为空
-                    if (!text.trim()) {
-                        console.warn('文件内容为空:', filePath);
+                    if (!html.trim()) {
+                        console.warn('HTML文件内容为空:', htmlFilePath);
                         throw new Error('文件内容为空');
                     }
-
-                    // 使用marked解析Markdown
-                    const html = marked.parse(text);
 
                     // 找到对应的城市信息用于显示
                     const eventInfo = itinerary[parseInt(selectedIndex)];
@@ -170,31 +176,55 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="content-body">${html}</div>
                 `;
 
-                    console.log('文件加载成功:', filePath);
-                } else if (response.status === 404) {
-                    // 文件不存在时的处理
-                    console.warn('文件不存在:', filePath);
-
-                    // 检查是否是武汉（未官宣）的情况
-                    const eventInfo = itinerary[parseInt(selectedIndex)];
-                    const isUnofficial = eventInfo.city.includes('（未官宣）') || eventInfo['setlist-name'] === '';
-
-                    document.getElementById('songListContent').innerHTML = `
-                    <div class="warning">
-                        ${isUnofficial
-                        ? '⚠️ 该城市演出信息暂未官宣，歌单待发布'
-                        : `⚠️ 歌单文件尚未发布 (${selectedValue}.md)`}
-                        <br><small>预期路径: ${filePath}</small>
-                    </div>
-                `;
+                    console.log('HTML文件加载成功:', htmlFilePath);
                 } else {
-                    console.error('请求失败:', filePath, response.status);
-                    document.getElementById('songListContent').innerHTML = `
-                    <div class="error">
-                        ❌ 请求失败，状态码: ${response.status}<br>
-                        <small>路径: ${filePath}</small>
-                    </div>
-                `;
+                    // 如果HTML文件不存在，尝试加载MD文件作为备选
+                    console.warn('HTML文件不存在，尝试加载MD文件:', htmlFilePath);
+
+                    const mdFilePath = `./data/setlist/${selectedValue}.md`;
+                    const mdResponse = await fetch(mdFilePath, {
+                        method: 'GET',
+                        headers: {
+                            'Cache-Control': 'no-cache'
+                        }
+                    });
+
+                    if (mdResponse.ok) {
+                        const text = await mdResponse.text();
+
+                        if (!text.trim()) {
+                            console.warn('MD文件内容为空:', mdFilePath);
+                            throw new Error('文件内容为空');
+                        }
+
+                        const html = marked.parse(text);
+                        const eventInfo = itinerary[parseInt(selectedIndex)];
+
+                        document.getElementById('songListContent').innerHTML = `
+                        <div class="city-info">
+                            <strong>演出信息</strong><br>
+                            场馆: ${eventInfo.location}<br>
+                            日期: ${eventInfo.date}<br>
+                            地点: ${eventInfo.province} ${eventInfo.city}
+                        </div>
+                        <div class="content-body">${html}</div>
+                    `;
+
+                        console.log('MD文件加载成功:', mdFilePath);
+                    } else {
+                        // 检查是否是（未官宣）的情况
+                        const eventInfo = itinerary[parseInt(selectedIndex)];
+                        const isUnofficial = eventInfo.city.includes('（未官宣）') || eventInfo['setlist-name'] === '';
+
+                        document.getElementById('songListContent').innerHTML = `
+                        <div class="warning">
+                            ${isUnofficial
+                            ? '⚠️ 该城市演出信息暂未官宣，歌单待发布'
+                            : `⚠️ 歌单文件尚未发布 (${selectedValue}.html 或 ${selectedValue}.md)`}
+                            <br><small>预期路径: ${htmlFilePath} 或 ${mdFilePath}</small>
+                        </div>
+                    `;
+                    }
                 }
             } catch (err) {
                 console.error('加载歌单失败:', err);
