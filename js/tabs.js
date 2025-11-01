@@ -9,9 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnWorld = document.getElementById('btnWorld');
     const btnSetlist = document.getElementById('btnSetlist');
     const btnStaffs = document.getElementById('btnStaffs');
+    const btnAbout = document.getElementById('btnAbout');
 
     // 所有控制按钮
-    const allButtons = [btnChina, btnWorld, btnSetlist, btnStaffs];
+    const allButtons = [btnChina, btnWorld, btnSetlist, btnStaffs, btnAbout];
 
     function setActive(button) {
         allButtons.forEach(btn => btn.classList.remove('active'));
@@ -61,6 +62,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             } else {
                 contentEl.innerHTML = '<div class="error">⚠️ 致谢名单未找到</div>';
+            }
+        } catch (err) {
+            contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
+        }
+    });
+
+    // 关于本站
+    btnAbout.addEventListener('click', async () => {
+        setActive(btnAbout);
+        showContent();
+        contentEl.innerHTML = '<div class="loading">正在加载关于本站...</div>';
+        try {
+            const response = await fetch('data/about.md');
+            if (response.ok) {
+                const text = await response.text();
+                const html = marked.parse(text);
+                contentEl.innerHTML = `
+                    <!--<div class="content-header">💬 关于本站</div>-->
+                    <div class="content-body">${html}</div>
+                `;
+            } else {
+                contentEl.innerHTML = '<div class="error">⚠️ 关于本站未找到</div>';
             }
         } catch (err) {
             contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
