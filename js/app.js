@@ -7,16 +7,211 @@ function getToday() {
 
 let itineraryData = null;
 let chart = null;
+let currentMapType = 'china'; // 记录当前地图类型
 
 // 初始化 ECharts 实例
 function initChart() {
     if (!chart) {
         chart = echarts.init(document.getElementById('map'));
+
+        // 添加点击事件监听
+        chart.on('click', function (params) {
+            if (params.seriesType === 'effectScatter') {
+                // 找到对应的数据项
+                const clickedItem = itineraryData.find(item =>
+                    item.name === params.name
+                );
+
+                if (clickedItem) {
+                    // 跳转到歌单页面
+                    showSetlistForItem(clickedItem);
+                }
+            }
+        });
+    }
+}
+
+// 显示特定项目的歌单
+function showSetlistForItem(item) {
+    // 隐藏地图，显示内容区域
+    document.getElementById('map').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+
+    // 激活歌单按钮
+    const btnSetlist = document.getElementById('btnSetlist');
+    const allButtons = [
+        document.getElementById('btnChina'),
+        document.getElementById('btnWorld'),
+        btnSetlist,
+        document.getElementById('btnStaffs'),
+        document.getElementById('btnBonus'),
+        document.getElementById('btnAbout')
+    ];
+
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    btnSetlist.classList.add('active');
+
+    // 渲染歌单内容
+    renderSetlistForItem(item);
+}
+
+// 渲染特定项目的歌单
+function renderSetlistForItem(item) {
+    const contentEl = document.getElementById('content');
+
+    // 标准化文件名：转为小写，替换特殊字符
+    let setlistName = item['setlist-name'] || '';
+    setlistName = setlistName.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+
+    contentEl.innerHTML = `
+        <div class="back-to-list">
+            <button onclick="goBackToMap()" style="margin-bottom: 16px; padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer;">← 返回地图</button>
+        </div>
+        <div class="city-info">
+            <h3>🎤 ${item.name}</h3>
+            <strong>演出信息:</strong><br>
+            场馆: ${item.location}<br>
+            日期: ${item.date}<br>
+            地点: ${item.province} ${item.city}
+        </div>
+        <div id="songListContent" style="margin-top: 16px;"></div>
+    `;
+
+    // 加载歌单内容
+    loadSongList(setlistName, item);
+}
+
+// 加载歌单内容
+async function loadSongList(setlistName, item) {
+    const contentEl = document.getElementById('songListContent');
+
+    if (!setlistName) {
+        contentEl.innerHTML = '<div class="warning">⚠️ 歌单名称未设置</div>';
+        return;
+    }
+
+    try {
+        // 构建HTML文件路径
+        const htmlFilePath = `./data/setlist/${setlistName}.html`;
+
+        console.log('尝试加载HTML文件:', htmlFilePath);
+
+        // 尝试加载HTML文件
+        const response = await fetch(htmlFilePath, {
+            method: 'GET',
+            headers: {
+                'Cache-Control': 'no-cache'
+            }
+        });
+
+        if (response.ok) {
+            const html = await response.text();
+
+            // 检查内容是否为空
+            if (!html.trim()) {
+                console.warn('HTML文件内容为空:', htmlFilePath);
+                throw new Error('文件内容为空');
+            }
+
+            contentEl.innerHTML = `<div class="content-body">${html}</div>`;
+            console.log('HTML文件加载成功:', htmlFilePath);
+        } else {
+            // 如果HTML文件不存在，尝试加载MD文件作为备选
+            console.warn('HTML文件不存在，尝试加载MD文件:', htmlFilePath);
+
+            const mdFilePath = `./data/setlist/${setlistName}.md`;
+            const mdResponse = await fetch(mdFilePath, {
+                method: 'GET',
+                headers: {
+                    'Cache-Control': 'no-cache'
+                }
+            });
+
+            if (mdResponse.ok) {
+                const text = await mdResponse.text();
+
+                if (!text.trim()) {
+                    console.warn('MD文件内容为空:', mdFilePath);
+                    throw new Error('文件内容为空');
+                }
+
+                const html = marked.parse(text);
+                contentEl.innerHTML = `<div class="content-body">${html}</div>`;
+
+                console.log('MD文件加载成功:', mdFilePath);
+            } else {
+                // 检查是否是（未官宣）的情况
+                const isUnofficial = item.city.includes('（未官宣）') || item['setlist-name'] === '';
+
+                contentEl.innerHTML = `
+                    <div class="warning">
+                        ${isUnofficial
+                    ? '⚠️ 该城市演出信息暂未官宣，歌单待发布'
+                    : `⚠️ 歌单文件尚未发布 (${setlistName}.html 或 ${setlistName}.md)`}
+                        <br><small>预期路径: ${htmlFilePath} 或 ${mdFilePath}</small>
+                    </div>
+                `;
+            }
+        }
+    } catch (err) {
+        console.error('加载歌单失败:', err);
+
+        // 检查是否是网络问题
+        if (err.name === 'TypeError' && err.message.includes('fetch')) {
+            contentEl.innerHTML = `
+                <div class="error">
+                    ❌ 网络连接问题，请检查文件路径是否正确<br>
+                    <small>错误: ${err.message}</small>
+                </div>
+            `;
+        } else {
+            contentEl.innerHTML = `
+                <div class="error">
+                    ❌ 加载歌单失败，请稍后再试<br>
+                    <small>错误: ${err.message}</small>
+                </div>
+            `;
+        }
+    }
+}
+
+// 返回地图函数
+function goBackToMap() {
+    document.getElementById('map').style.display = 'block';
+    document.getElementById('content').style.display = 'none';
+
+    // 恢复地图按钮的激活状态，保持之前选择的地图类型
+    const btnChina = document.getElementById('btnChina');
+    const btnWorld = document.getElementById('btnWorld');
+    const allButtons = [
+        btnChina,
+        btnWorld,
+        document.getElementById('btnSetlist'),
+        document.getElementById('btnStaffs'),
+        document.getElementById('btnBonus'),
+        document.getElementById('btnAbout')
+    ];
+
+    allButtons.forEach(btn => btn.classList.remove('active'));
+
+    // 根据当前地图类型激活相应的按钮
+    if (currentMapType === 'world') {
+        btnWorld.classList.add('active');
+    } else {
+        btnChina.classList.add('active');
+    }
+
+    // 重新渲染当前地图类型
+    if (itineraryData) {
+        renderMap(currentMapType, itineraryData);
     }
 }
 
 // 渲染地图（根据类型）
 function renderMap(mapType, fullItinerary) {
+    // 更新当前地图类型
+    currentMapType = mapType;
+
     const today = getToday();
 
     // 根据地图类型过滤数据
@@ -26,7 +221,7 @@ function renderMap(mapType, fullItinerary) {
 
     // 如果过滤后没有数据，清空图表并提示
     if (itinerary.length === 0) {
-        chart.setOption({ series: [], geo: { map: mapType } }, true);
+        chart.setOption({series: [], geo: {map: mapType}}, true);
         return;
     }
 
@@ -58,7 +253,7 @@ function renderMap(mapType, fullItinerary) {
             value: [...item.coord, labelCity],
             date: item.date,
             city: item.city,
-            itemStyle: { color: color },
+            itemStyle: {color: color},
             label: {
                 show: true,
                 position: 'right',
@@ -85,7 +280,7 @@ function renderMap(mapType, fullItinerary) {
         );
         regions = Array.from(provinces).map(name => ({
             name: name,
-            itemStyle: { areaColor: '#BBDEFB', borderColor: '#1976D2' }
+            itemStyle: {areaColor: '#BBDEFB', borderColor: '#1976D2'}
         }));
     } else {
         const countries = new Set(
@@ -93,7 +288,7 @@ function renderMap(mapType, fullItinerary) {
         );
         regions = Array.from(countries).map(name => ({
             name: name,
-            itemStyle: { areaColor: '#BBDEFB', borderColor: '#1976D2' }
+            itemStyle: {areaColor: '#BBDEFB', borderColor: '#1976D2'}
         }));
     }
 
@@ -102,7 +297,7 @@ function renderMap(mapType, fullItinerary) {
             trigger: 'item',
             formatter: function (params) {
                 if (params.seriesType === 'effectScatter') {
-                    const { name, date } = params.data;
+                    const {name, date} = params.data;
                     const dateParts = date.split('至');
                     const startDateStr = dateParts[0].trim();
                     const endDateStr = dateParts[1] ? dateParts[1].trim() : startDateStr;
@@ -132,9 +327,9 @@ function renderMap(mapType, fullItinerary) {
             roam: true,
             zoom: mapType === 'china' ? 1.2 : 1.0,
             center: mapType === 'world' ? [110, 20] : null,
-            label: { show: false },
-            itemStyle: { areaColor: '#f0f9ff', borderColor: '#999' },
-            emphasis: { label: { show: true } },
+            label: {show: false},
+            itemStyle: {areaColor: '#f0f9ff', borderColor: '#999'},
+            emphasis: {label: {show: true}},
             regions: regions
         },
         series: [
@@ -161,7 +356,7 @@ function renderMap(mapType, fullItinerary) {
                 coordinateSystem: 'geo',
                 data: points,
                 symbolSize: 14,
-                rippleEffect: { show: false }
+                rippleEffect: {show: false}
             }
         ]
     };
@@ -198,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 窗口大小变化时自动重绘图表
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
     if (chart) {
         chart.resize();
     }
@@ -208,3 +403,4 @@ window.addEventListener('resize', function() {
 window.renderMap = renderMap;
 window.switchMap = switchMap;
 window.itineraryData = itineraryData;
+window.goBackToMap = goBackToMap;
