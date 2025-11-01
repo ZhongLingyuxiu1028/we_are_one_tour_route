@@ -1,4 +1,4 @@
-## Concert Credits（待补充……）
+## Concert Credits（建设中……）
 
 **主办**：阿爾吉儂娛樂  
 **出品人及总策划**：Silence Leung  

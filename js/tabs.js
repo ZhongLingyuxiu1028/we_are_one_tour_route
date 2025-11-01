@@ -9,10 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnWorld = document.getElementById('btnWorld');
     const btnSetlist = document.getElementById('btnSetlist');
     const btnStaffs = document.getElementById('btnStaffs');
+    const btnBonus = document.getElementById('btnBonus');
     const btnAbout = document.getElementById('btnAbout');
 
     // 所有控制按钮
-    const allButtons = [btnChina, btnWorld, btnSetlist, btnStaffs, btnAbout];
+    const allButtons = [btnChina, btnWorld, btnSetlist, btnStaffs, btnBonus, btnAbout];
 
     function setActive(button) {
         allButtons.forEach(btn => btn.classList.remove('active'));
@@ -62,6 +63,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             } else {
                 contentEl.innerHTML = '<div class="error">⚠️ 致谢名单未找到</div>';
+            }
+        } catch (err) {
+            contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
+        }
+    });
+
+    // 彩蛋环节
+    btnBonus.addEventListener('click', async () => {
+        setActive(btnBonus);
+        showContent();
+        contentEl.innerHTML = '<div class="loading">正在加载彩蛋环节...</div>';
+        try {
+            const response = await fetch('data/bonus.md');
+            if (response.ok) {
+                const text = await response.text();
+                const html = marked.parse(text);
+                contentEl.innerHTML = `
+                    <!--<div class="content-header">🎊 彩蛋环节</div>-->
+                    <div class="content-body">${html}</div>
+                `;
+            } else {
+                contentEl.innerHTML = '<div class="error">⚠️ 彩蛋环节未找到</div>';
             }
         } catch (err) {
             contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
