@@ -7,13 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 按钮元素
     const btnChina = document.getElementById('btnChina');
     const btnWorld = document.getElementById('btnWorld');
+    const btnSonglist = document.getElementById('btnSonglist');
     const btnSetlist = document.getElementById('btnSetlist');
     const btnStaffs = document.getElementById('btnStaffs');
     const btnBonus = document.getElementById('btnBonus');
     const btnAbout = document.getElementById('btnAbout');
 
     // 所有控制按钮
-    const allButtons = [btnChina, btnWorld, btnSetlist, btnStaffs, btnBonus, btnAbout];
+    const allButtons = [btnChina, btnWorld, btnSonglist, btnSetlist, btnStaffs, btnBonus, btnAbout];
 
     function setActive(button) {
         allButtons.forEach(btn => btn.classList.remove('active'));
@@ -45,6 +46,28 @@ document.addEventListener('DOMContentLoaded', () => {
         setActive(btnWorld);
         showMap();
         if (window.switchMap) window.switchMap('world');
+    });
+
+    // 预习曲目
+    btnSonglist.addEventListener('click', async () => {
+        setActive(btnSonglist);
+        showContent();
+        contentEl.innerHTML = '<div class="loading">正在加载预习曲目...</div>';
+        try {
+            const response = await fetch('data/songlist.md');
+            if (response.ok) {
+                const text = await response.text();
+                const html = marked.parse(text);
+                contentEl.innerHTML = `
+                    <!--<div class="content-header">🎧 预习曲目</div>-->
+                    <div class="content-body">${html}</div>
+                `;
+            } else {
+                contentEl.innerHTML = '<div class="error">⚠️ 预习曲目未找到</div>';
+            }
+        } catch (err) {
+            contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
+        }
     });
 
     // 致谢名单
