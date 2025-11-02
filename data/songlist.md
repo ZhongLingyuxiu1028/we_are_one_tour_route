@@ -7,11 +7,12 @@
   点击复制歌单名（APP打开并搜索）</button> <a href="https://y.qq.com/n/ryqq/playlist/9605762542" target="_blank" rel="noopener noreferrer">
   QQ音乐（需要登录）：林子祥&叶蒨文-白头到老_预习版</a>
 - <button onclick="navigator.clipboard.writeText('林子祥&叶蒨文-白头到老演唱会（预习版） ')">
-  点击复制歌单名（APP打开并搜索）</button> 酷狗音乐：林子祥&叶蒨文-白头到老演唱会（预习版）
+  点击复制歌单名（APP打开并搜索）</button> <a href="https://www.kugou.com/songlist/gcid_3z1b9rfj4z3z038/" target="_blank" rel="noopener noreferrer">
+  酷狗音乐（需要登录）：林子祥&叶蒨文-白头到老演唱会（预习版）</a>
 - <button onclick="navigator.clipboard.writeText('林子祥&叶蒨文-白头到老演唱会（预习版） ')">
   点击复制歌单名（APP打开并搜索）</button> 酷我音乐：林子祥&叶蒨文-白头到老演唱会（预习版）
 
-> 注：酷狗音乐、酷我音乐暂时无法搜索
+> 注：酷我音乐暂时无法搜索
 
 ### 曲目一览
 
