@@ -1,6 +1,19 @@
 // js/tabs.js
 
-document.addEventListener('DOMContentLoaded', () => {
+// 全局变量：记录当前激活的非地图 tab 按钮
+window.activeTabButton = null;
+
+// 全局函数：重新加载当前激活的 tab（用于语言切换后刷新内容）
+window.reloadActiveTab = function () {
+    if (window.activeTabButton) {
+        // 使用 setTimeout 确保 DOM 和 i18n 状态稳定后再触发
+        setTimeout(() => {
+            window.activeTabButton.click();
+        }, 50);
+    }
+};
+
+document.addEventListener('i18nReady', () => {
     const mapEl = document.getElementById('map');
     const contentEl = document.getElementById('content');
 
@@ -35,130 +48,84 @@ document.addEventListener('DOMContentLoaded', () => {
     setActive(btnChina);
     showMap();
 
-    // 地图按钮
+    // === 地图按钮（不参与内容重载）===
     btnChina.addEventListener('click', () => {
         setActive(btnChina);
         showMap();
         if (window.switchMap) window.switchMap('china');
+        window.activeTabButton = null; // 清除激活 tab
     });
 
     btnWorld.addEventListener('click', () => {
         setActive(btnWorld);
         showMap();
         if (window.switchMap) window.switchMap('world');
+        window.activeTabButton = null;
     });
+
+    // === 内容型 Tab：统一处理逻辑 ===
+    const loadMarkdownTab = async (button, filePath, loadingKey, errorKey = "error.loadFailed") => {
+        window.activeTabButton = button;
+        setActive(button);
+        showContent();
+        contentEl.innerHTML = `<div class="loading">${i18n.t(loadingKey)}</div>`;
+
+        try {
+            const response = await fetch(filePath);
+            if (response.ok) {
+                const text = await response.text();
+                const html = marked.parse(text);
+                contentEl.innerHTML = `<div class="content-body">${html}</div>`;
+            } else {
+                contentEl.innerHTML = `<div class="error">${i18n.t("error.notFound")}</div>`;
+            }
+        } catch (err) {
+            console.error(`Failed to load ${filePath}:`, err);
+            contentEl.innerHTML = `<div class="error">${i18n.t(errorKey)}</div>`;
+        }
+    };
 
     // 预习曲目
-    btnSonglist.addEventListener('click', async () => {
-        setActive(btnSonglist);
-        showContent();
-        contentEl.innerHTML = '<div class="loading">正在加载预习曲目...</div>';
-        try {
-            const response = await fetch('data/songlist.md');
-            if (response.ok) {
-                const text = await response.text();
-                const html = marked.parse(text);
-                contentEl.innerHTML = `
-                    <!--<div class="content-header">🎧 预习曲目</div>-->
-                    <div class="content-body">${html}</div>
-                `;
-            } else {
-                contentEl.innerHTML = '<div class="error">⚠️ 预习曲目未找到</div>';
-            }
-        } catch (err) {
-            contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
-        }
-    });
+    btnSonglist.addEventListener('click', () =>
+        loadMarkdownTab(btnSonglist, 'data/songlist.md', 'loading.songlist')
+    );
 
     // 致谢名单
-    btnStaffs.addEventListener('click', async () => {
-        setActive(btnStaffs);
-        showContent();
-        contentEl.innerHTML = '<div class="loading">正在加载致谢名单...</div>';
-        try {
-            const response = await fetch('data/staffs.md');
-            if (response.ok) {
-                const text = await response.text();
-                const html = marked.parse(text);
-                contentEl.innerHTML = `
-                    <!--<div class="content-header">🙏 致谢名单</div>-->
-                    <div class="content-body">${html}</div>
-                `;
-            } else {
-                contentEl.innerHTML = '<div class="error">⚠️ 致谢名单未找到</div>';
-            }
-        } catch (err) {
-            contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
-        }
-    });
+    btnStaffs.addEventListener('click', () =>
+        loadMarkdownTab(btnStaffs, 'data/staffs.md', 'loading.staffs')
+    );
 
     // 彩蛋环节
-    btnBonus.addEventListener('click', async () => {
-        setActive(btnBonus);
-        showContent();
-        contentEl.innerHTML = '<div class="loading">正在加载彩蛋环节...</div>';
-        try {
-            const response = await fetch('data/bonus.md');
-            if (response.ok) {
-                const text = await response.text();
-                const html = marked.parse(text);
-                contentEl.innerHTML = `
-                    <!--<div class="content-header">🎊 彩蛋环节</div>-->
-                    <div class="content-body">${html}</div>
-                `;
-            } else {
-                contentEl.innerHTML = '<div class="error">⚠️ 彩蛋环节未找到</div>';
-            }
-        } catch (err) {
-            contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
-        }
-    });
+    btnBonus.addEventListener('click', () =>
+        loadMarkdownTab(btnBonus, 'data/bonus.md', 'loading.bonus')
+    );
 
     // 关于本站
-    btnAbout.addEventListener('click', async () => {
-        setActive(btnAbout);
-        showContent();
-        contentEl.innerHTML = '<div class="loading">正在加载关于本站...</div>';
-        try {
-            const response = await fetch('data/about.md');
-            if (response.ok) {
-                const text = await response.text();
-                const html = marked.parse(text);
-                contentEl.innerHTML = `
-                    <!--<div class="content-header">💬 关于本站</div>-->
-                    <div class="content-body">${html}</div>
-                `;
-            } else {
-                contentEl.innerHTML = '<div class="error">⚠️ 关于本站未找到</div>';
-            }
-        } catch (err) {
-            contentEl.innerHTML = '<div class="error">❌ 加载失败，请稍后再试。</div>';
-        }
-    });
+    btnAbout.addEventListener('click', () =>
+        loadMarkdownTab(btnAbout, 'data/about.md', 'loading.about')
+    );
 
-    // 演出歌单 - 加载城市列表
+    // === 演出歌单（特殊逻辑）===
     btnSetlist.addEventListener('click', async () => {
+        window.activeTabButton = btnSetlist;
         setActive(btnSetlist);
         showContent();
-        contentEl.innerHTML = '<div class="loading">正在加载演出城市列表...</div>';
+        contentEl.innerHTML = `<div class="loading">${i18n.t("loading.setlist.cities")}</div>`;
 
         try {
-            // 从全局获取行程数据，避免重复请求
-            if (window.itineraryData) {
-                const itinerary = window.itineraryData;
-                renderSetlistSelector(itinerary);
-            } else {
-                // 如果全局数据未加载，从文件获取
-                const response = await fetch('data/itinerary.json');
-                if (response.ok) {
-                    const itinerary = await response.json();
-                    renderSetlistSelector(itinerary);
+            let itinerary = window.itineraryData;
+            if (!itinerary) {
+                const res = await fetch('data/itinerary.json');
+                if (res.ok) {
+                    itinerary = await res.json();
+                    window.itineraryData = itinerary; // 缓存
                 } else {
-                    contentEl.innerHTML = '<div class="error">⚠️ 演出计划未找到</div>';
+                    throw new Error('Itinerary not found');
                 }
             }
+            renderSetlistSelector(itinerary);
         } catch (err) {
-            contentEl.innerHTML = '<div class="error">❌ 加载演出计划失败，请稍后再试。</div>';
+            contentEl.innerHTML = `<div class="error">${i18n.t("error.loadFailed")}</div>`;
         }
     });
 
@@ -172,138 +139,84 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 标准化文件名：转为小写，替换特殊字符
             setlistName = setlistName.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
-
             cityOptions += `<option value="${setlistName}" data-index="${index}">${event.name} (${event.date})</option>`;
         });
 
         contentEl.innerHTML = `
-        <!--<div class="content-header">🎤 演出歌单</div>-->
-        <div class="city-selector">
-            <label for="citySelect">选择城市:</label>
-            <select id="citySelect">
-                <option value="">请选择演出城市</option>
-                ${cityOptions}
-            </select>
-        </div>
-        <div id="songListContent" style="margin-top: 16px;"></div>
-    `;
+            <div class="city-selector">
+                <label for="citySelect">${i18n.t("select.city")}</label>
+                <select id="citySelect">
+                    <option value="">${i18n.t("setlist.selectCityPrompt")}</option>
+                    ${cityOptions}
+                </select>
+            </div>
+            <div id="songListContent" style="margin-top: 16px;"></div>
+        `;
 
-        // 添加城市选择事件监听
+        const songListContent = document.getElementById('songListContent');
+        songListContent.innerHTML = `<div class="loading">${i18n.t("setlist.selectCityPrompt")}</div>`;
+
         document.getElementById('citySelect').addEventListener('change', async (e) => {
             const selectedValue = e.target.value;
-            const selectedIndex = e.target.options[e.target.selectedIndex].dataset.index;
+            const selectedIndex = e.target.options[e.target.selectedIndex]?.dataset.index;
 
             if (!selectedValue) {
-                document.getElementById('songListContent').innerHTML = '<div class="loading">请选择一个城市查看歌单</div>';
+                songListContent.innerHTML = `<div class="loading">${i18n.t("setlist.selectCityPrompt")}</div>`;
                 return;
             }
 
-            document.getElementById('songListContent').innerHTML = '<div class="loading">正在加载歌单...</div>';
+            songListContent.innerHTML = `<div class="loading">${i18n.t("loading.setlist.songs")}</div>`;
 
             try {
-                // 构建HTML文件路径
-                const htmlFilePath = `./data/setlist/${selectedValue}.html`;
+                const htmlPath = `./data/setlist/${selectedValue}.html`;
+                const mdPath = `./data/setlist/${selectedValue}.md`;
 
-                console.log('尝试加载HTML文件:', htmlFilePath);
+                let html = '';
+                let eventInfo = itinerary[parseInt(selectedIndex)];
 
-                // 尝试加载HTML文件
-                const response = await fetch(htmlFilePath, {
-                    method: 'GET',
-                    headers: {
-                        'Cache-Control': 'no-cache'
+                // 尝试加载 HTML
+                let resp = await fetch(htmlPath, { headers: { 'Cache-Control': 'no-cache' } });
+                if (resp.ok) {
+                    html = await resp.text();
+                    if (!html.trim()) throw new Error('HTML file empty');
+                } else {
+                    // 回退到 Markdown
+                    resp = await fetch(mdPath, { headers: { 'Cache-Control': 'no-cache' } });
+                    if (resp.ok) {
+                        const mdText = await resp.text();
+                        if (!mdText.trim()) throw new Error('Markdown file empty');
+                        html = marked.parse(mdText);
+                    } else {
+                        const isUnofficial = eventInfo?.city?.includes('（未官宣）') || !eventInfo?.['setlist-name'];
+                        throw Object.assign(new Error('Setlist file not published'), { code: 'FILE_NOT_PUBLISHED', unofficial: isUnofficial });
                     }
-                });
+                }
 
-                if (response.ok) {
-                    const html = await response.text();
-
-                    // 检查内容是否为空
-                    if (!html.trim()) {
-                        console.warn('HTML文件内容为空:', htmlFilePath);
-                        throw new Error('文件内容为空');
-                    }
-
-                    // 找到对应的城市信息用于显示
-                    const eventInfo = itinerary[parseInt(selectedIndex)];
-
-                    document.getElementById('songListContent').innerHTML = `
+                // 渲染演出信息 + 歌单
+                songListContent.innerHTML = `
                     <div class="city-info">
-                        <strong>演出信息:</strong><br>
-                        场馆: ${eventInfo.location}<br>
-                        日期: ${eventInfo.date}<br>
-                        地点: ${eventInfo.province} ${eventInfo.city}
+                        <strong>${i18n.t("setlist.info.title")}:</strong><br>
+                        ${i18n.t("setlist.info.venue")}: ${eventInfo.location}<br>
+                        ${i18n.t("setlist.info.date")}: ${eventInfo.date}<br>
+                        ${i18n.t("setlist.info.location")}: ${eventInfo.province} ${eventInfo.city}
                     </div>
                     <div class="content-body">${html}</div>
                 `;
-
-                    console.log('HTML文件加载成功:', htmlFilePath);
-                } else {
-                    // 如果HTML文件不存在，尝试加载MD文件作为备选
-                    console.warn('HTML文件不存在，尝试加载MD文件:', htmlFilePath);
-
-                    const mdFilePath = `./data/setlist/${selectedValue}.md`;
-                    const mdResponse = await fetch(mdFilePath, {
-                        method: 'GET',
-                        headers: {
-                            'Cache-Control': 'no-cache'
-                        }
-                    });
-
-                    if (mdResponse.ok) {
-                        const text = await mdResponse.text();
-
-                        if (!text.trim()) {
-                            console.warn('MD文件内容为空:', mdFilePath);
-                            throw new Error('文件内容为空');
-                        }
-
-                        const html = marked.parse(text);
-                        const eventInfo = itinerary[parseInt(selectedIndex)];
-
-                        document.getElementById('songListContent').innerHTML = `
-                        <div class="city-info">
-                            <strong>演出信息</strong><br>
-                            场馆: ${eventInfo.location}<br>
-                            日期: ${eventInfo.date}<br>
-                            地点: ${eventInfo.province} ${eventInfo.city}
-                        </div>
-                        <div class="content-body">${html}</div>
-                    `;
-
-                        console.log('MD文件加载成功:', mdFilePath);
-                    } else {
-                        // 检查是否是（未官宣）的情况
-                        const eventInfo = itinerary[parseInt(selectedIndex)];
-                        const isUnofficial = eventInfo.city.includes('（未官宣）') || eventInfo['setlist-name'] === '';
-
-                        document.getElementById('songListContent').innerHTML = `
-                        <div class="warning">
-                            ${isUnofficial
-                            ? '⚠️ 该城市演出信息暂未官宣，歌单待发布'
-                            : `⚠️ 歌单文件尚未发布 (${selectedValue}.html 或 ${selectedValue}.md)`}
-                            <br><small>预期路径: ${htmlFilePath} 或 ${mdFilePath}</small>
-                        </div>
-                    `;
-                    }
-                }
             } catch (err) {
-                console.error('加载歌单失败:', err);
-
-                // 检查是否是网络问题
-                if (err.name === 'TypeError' && err.message.includes('fetch')) {
-                    document.getElementById('songListContent').innerHTML = `
-                    <div class="error">
-                        ❌ 网络连接问题，请检查文件路径是否正确<br>
-                        <small>错误: ${err.message}</small>
-                    </div>
-                `;
+                console.error('Setlist load error:', err);
+                if (err.code === 'FILE_NOT_PUBLISHED') {
+                    songListContent.innerHTML = `
+                        <div class="warning">
+                            ${err.unofficial
+                        ? i18n.t("setlist.unofficial")
+                        : i18n.t("setlist.fileNotPublished")
+                    }
+                        </div>
+                    `;
+                } else if (err.message?.includes('fetch')) {
+                    songListContent.innerHTML = `<div class="error">${i18n.t("error.network")}</div>`;
                 } else {
-                    document.getElementById('songListContent').innerHTML = `
-                    <div class="error">
-                        ❌ 加载歌单失败，请稍后再试<br>
-                        <small>错误: ${err.message}</small>
-                    </div>
-                `;
+                    songListContent.innerHTML = `<div class="error">${i18n.t("error.setlist.loadFailed")}</div>`;
                 }
             }
         });
