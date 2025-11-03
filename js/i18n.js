@@ -42,8 +42,13 @@ class I18n {
         });
     }
 
-    t(key) {
-        return this.translations[key] || key;
+    // 增强 t 方法以支持变量替换
+    t(key, params = {}) {
+        let str = this.translations[key] || key;
+        // 简单变量替换：{name} → params.name
+        return str.replace(/\{(\w+)\}/g, (match, p1) => {
+            return params[p1] !== undefined ? params[p1] : match;
+        });
     }
 
     async setLang(lang) {
@@ -80,3 +85,5 @@ const i18n = new I18n();
 
 // 全局函数（可选）
 window.setLanguage = (lang) => i18n.setLang(lang);
+
+window.i18n = i18n;
