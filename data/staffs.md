@@ -1,3 +1,12 @@
+## Concert Official
+
+| 社交媒体     | 账号                                                                                                                                                                            |
+|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 小红书      | <a href="https://www.xiaohongshu.com/user/profile/6212607500000000210220cd" target="_blank" rel="noopener noreferrer">林子祥叶蒨文白头到老演唱会2025</a>                                   |
+| 微博       | <a href="https://weibo.com/u/8011783575" target="_blank" rel="noopener noreferrer">林子祥叶蒨文白头到老演唱会</a>                                                                          |
+| 抖音       | <a href="https://www.douyin.com/user/MS4wLjABAAAAZ3FPdXxt9OkIvVwlQimzhS6XUEsEHaxbm0MmyCQnSM_Chc_EArRDhtkZeBoAxCBi" target="_blank" rel="noopener noreferrer">林子祥叶蒨文巡演2025</a> |
+| Bilibili | <a href="https://space.bilibili.com/3546936640538628" target="_blank" rel="noopener noreferrer">林子祥叶蒨文巡演2025</a>                                                              |
+
 ## Concert Credits（建设中……）
 
 **主办**：阿爾吉儂娛樂  
@@ -30,7 +39,9 @@
 **排舞师**：姜浚彦 Apple  
 **中国风舞蹈总监**：董肖华  
 **排舞助理**：Wong Yee Ling  
-**舞蹈员**：Apple Keung tsun yin, Elaine Wong Yee Ling, SK, Lam Yiu Cheung, Chiu Shing Hin, Leung Wing Ho, Lau Ka Ho, 小砂, Chan Yuet Ling, Wilson Wong Wing Lung, Naomi Louie, Katherine Pumar, Cindi Li, Shum Venus Ho Kwa, 细Joe Lee Hin Chung, Ng Christy, DORLAI Kan Man Ho, Zoe Wong Ching Yee  
+**舞蹈员**：Apple Keung tsun yin, Elaine Wong Yee Ling, SK, Lam Yiu Cheung, Chiu Shing Hin, Leung Wing Ho, Lau Ka Ho, 小砂,
+Chan Yuet Ling, Wilson Wong Wing Lung, Naomi Louie, Katherine Pumar, Cindi Li, Shum Venus Ho Kwa, 细Joe Lee Hin Chung,
+Ng Christy, DORLAI Kan Man Ho, Zoe Wong Ching Yee  
 **小朋友舞蹈员**：刘玥雅，李恩雅，钟善如，苏乐儿，叶晴，潘诺言，李逸雅，张晓彤，黎望，余嘉岚  
 **中国风舞蹈员**：张羽飞，刘思敏，石璁，傅颖茵，黄介甫，张海婷，许方恬，吕忝朔，刘铭，王曦阳
 
