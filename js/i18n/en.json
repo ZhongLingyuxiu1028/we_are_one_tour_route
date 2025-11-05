@@ -3,6 +3,7 @@
   "lang": "Language: ",
   "btn.china": "\uD83C\uDDE8\uD83C\uDDF3 China Map",
   "btn.world": "\uD83C\uDF0F\uFE0F World Map",
+  "btn.return.map": "Return Map",
   "map.station": "Stop {number}",
   "map.status.unofficial": "⚫ Unofficial",
   "map.status.finished": "🟢 Finished",

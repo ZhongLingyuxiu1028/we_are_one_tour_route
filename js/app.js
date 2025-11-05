@@ -59,7 +59,7 @@ function updateSetlistLanguage(item) {
     const venue = i18nInstance ? i18nInstance.t('setlist.info.venue') : '场馆';
     const date = i18nInstance ? i18nInstance.t('setlist.info.date') : '日期';
     const locationText = i18nInstance ? i18nInstance.t('setlist.info.location') : '地点';
-    const backText = i18nInstance ? i18nInstance.t('btn.china').replace('中国地图', '返回地图') : '返回地图';
+    const backText = i18nInstance ? i18nInstance.t('btn.return.map') : '返回地图';
 
     // 更新歌单信息部分
     const cityInfoDiv = contentEl.querySelector('.city-info');
@@ -137,7 +137,7 @@ function renderSetlistForItem(item) {
     const venue = i18nInstance ? i18nInstance.t('setlist.info.venue') : '场馆';
     const date = i18nInstance ? i18nInstance.t('setlist.info.date') : '日期';
     const locationText = i18nInstance ? i18nInstance.t('setlist.info.location') : '地点';
-    const backText = i18nInstance ? i18nInstance.t('btn.china').replace('中国地图', '返回地图') : '返回地图';
+    const backText = i18nInstance ? i18nInstance.t('btn.return.map') : '返回地图';
 
     contentEl.innerHTML = `
         <div class="back-to-list">
@@ -437,7 +437,7 @@ function renderMap(mapType, fullItinerary) {
                     const endDate = new Date(endYear, endMonth - 1, endDay);
 
                     let statusKey;
-                    if (name.includes('未官宣') || name.includes('测试')) {
+                    if (name.includes('未官宣')) {
                         statusKey = 'map.status.unofficial';
                     } else if (endDate < today) {
                         statusKey = 'map.status.finished';
