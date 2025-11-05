@@ -3,6 +3,7 @@
   "lang": "語言：",
   "btn.china": "\uD83C\uDDE8\uD83C\uDDF3 中國地圖",
   "btn.world": "\uD83C\uDF0F\uFE0F 世界地圖",
+  "btn.return.map": "返回地圖",
   "map.station": "第{number}站",
   "map.status.unofficial": "⚫ 未公佈",
   "map.status.finished": "🟢 已結束",
