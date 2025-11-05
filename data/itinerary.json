@@ -30,12 +30,12 @@
     "country": "China"
   },
   {
-    "name": "#04 武汉站 Wuhan（未官宣）",
-    "location": "武汉体育中心体育馆（未官宣）",
+    "name": "#04 武汉站 Wuhan",
+    "location": "武汉体育中心体育馆",
     "setlist-name": "wuhan",
     "date": "2025-12-20",
     "coord": [114.133882, 30.636740],
-    "city": "武汉市（未官宣）",
+    "city": "武汉市",
     "province": "湖北省",
     "country": "China"
   }
