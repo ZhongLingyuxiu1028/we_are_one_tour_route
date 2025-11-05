@@ -48,45 +48,6 @@ document.addEventListener('i18n:langChanged', (e) => {
     }
 });
 
-// 更新歌单语言（保留此函数用于其他可能的调用）
-function updateSetlistLanguage(item) {
-    // 更新歌单标题部分的语言
-    const contentEl = document.getElementById('content');
-    if (!contentEl) return;
-
-    // 使用 i18n 翻译固定文本
-    const title = i18nInstance ? i18nInstance.t('setlist.info.title') : '演出信息';
-    const venue = i18nInstance ? i18nInstance.t('setlist.info.venue') : '场馆';
-    const date = i18nInstance ? i18nInstance.t('setlist.info.date') : '日期';
-    const locationText = i18nInstance ? i18nInstance.t('setlist.info.location') : '地点';
-    const backText = i18nInstance ? i18nInstance.t('btn.return.map') : '返回地图';
-
-    // 更新歌单信息部分
-    const cityInfoDiv = contentEl.querySelector('.city-info');
-    if (cityInfoDiv) {
-        cityInfoDiv.innerHTML = `
-            <h3>🎤 ${item.name}</h3>
-            <strong>${title}:</strong><br>
-            ${venue}: ${item.location}<br>
-            ${date}: ${item.date}<br>
-            ${locationText}: ${item.province} ${item.city}
-        `;
-    }
-
-    // 更新返回按钮文本
-    const backButton = contentEl.querySelector('.back-to-list button');
-    if (backButton) {
-        backButton.innerHTML = `← ${backText}`;
-    }
-
-    // 重新加载歌单内容以更新错误信息的语言
-    const setlistName = item['setlist-name'] || '';
-    if (setlistName) {
-        const normalizedSetlistName = setlistName.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
-        loadSongList(normalizedSetlistName, item, true); // 传递 isLanguageUpdate 参数
-    }
-}
-
 // 缓存当前歌单项目
 let currentSetlistItem = null;
 
@@ -375,7 +336,7 @@ function renderMap(mapType, fullItinerary) {
         }
 
         // 使用 i18n 翻译"第X站"文本
-        const stationText = i18nInstance.t('map.station', { number: index + 1 }) || `第${index + 1}站`;
+        const stationText = i18nInstance.t('map.station', {number: index + 1}) || `第${index + 1}站`;
         const labelCity = `${stationText}：${item.city}`;
 
         return {
