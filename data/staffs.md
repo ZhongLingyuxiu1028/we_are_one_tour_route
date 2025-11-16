@@ -9,6 +9,8 @@
 
 ## Concert Credits（建设中……）
 
+传送门：<a href="https://www.bilibili.com/video/BV1DWCSBAEZm" target="_blank" rel="noopener noreferrer">佛山站 | 致谢名单</a>
+
 **主办**：阿爾吉儂娛樂  
 **出品人及总策划**：Silence Leung  
 **节目顾问**：吴梦知
