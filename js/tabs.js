@@ -175,20 +175,23 @@ document.addEventListener('i18nReady', () => {
                 let eventInfo = itinerary[parseInt(selectedIndex)];
 
                 // 尝试加载 HTML
-                let resp = await fetch(htmlPath, { headers: { 'Cache-Control': 'no-cache' } });
+                let resp = await fetch(htmlPath, {headers: {'Cache-Control': 'no-cache'}});
                 if (resp.ok) {
                     html = await resp.text();
                     if (!html.trim()) throw new Error('HTML file empty');
                 } else {
                     // 回退到 Markdown
-                    resp = await fetch(mdPath, { headers: { 'Cache-Control': 'no-cache' } });
+                    resp = await fetch(mdPath, {headers: {'Cache-Control': 'no-cache'}});
                     if (resp.ok) {
                         const mdText = await resp.text();
                         if (!mdText.trim()) throw new Error('Markdown file empty');
                         html = marked.parse(mdText);
                     } else {
                         const isUnofficial = eventInfo?.city?.includes('（未官宣）') || !eventInfo?.['setlist-name'];
-                        throw Object.assign(new Error('Setlist file not published'), { code: 'FILE_NOT_PUBLISHED', unofficial: isUnofficial });
+                        throw Object.assign(new Error('Setlist file not published'), {
+                            code: 'FILE_NOT_PUBLISHED',
+                            unofficial: isUnofficial
+                        });
                     }
                 }
 
