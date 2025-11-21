@@ -76,6 +76,37 @@ document.addEventListener('i18nReady', () => {
                 const text = await response.text();
                 const html = marked.parse(text);
                 contentEl.innerHTML = `<div class="content-body">${html}</div>`;
+
+                // 关键：自动为所有 img 包裹 a 标签（如果还没包）
+                const contentBody = contentEl.querySelector('.content-body');
+                if (contentBody) {
+                    const images = contentBody.querySelectorAll('img[src]');
+                    images.forEach(img => {
+                        // 跳过已经包裹在 <a> 中的图片
+                        if (img.parentElement.tagName === 'A') return;
+
+                        const src = img.src;
+                        // 只处理本站图片（避免外部链接出错）
+                        if (!src || !src.includes('/img/')) return;
+
+                        const a = document.createElement('a');
+                        a.href = src;
+                        a.setAttribute('data-lightbox', 'markdown-images'); // 可选：用于分组
+                        img.parentNode.insertBefore(a, img);
+                        a.appendChild(img);
+                    });
+
+                    // 初始化 Simple Lightbox（仅针对当前内容区域）
+                    new SimpleLightbox('.content-body a[href$=".jpg"], .content-body a[href$=".jpeg"], .content-body a[href$=".png"], .content-body a[href$=".gif"]', {
+                        captions: true,
+                        captionType: 'attr',
+                        captionsData: 'alt',
+                        closeText: '×',
+                        swipeClose: true,
+                        disableScroll: true,
+                        alertError: false
+                    });
+                }
             } else {
                 contentEl.innerHTML = `<div class="error">${i18n.t("error.notFound")}</div>`;
             }
