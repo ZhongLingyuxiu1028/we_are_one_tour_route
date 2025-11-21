@@ -27,7 +27,7 @@
 |-------|------------|-------|-------------------------------------|------------------------------------------|--------------------------------------------------------|
 | NO.01 | 200度       | 叶蒨文   | Peter Brown / Robert Rans           | 林振强                                      | 200 DEGREE                                             |
 | NO.02 | 漫漫前路       | 徐小凤   | 山木康世                                | 郑国江                                      | MAN MAN TSEEN LO                                       |
-| NO.03 | 天籁...星河传说  | 关正杰   | 卢冠廷                                 | 卡龙                                       | TIAN LAI SHING HE CHUAN SHWOH（国语谐音）                    |
+| NO.03 | 天籁...星河传说  | 关正杰   | 卢冠廷                                 | 卡龙                                       | TIAN LAI...SHING HE CHUAN SHWOH（国语谐音）                  |
 | NO.04 | 天鸟         | 卢冠廷   | 卢冠廷                                 | 唐书琛                                      | TEEN NEEW                                              |
 | NO.05 | 你的眼神       | 林志美   | 苏来                                  | 郑国江                                      | NAY DIK NGAN SUN                                       |
 | NO.06 | 震荡         | 陈秀雯   | 杉林恭维                                | 林振强                                      | GSUN DOONG                                             |
@@ -64,5 +64,6 @@
 | 6   | Encore：讲笑   | 金色亮片          |               |
 
 > 注：<br/>
-> 1：资料参考来源：<a href="https://www.bilibili.com/video/BV1hdC1B9EL2/" target="_blank" rel="noopener noreferrer">BV1hdC1B9EL2@123保持微笑33</a> <br/>
+> 1：资料参考来源：<a href="https://www.bilibili.com/video/BV1hdC1B9EL2/" target="_blank" rel="noopener noreferrer">
+> BV1hdC1B9EL2@123保持微笑33</a> <br/>
 > 2：整场应该是有6次纸花舞美，香港站是4次。内地场次对焰火这种危险性的东西比较严格，应该是都换成纸花了，但是实际效果不比焰火差，这算是非常赞的有效替换了。
