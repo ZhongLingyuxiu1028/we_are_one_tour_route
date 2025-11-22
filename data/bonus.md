@@ -3,9 +3,16 @@
 
 ## Bonus 1：Opening 照片出处 💑
 
-<img src="/we_are_one_tour_route/img/10s.jpg" alt="Opening - 倒计时10s" style="width:20%;"> <img src="/we_are_one_tour_route/img/9s.jpg" alt="Opening - 倒计时9s" style="width:20%;"> <img src="/we_are_one_tour_route/img/8s.jpg" alt="Opening - 倒计时8s" style="width:20%;"> <img src="/we_are_one_tour_route/img/7s.jpg" alt="Opening - 倒计时7s" style="width:20%;"><br/>
-<img src="/we_are_one_tour_route/img/6s.jpg" alt="Opening - 倒计时6s" style="width:20%;"> <img src="/we_are_one_tour_route/img/5s.jpg" alt="Opening - 倒计时5s" style="width:20%;"> <img src="/we_are_one_tour_route/img/4s.jpg" alt="Opening - 倒计时4s" style="width:20%;"><br/>
-<img src="/we_are_one_tour_route/img/3s.jpg" alt="Opening - 倒计时3s" style="width:20%;"> <img src="/we_are_one_tour_route/img/2s.jpg" alt="Opening - 倒计时2s" style="width:20%;"> <img src="/we_are_one_tour_route/img/1s.jpg" alt="Opening - 倒计时1s" style="width:20%;"><br/>
+<img src="/we_are_one_tour_route/img/10s.jpg" alt="Opening - 倒计时10s" style="width:20%;">
+<img src="/we_are_one_tour_route/img/9s.jpg" alt="Opening - 倒计时9s" style="width:20%;"> 
+<img src="/we_are_one_tour_route/img/8s.jpg" alt="Opening - 倒计时8s" style="width:20%;"> 
+<img src="/we_are_one_tour_route/img/7s.jpg" alt="Opening - 倒计时7s" style="width:20%;"><br/>
+<img src="/we_are_one_tour_route/img/6s.jpg" alt="Opening - 倒计时6s" style="width:20%;"> 
+<img src="/we_are_one_tour_route/img/5s.jpg" alt="Opening - 倒计时5s" style="width:20%;"> 
+<img src="/we_are_one_tour_route/img/4s.jpg" alt="Opening - 倒计时4s" style="width:20%;"><br/>
+<img src="/we_are_one_tour_route/img/3s.jpg" alt="Opening - 倒计时3s" style="width:20%;"> 
+<img src="/we_are_one_tour_route/img/2s.jpg" alt="Opening - 倒计时2s" style="width:20%;"> 
+<img src="/we_are_one_tour_route/img/1s.jpg" alt="Opening - 倒计时1s" style="width:20%;"><br/>
 
 | No. | 内容              | 出处                          | 
 |-----|-----------------|-----------------------------|
@@ -50,10 +57,18 @@
 
 **注：** <br/>
 **1：以下是《十分十二吋》舞台的歌词谐音整理以及大部分影像资料整理，通常包含谐音、影像和备注。** <br/>
-**2：考虑到图片太多可能影响页面加载速度，因此没有贴相关图片，所有原始资料整理均参考视频：<a href="https://www.bilibili.com/video/BV1nG4DzhED5/" target="_blank" rel="noopener noreferrer">BV1nG4DzhED5@星辰剑1538</a>（再次感谢）** <br/>
+**2：<del>考虑到图片太多可能影响页面加载速度，因此没有贴相关图片，</del>所有原始资料整理均参考视频：<a href="https://www.bilibili.com/video/BV1nG4DzhED5/" target="_blank" rel="noopener noreferrer">BV1nG4DzhED5@星辰剑1538</a>（再次感谢）** <br/>
 **3：整理内容仅包含了歌词和Live影像（有部分待补充），不包含图片，实在是因为素材太多，个人精力有限，请见谅。** <br/>
 **4：所有影像引用素材均包含了跳转链接（感谢所有分享视频的网友），注意 YouTube 链接需要特殊手段打开。** <br/>
-**5：本页面内容仅供学习参考，版权归原著作人所有，请勿用于商业用途。**
+**5：本页面内容仅供学习参考，版权归原著作人所有，请勿用于商业用途。** <br/>
+<br/>
+**二更：（由于红薯太过辣鸡一直说违规所以直接贴一组存疑图片，对应下文部分备注内容）** <br/>
+<img src="/we_are_one_tour_route/img/bonus1012/1.jpg" alt="" style="width:10%;"> 
+<img src="/we_are_one_tour_route/img/bonus1012/2.png" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/bonus1012/3.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/bonus1012/4.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/bonus1012/5.png" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/bonus1012/6.jpg" alt="" style="width:10%;">
 
 ### **NO.01：200度（200 DEGREE）| 1985**
 
@@ -446,7 +461,7 @@
 
 ## Bonus 3：纸花 🎉 **（剧透警告⚠️）**
 
-<img src="/we_are_one_tour_route/img/ribbon.jpg" alt="林子祥 & 叶蒨文「白头到老」演唱会纸花" style="width:30%;">
+<img src="/we_are_one_tour_route/img/ribbon.jpg" alt="林子祥 & 叶蒨文「白头到老」演唱会纸花" style="width:20%;">
 
 | No. | 纸花出处        | 纸花类型          | 说明            | 
 |-----|-------------|---------------|---------------|
