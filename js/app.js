@@ -130,33 +130,20 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
     }
 
     try {
-        // 构建HTML文件路径，包含语言后缀
-        const langSuffix = i18nInstance?.currentLang || 'zh-CN';
-        const htmlFilePath = `./data/setlist/${setlistName}_${langSuffix}.html`;
-        const fallbackHtmlPath = `./data/setlist/${setlistName}.html`;
+        // 直接加载HTML文件，不考虑语言后缀
+        const htmlFilePath = `./data/setlist/${setlistName}.html`;
 
         if (!isLanguageUpdate) {
             console.log('尝试加载HTML文件:', htmlFilePath);
         }
 
-        // 尝试加载带语言后缀的HTML文件
+        // 尝试加载HTML文件
         let response = await fetch(htmlFilePath, {
             method: 'GET',
             headers: {
                 'Cache-Control': 'no-cache'
             }
         });
-
-        // 如果带语言后缀的文件不存在，尝试加载基础文件
-        if (!response.ok) {
-            console.warn(`语言特定文件不存在: ${htmlFilePath}, 尝试基础文件: ${fallbackHtmlPath}`);
-            response = await fetch(fallbackHtmlPath, {
-                method: 'GET',
-                headers: {
-                    'Cache-Control': 'no-cache'
-                }
-            });
-        }
 
         if (response.ok) {
             const html = await response.text();
@@ -172,9 +159,8 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
                 console.log('HTML文件加载成功:', response.url);
             }
         } else {
-            // 如果HTML文件不存在，尝试加载带语言后缀的MD文件作为备选
-            const mdFilePath = `./data/setlist/${setlistName}_${langSuffix}.md`;
-            const fallbackMdPath = `./data/setlist/${setlistName}.md`;
+            // 如果HTML文件不存在，尝试加载MD文件作为备选
+            const mdFilePath = `./data/setlist/${setlistName}.md`;
 
             if (!isLanguageUpdate) {
                 console.warn('HTML文件不存在，尝试加载MD文件:', mdFilePath);
@@ -186,17 +172,6 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
                     'Cache-Control': 'no-cache'
                 }
             });
-
-            // 如果带语言后缀的MD文件不存在，尝试加载基础文件
-            if (!mdResponse.ok) {
-                console.warn(`语言特定MD文件不存在: ${mdFilePath}, 尝试基础文件: ${fallbackMdPath}`);
-                mdResponse = await fetch(fallbackMdPath, {
-                    method: 'GET',
-                    headers: {
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-            }
 
             if (mdResponse.ok) {
                 const text = await mdResponse.text();
