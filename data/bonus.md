@@ -3,16 +3,17 @@
 
 ## Bonus 1：Opening 照片出处 💑
 
-<img src="/we_are_one_tour_route/img/10s.jpg" alt="Opening - 倒计时10s" style="width:20%;">
-<img src="/we_are_one_tour_route/img/9s.jpg" alt="Opening - 倒计时9s" style="width:20%;"> 
-<img src="/we_are_one_tour_route/img/8s.jpg" alt="Opening - 倒计时8s" style="width:20%;"> 
-<img src="/we_are_one_tour_route/img/7s.jpg" alt="Opening - 倒计时7s" style="width:20%;"><br/>
-<img src="/we_are_one_tour_route/img/6s.jpg" alt="Opening - 倒计时6s" style="width:20%;"> 
-<img src="/we_are_one_tour_route/img/5s.jpg" alt="Opening - 倒计时5s" style="width:20%;"> 
-<img src="/we_are_one_tour_route/img/4s.jpg" alt="Opening - 倒计时4s" style="width:20%;"><br/>
-<img src="/we_are_one_tour_route/img/3s.jpg" alt="Opening - 倒计时3s" style="width:20%;"> 
-<img src="/we_are_one_tour_route/img/2s.jpg" alt="Opening - 倒计时2s" style="width:20%;"> 
-<img src="/we_are_one_tour_route/img/1s.jpg" alt="Opening - 倒计时1s" style="width:20%;"><br/>
+**温馨提示：请点击查看大图。** <br/>
+<img src="/we_are_one_tour_route/img/10s.jpg" alt="Opening - 倒计时10s" style="width:8%;">
+<img src="/we_are_one_tour_route/img/9s.jpg" alt="Opening - 倒计时9s" style="width:8%;"> 
+<img src="/we_are_one_tour_route/img/8s.jpg" alt="Opening - 倒计时8s" style="width:8%;"> 
+<img src="/we_are_one_tour_route/img/7s.jpg" alt="Opening - 倒计时7s" style="width:8%;">
+<img src="/we_are_one_tour_route/img/6s.jpg" alt="Opening - 倒计时6s" style="width:8%;">
+<img src="/we_are_one_tour_route/img/5s.jpg" alt="Opening - 倒计时5s" style="width:8%;"> 
+<img src="/we_are_one_tour_route/img/4s.jpg" alt="Opening - 倒计时4s" style="width:8%;">
+<img src="/we_are_one_tour_route/img/3s.jpg" alt="Opening - 倒计时3s" style="width:8%;"> 
+<img src="/we_are_one_tour_route/img/2s.jpg" alt="Opening - 倒计时2s" style="width:8%;"> 
+<img src="/we_are_one_tour_route/img/1s.jpg" alt="Opening - 倒计时1s" style="width:8%;"><br/>
 
 | No. | 内容              | 出处                          | 
 |-----|-----------------|-----------------------------|
