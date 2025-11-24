@@ -136,6 +136,37 @@ document.addEventListener('i18nReady', () => {
         loadMarkdownTab(btnAbout, 'data/about.md', 'loading.about')
     );
 
+    // 解析日期字符串，处理多种格式
+    function parseDate(dateStr) {
+        if (!dateStr) return null;
+
+        // 处理"2025-11-29"或"2025-11-29 至 2025-12-01"格式
+        const dateRange = dateStr.split('至');
+        const startDateStr = dateRange[0].trim();
+        const endDateStr = dateRange[1] ? dateRange[1].trim() : startDateStr;
+
+        const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
+        const [endYear, endMonth, endDay] = endDateStr.split('-').map(Number);
+
+        if (isNaN(startYear) || isNaN(startMonth) || isNaN(startDay)) {
+            return null; // 无法解析日期
+        }
+
+        const startDate = new Date(startYear, startMonth - 1, startDay);
+        const endDate = endYear && endMonth && endDay
+            ? new Date(endYear, endMonth - 1, endDay)
+            : startDate;
+
+        return {startDate, endDate};
+    }
+
+    // 检查是否为待定项目（无有效日期或包含"未官宣"）
+    function isPendingEvent(event) {
+        const dateInfo = parseDate(event.date);
+        const hasValidDate = dateInfo !== null;
+        return !hasValidDate;
+    }
+
     // === 演出歌单（特殊逻辑）===
     btnSetlist.addEventListener('click', async () => {
         window.activeTabButton = btnSetlist;
@@ -162,15 +193,18 @@ document.addEventListener('i18nReady', () => {
 
     // 渲染歌单选择器的函数
     function renderSetlistSelector(itinerary) {
+        // 过滤掉待定项目（无有效日期或包含"未官宣"）
+        const validItinerary = itinerary.filter(event => !isPendingEvent(event));
+
         // 生成城市选择器HTML
         let cityOptions = '';
-        itinerary.forEach((event, index) => {
+        validItinerary.forEach((event, index) => {
             // 修正：使用 event['setlist-name'] 访问JSON中的字段，并进行文件名标准化
             let setlistName = event['setlist-name'] || `_0${index + 1}_${event.city.replace('（未官宣）', '').replace(' ', '')}`;
 
             // 标准化文件名：转为小写，替换特殊字符
             setlistName = setlistName.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
-            cityOptions += `<option value="${setlistName}" data-index="${index}">${event.name} (${event.date})</option>`;
+            cityOptions += `<option value="${setlistName}" data-index="${itinerary.findIndex(item => item === event)}">${event.name} (${event.date})</option>`;
         });
 
         contentEl.innerHTML = `
@@ -203,7 +237,8 @@ document.addEventListener('i18nReady', () => {
                 const mdPath = `./data/setlist/${selectedValue}.md`;
 
                 let html = '';
-                let eventInfo = itinerary[parseInt(selectedIndex)];
+                // 使用原始索引找到原始事件对象
+                const eventInfo = itinerary[parseInt(selectedIndex)];
 
                 // 尝试加载 HTML
                 let resp = await fetch(htmlPath, {headers: {'Cache-Control': 'no-cache'}});

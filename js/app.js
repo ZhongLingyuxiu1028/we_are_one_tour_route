@@ -268,7 +268,60 @@ function goBackToMap() {
     }
 }
 
-// 渲染地图（根据类型）
+function parseDate(dateStr) {
+    if (!dateStr) return null;
+    const dateRange = dateStr.split('至');
+    const startDateStr = dateRange[0].trim();
+    const endDateStr = dateRange[1] ? dateRange[1].trim() : startDateStr;
+
+    const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
+    const [endYear, endMonth, endDay] = endDateStr.split('-').map(Number);
+
+    if (isNaN(startYear) || isNaN(startMonth) || isNaN(startDay)) return null;
+
+    const startDate = new Date(startYear, startMonth - 1, startDay);
+    const endDate = !isNaN(endYear) && !isNaN(endMonth) && !isNaN(endDay)
+        ? new Date(endYear, endMonth - 1, endDay)
+        : startDate;
+
+    return { startDate, endDate };
+}
+
+function areCoordsEqual(coord1, coord2, tolerance = 0.001) {
+    return Math.abs(coord1[0] - coord2[0]) < tolerance &&
+        Math.abs(coord1[1] - coord2[1]) < tolerance;
+}
+
+function handleOverlappingCoords(itinerary) {
+    const processedItinerary = itinerary.map(item => ({...item}));
+    const coordGroups = {};
+    processedItinerary.forEach((item, index) => {
+        const coordKey = `${item.coord[0].toFixed(4)},${item.coord[1].toFixed(4)}`;
+        if (!coordGroups[coordKey]) coordGroups[coordKey] = [];
+        coordGroups[coordKey].push({index, item});
+    });
+
+    Object.values(coordGroups).forEach(group => {
+        if (group.length > 1) {
+            group.forEach((item, i) => {
+                const angle = (i * 2 * Math.PI) / group.length;
+                const offsetDistance = 0.02;
+                const offsetX = Math.cos(angle) * offsetDistance;
+                const offsetY = Math.sin(angle) * offsetDistance;
+                processedItinerary[item.index].coord = [
+                    item.item.coord[0] + offsetX,
+                    item.item.coord[1] + offsetY
+                ];
+                processedItinerary[item.index].originalCoord = item.item.coord;
+                processedItinerary[item.index].isOffset = true;
+            });
+        }
+    });
+
+    return processedItinerary;
+}
+
+// 增强版 renderMap，支持自动聚焦最近未完成站点
 function renderMap(mapType, fullItinerary) {
     // 安全检查：确保 i18n 实例已就绪
     if (!i18nInstance || !chart) return;
@@ -278,48 +331,84 @@ function renderMap(mapType, fullItinerary) {
 
     const today = getToday();
 
-    // 根据地图类型过滤数据
-    const itinerary = mapType === 'china'
+    // ===== 第一步：在原始数据中查找最近的未完成站点（用于聚焦）=====
+    let focusCoord = null;
+    let minDiff = Infinity;
+
+    fullItinerary.forEach(item => {
+        // 过滤当前地图类型范围内的数据
+        if (mapType === 'china' && item.country !== 'China') return;
+        if (mapType === 'world' && !item.country) return;
+
+        const dateInfo = parseDate(item.date);
+        if (!dateInfo) return;
+
+        // 仅考虑尚未结束的场次（包括今天）
+        if (dateInfo.endDate >= today) {
+            const diff = Math.abs(dateInfo.startDate - today);
+            if (diff < minDiff) {
+                minDiff = diff;
+                focusCoord = [...item.coord]; // 深拷贝原始坐标
+            }
+        }
+    });
+
+    // 如果没有未完成站点，则尝试聚焦到最后一个站点（可选）
+    if (!focusCoord) {
+        const lastItem = fullItinerary
+            .filter(item => mapType === 'china' ? item.country === 'China' : true)
+            .slice(-1)[0];
+        if (lastItem) {
+            focusCoord = [...lastItem.coord];
+        }
+    }
+
+    // ===== 第二步：过滤并处理重叠 =====
+    let itinerary = mapType === 'china'
         ? fullItinerary.filter(item => item.country === 'China')
         : fullItinerary;
 
-    // 如果过滤后没有数据，清空图表并提示
+    itinerary = handleOverlappingCoords(itinerary);
+
     if (itinerary.length === 0) {
-        chart.setOption({series: [], geo: {map: mapType}}, true);
+        chart.setOption({ series: [], geo: { map: mapType } }, true);
         return;
     }
 
     // 构建点数据
     const points = itinerary.map((item, index) => {
-        const dateParts = item.date.split('至');
-        const startDateStr = dateParts[0].trim();
-        const endDateStr = dateParts[1] ? dateParts[1].trim() : startDateStr;
-        const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
-        const [endYear, endMonth, endDay] = endDateStr.split('-').map(Number);
-        const startDate = new Date(startYear, startMonth - 1, startDay);
-        const endDate = new Date(endYear, endMonth - 1, endDay);
+        const dateInfo = parseDate(item.date);
+        const hasValidDate = dateInfo !== null;
 
         let color;
-        if (item.name.includes('未官宣') || item.name.includes('测试')) {
+        if (item.name.includes('未官宣')) {
             color = '#9E9E9E';
-        } else if (endDate < today) {
-            color = '#4CAF50';
-        } else if (startDate <= today && today <= endDate) {
-            color = '#2196F3';
+        } else if (hasValidDate) {
+            if (dateInfo.endDate < today) {
+                color = '#4CAF50';
+            } else if (dateInfo.startDate <= today && today <= dateInfo.endDate) {
+                color = '#2196F3';
+            } else {
+                color = '#F44336';
+            }
         } else {
-            color = '#F44336';
+            color = '#9E9E9E';
         }
 
-        // 使用 i18n 翻译"第X站"文本
-        const stationText = i18nInstance.t('map.station', {number: index + 1}) || `第${index + 1}站`;
-        const labelCity = `${stationText}：${item.city}`;
+        let labelCity;
+        if (hasValidDate) {
+            const stationText = i18nInstance.t('map.station', { number: index + 1 }) || `第${index + 1}站`;
+            labelCity = `${stationText}：${item.city}`;
+        } else {
+            labelCity = item.city;
+        }
 
         return {
             name: item.name,
             value: [...item.coord, labelCity],
             date: item.date,
             city: item.city,
-            itemStyle: {color: color},
+            itemStyle: { color: color },
             label: {
                 show: true,
                 position: 'right',
@@ -330,15 +419,17 @@ function renderMap(mapType, fullItinerary) {
         };
     });
 
-    // 构建连线（仅在有至少两个点时）
+    // 构建连线
     const lines = [];
     for (let i = 0; i < itinerary.length - 1; i++) {
-        lines.push({
-            coords: [itinerary[i].coord, itinerary[i + 1].coord]
-        });
+        const current = parseDate(itinerary[i].date);
+        const next = parseDate(itinerary[i + 1].date);
+        if (current !== null && next !== null) {
+            lines.push({ coords: [itinerary[i].coord, itinerary[i + 1].coord] });
+        }
     }
 
-    // 地图区域高亮配置
+    // 地图区域高亮
     let regions = [];
     if (mapType === 'china') {
         const provinces = new Set(
@@ -358,26 +449,31 @@ function renderMap(mapType, fullItinerary) {
         }));
     }
 
+    // 动态设置 center 和 zoom
+    const defaultCenter = mapType === 'world' ? [110, 20] : null;
+    const finalCenter = focusCoord || defaultCenter;
+    const finalZoom = focusCoord
+        ? (mapType === 'china' ? 5 : 3)   // 聚焦时放大
+        : (mapType === 'china' ? 1.2 : 1.0); // 默认缩放
+
     const option = {
         tooltip: {
             trigger: 'item',
             formatter: function (params) {
                 if (params.seriesType === 'effectScatter') {
-                    const {name, date} = params.data;
-                    const dateParts = date.split('至');
-                    const startDateStr = dateParts[0].trim();
-                    const endDateStr = dateParts[1] ? dateParts[1].trim() : startDateStr;
-                    const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
-                    const [endYear, endMonth, endDay] = endDateStr.split('-').map(Number);
-                    const startDate = new Date(startYear, startMonth - 1, startDay);
-                    const endDate = new Date(endYear, endMonth - 1, endDay);
+                    const { name, date } = params.data;
+                    const originalItem = fullItinerary.find(item => item.name === name);
+                    const dateInfo = parseDate(date);
+                    const hasValidDate = dateInfo !== null;
 
                     let statusKey;
                     if (name.includes('未官宣')) {
                         statusKey = 'map.status.unofficial';
-                    } else if (endDate < today) {
+                    } else if (!hasValidDate) {
+                        statusKey = 'map.status.pending';
+                    } else if (dateInfo.endDate < today) {
                         statusKey = 'map.status.finished';
-                    } else if (startDate <= today && today <= endDate) {
+                    } else if (dateInfo.startDate <= today && today <= dateInfo.endDate) {
                         statusKey = 'map.status.ongoing';
                     } else {
                         statusKey = 'map.status.upcoming';
@@ -385,7 +481,11 @@ function renderMap(mapType, fullItinerary) {
 
                     const statusText = i18nInstance ? i18nInstance.t(statusKey) : statusKey;
 
-                    return `${name}<br/>${date}<br/>${statusText}`;
+                    if (hasValidDate) {
+                        return `${name}<br/>${date}<br/>${statusText}`;
+                    } else {
+                        return `${name}<br/>${statusText}`;
+                    }
                 }
                 return params.name;
             }
@@ -393,11 +493,11 @@ function renderMap(mapType, fullItinerary) {
         geo: {
             map: mapType,
             roam: true,
-            zoom: mapType === 'china' ? 1.2 : 1.0,
-            center: mapType === 'world' ? [110, 20] : null,
-            label: {show: false},
-            itemStyle: {areaColor: '#f0f9ff', borderColor: '#999'},
-            emphasis: {label: {show: true}},
+            zoom: finalZoom,
+            center: finalCenter,
+            label: { show: false },
+            itemStyle: { areaColor: '#f0f9ff', borderColor: '#999' },
+            emphasis: { label: { show: true } },
             regions: regions
         },
         series: [
@@ -424,7 +524,7 @@ function renderMap(mapType, fullItinerary) {
                 coordinateSystem: 'geo',
                 data: points,
                 symbolSize: 14,
-                rippleEffect: {show: false}
+                rippleEffect: { show: false }
             }
         ]
     };
@@ -448,8 +548,17 @@ function initChart() {
                     );
 
                     if (clickedItem) {
-                        // 跳转到歌单页面
-                        showSetlistForItem(clickedItem);
+                        const dateInfo = parseDate(clickedItem.date);
+                        const hasValidDate = dateInfo !== null;
+
+                        if (!hasValidDate) {
+                            alert(i18nInstance
+                                ? i18nInstance.t('map.pending.noJump') || '该站点信息待定，敬请期待...'
+                                : '该站点信息待定，敬请期待...');
+                        } else {
+                            // 跳转到歌单页面
+                            showSetlistForItem(clickedItem);
+                        }
                     }
                 }
             });
@@ -511,3 +620,4 @@ window.renderMap = renderMap;
 window.switchMap = switchMap;
 window.itineraryData = itineraryData;
 window.goBackToMap = goBackToMap;
+window.parseDate = parseDate;

@@ -10,6 +10,8 @@
   "map.status.ongoing": "🔵 Ongoing",
   "map.status.upcoming": "🔴 Upcoming",
   "map.status.canceled": "⚪ Canceled",
+  "map.status.pending": "⚫ Pending",
+  "map.pending.noJump": "The site information is pending, please stay tuned...",
   "btn.songlist": "\uD83C\uDFA7 Songlist",
   "btn.setlist": "\uD83C\uDFA4 Rundown",
   "btn.staffs": "\uD83D\uDE4F Credits",

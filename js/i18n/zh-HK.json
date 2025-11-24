@@ -10,6 +10,8 @@
   "map.status.ongoing": "🔵 進行中",
   "map.status.upcoming": "🔴 未開始",
   "map.status.canceled": "⚪ 已取消",
+  "map.status.pending": "⚫ 待定",
+  "map.pending.noJump": "該站點信息待定，敬請期待...",
   "btn.songlist": "\uD83C\uDFA7 預習曲目",
   "btn.setlist": "\uD83C\uDFA4 演出歌單",
   "btn.staffs": "\uD83D\uDE4F 致謝名單",
