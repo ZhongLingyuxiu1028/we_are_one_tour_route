@@ -400,10 +400,10 @@
 1：歌词谐音：<br/>
 > _注：这一Part难度太高，左边竖版歌词，且太暗了看不清。以下X代表一个字的谐音。_ <br/>
 > <br/>
-> **拨着大**雾默默地在觅我的去路 <br/>
-> X X X MOE MUK MUK DAY GSOY MIK WO DIK HUEY LOE <br/>
-> 但愿路上幸运遇着是**你的脚步** <br/>
-> DAN YUEEN LOE SEUNG HUNG WUN YU GSUEK SEE **NAY DIK X BOE** <br/>
+> 拨着大雾默默地在觅我的去路 <br/>
+> WOOT GSUEK DAI MOE MUK MUK DAY GSOY MIK WO DIK HUEY LOE <br/>
+> 但愿路上幸运遇着是你的脚步 <br/>
+> DAN YUEEN LOE SEUNG HUNG WUN YU GSUEK SEE NAY DIK GUEK BOE <br/>
 > 我要再见你 只想将心声透露 <br/>
 > WO YEEW GSOY GEEN NAY, GSEE SEUNG GSEUNG SUM SING TOW LOE <br/>
 > 爱慕 <br/>
@@ -420,7 +420,8 @@
 
 3：备注：<br/>
 因为素材的限制，这一部分的歌词可能不太准确，请见谅。<br/>
-上面有些谐音是根据前面的歌词谐音推测出的，最后一句可能也是因为字符限制没写完，少了后半句。
+上面有些谐音是根据前面的歌词谐音推测出的，最后一句可能也是因为字符限制没写完，少了后半句。<br/>
+20251125 二更：根据视频分镜补充第一段歌词。
 
 <br/>
 
