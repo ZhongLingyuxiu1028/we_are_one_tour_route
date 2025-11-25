@@ -1,0 +1,27 @@
+/* compare-tables.css */
+
+.compare-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    table-layout: fixed;
+}
+
+.compare-table th,
+.compare-table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    vertical-align: middle;
+}
+
+.compare-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+/* 列宽比例：曲目 25%｜变化点 10%｜变化点说明 35%｜备注 30% */
+.compare-table .col-track     { width: 25%; }
+.compare-table .col-change    { width: 10%; }
+.compare-table .col-detail    { width: 35%; }
+.compare-table .col-note      { width: 30%; }
