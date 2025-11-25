@@ -39,6 +39,7 @@ tbody tr:nth-child(odd):not(.chapter-row) {
     background-color: #fff;
 }
 
+/* 引用表格样式 */
 .reference-table {
     width: 100%;
     border-collapse: collapse;
@@ -64,28 +65,8 @@ tbody tr:nth-child(odd):not(.chapter-row) {
     background-color: #fafafa;
 }
 
-
-.reference-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: "Microsoft YaHei", Arial, sans-serif;
-    margin: 20px 0;
-    font-size: 14px;
-}
-
-.reference-table th,
-.reference-table td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ccc;
-}
-
-.reference-table th {
-    background-color: #f0f8ff;
-    font-weight: bold;
-    text-align: center;
-}
-
-.reference-table tbody tr:nth-child(even) {
-    background-color: #fafafa;
-}
+/* 列宽比例：No. 8%｜内容 42%｜原作@原作者 35%｜出处 15% */
+.reference-table .col-no        { width: 8%;  }
+.reference-table .col-content   { width: 42%; }
+.reference-table .col-author    { width: 35%; }
+.reference-table .col-form      { width: 15%; }
