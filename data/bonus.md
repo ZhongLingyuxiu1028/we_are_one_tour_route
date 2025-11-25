@@ -88,18 +88,32 @@
 ### **NO.02：漫漫前路（MAN MAN TSEEN LO）| 1981**
 
 1：歌词谐音：<br/>
+> _注：以下X代表一个字的谐音。这一段大多只有背景，非常模糊，根据上下文推测，仅供参考。_ <br/>
+> 
 > 漫漫前路有几多风光 <br/>
 > MAN MAN TSEEN LO YIOW GAY DOH FOONG GWONG <br/>
 > 一一细心赏 <br/>
 > YUT YUT SAI SUM SEUNG <br/>
 > 为甚留步回头（望一望） <br/>
-> WAI SUM LOW BOE WUEY TOW
+> WAI SUM LOW BOE WUEY TOW **MONG YUT MONG** <br/>
+> 心中一片迷茫 <br/>
+> **SUM GSOONG YUT PEEN MAI MONG** _（推测）_ <br/>
+> <br/>
+> 默默看看天际白云荡 <br/>
+> **MUK MUK HON HON TEEN GSAI BAK WUN DOONG** _（推测）_ <br/>
+> 就像你我志在四方 <br/>
+> **GSOW GSEUNG NAY WO X GSOY SAY X** _（推测）_ <br/>
+> 但愿与你欢笑地流浪 <br/>
+> **DAN YUEEN YU NAY X X X X X** _（推测）_ <br/>
+> 挽手他乡闯一闯 <br/>
+> ……
 
 2：影像资料：<br/>
 - <a href="https://www.bilibili.com/video/BV1U7411a7fE/" target="_blank" rel="noopener noreferrer">漫漫前路MV（BV1U7411a7fE@Paula-Tsui）</a>
 
 3：备注：<br/>
-原背屏不知是否长度限制没有最后（望一望）。
+原背屏不知是否长度限制没有最后（望一望）。<br/>
+20251125 二更：有一个分镜背景有整段完整谐音，但是实在太模糊很难看清楚，只能推测出其中一部分，第二段无法确定。
 
 <br/>
 
@@ -147,7 +161,8 @@
 > WO YAH NAN GSEE GUM TOY TOW HON NAY <br/>
 > 你偏将心事瞒住 <br/>
 > NAY PEEN GSEUNG SUM SEE LOW GSUEEH <br/>
-> 就算默然不语 <br/>GSOW SHUEEN MUK YEEN BUT YU <br/>
+> 就算默然不语 <br/>
+> GSOW SHUEEN MUK YEEN BUT YU <br/>
 > 我都深深记住 <br/>
 > WO DOE SUM SUM GAY GSUEEH
 
