@@ -88,7 +88,7 @@
 ### **NO.02：漫漫前路（MAN MAN TSEEN LO）| 1981**
 
 1：歌词谐音：<br/>
-> _注：以下X代表一个字的谐音。这一段大多只有背景，非常模糊，根据上下文推测，仅供参考。_ <br/>
+> _注：后面一段大多只有背景，非常模糊，根据上下文推测，仅供参考。_ <br/>
 > 
 > 漫漫前路有几多风光 <br/>
 > MAN MAN TSEEN LO YIOW GAY DOH FOONG GWONG <br/>
@@ -104,9 +104,9 @@
 > 就像你我志在四方 <br/>
 > **GSOW GSEUNG NAY WO GSEE GSOY SAY FONG** _（推测）_ <br/>
 > 但愿与你欢笑地流浪 <br/>
-> **DAN YUEEN YU NAY X X X X X** _（推测）_ <br/>
+> **DAN YUEEN YU NAY FWUN SIEW DAY LOW LONG** _（推测）_ <br/>
 > 挽手他乡闯一闯 <br/>
-> ……
+> **WAN SIOW TAH HEUNG TSUONG YUT TSUONG** _（推测）_
 
 2：影像资料：<br/>
 - <a href="https://www.bilibili.com/video/BV1U7411a7fE/" target="_blank" rel="noopener noreferrer">漫漫前路MV（BV1U7411a7fE@Paula-Tsui）</a>
@@ -416,7 +416,7 @@
 ### **NO.18：爱情陷阱（OY TSING HUM GSING - LOVE TRAP）| 1985**
 
 1：歌词谐音：<br/>
-> _注：这一Part难度太高，左边竖版歌词，且太暗了看不清。以下X代表一个字的谐音。_ <br/>
+> _注：这一Part难度太高，左边竖版歌词，且太暗了看不清，仅供参考。_ <br/>
 > <br/>
 > 拨着大雾默默地在觅我的去路 <br/>
 > WOOT GSUEK DAI MOE MUK MUK DAY GSOY MIK WO DIK HUEY LOE <br/>
@@ -428,9 +428,9 @@
 > MUH MUH MUH, OY MOE <br/>
 > <br/>
 > **独自望**着路上密密画满的记号 <br/>
-> X X X GSUEK LOE SEUNG MOOT MOOT WAK MUIN DIK GAY HOE <br/>
+> **DOK GSEE MONG** GSUEK LOE SEUNG MOOT MOOT WAK MUIN DIK GAY HOE _（推测）_<br/>
 > 像是混乱又像（特别为了指我路） <br/>
-> GSELNG SEE WUN LUEEN YIOW GSEUNG (……)
+> GSELNG SEE WUN LUEEN YIOW GSEUNG (**DUK BIEE WAI LEEW GSEE WO LOE**) _（推测）_
 
 2：影像资料：<br/>
 - 左边Live（西装校长）没找到。
