@@ -102,7 +102,7 @@
 > 默默看看天际白云荡 <br/>
 > **MUK MUK HON HON TEEN GSAI BAK WUN DOONG** _（推测）_ <br/>
 > 就像你我志在四方 <br/>
-> **GSOW GSEUNG NAY WO X GSOY SAY X** _（推测）_ <br/>
+> **GSOW GSEUNG NAY WO GSEE GSOY SAY FONG** _（推测）_ <br/>
 > 但愿与你欢笑地流浪 <br/>
 > **DAN YUEEN YU NAY X X X X X** _（推测）_ <br/>
 > 挽手他乡闯一闯 <br/>
