@@ -36,21 +36,21 @@
 | NO.01 | 200度       | 叶蒨文   | Peter Brown / Robert Rans           | 林振强                                      | 200 DEGREE                                             |
 | NO.02 | 漫漫前路       | 徐小凤   | 山木康世                                | 郑国江                                      | MAN MAN TSEEN LO                                       |
 | NO.03 | 天籁...星河传说  | 关正杰   | 卢冠廷                                 | 卡龙                                       | TIAN LAI...SHING HE CHUAN SHWOH（国语谐音）                  |
-| NO.04 | 天鸟         | 卢冠廷   | 卢冠廷                                 | 唐书琛                                      | TEEN NEEW                                              |
+| NO.04 | 天鸟         | 卢冠廷   | 卢冠廷                                 | 唐书琛                                      | TEEN NEEW - SKY BIRD                                   |
 | NO.05 | 你的眼神       | 林志美   | 苏来                                  | 郑国江                                      | NAY DIK NGAN SUN                                       |
-| NO.06 | 震荡         | 陈秀雯   | 杉林恭维                                | 林振强                                      | GSUN DOONG                                             |
+| NO.06 | 震荡         | 陈秀雯   | 杉林恭维                                | 林振强                                      | GSUN DOONG - TREMBLING                                 |
 | NO.07 | Monica     | 张国荣   | 吉川晃司                                | 黎彼得                                      | MONICA                                                 |
 | NO.08 | 不羁的风       | 张国荣   | 大沢誉志幸                               | 林振强                                      | BAT GSEE DUH FOONG                                     |
-| NO.09 | 爱到发烧       | 林子祥   | Reggie Andrew / Leon Ndugu Chancler | 林振强                                      | OY DOE FAT SEEW                                        |
+| NO.09 | 爱到发烧       | 林子祥   | Reggie Andrew / Leon Ndugu Chancler | 林振强                                      | OY DOE FAT SEEW - TREMBLING                            |
 | NO.10 | 开心鬼        | 杜丽莎   | 林慕德                                 | 黄百鸣                                      | HOY SUM GWAI                                           |
 | NO.11 | 飞跃舞台       | 梅艳芳   | 黎小田                                 | 邓伟雄                                      | FAY YEEW MOE TOY                                       |
 | NO.12 | 激光中        | 罗文    | 林慕德                                 | 林振强                                      | GIK GWOONG GSOONG                                      |
-| NO.13 | 世间始终你好     | 罗文、甄妮 | 顾嘉辉                                 | 黄霑                                       | U ALWAYS BEST IN WORLD（有歌词谐音）                          |
-| NO.14 | 成吉思汗       | 林子祥   | Bernd Meinunger / Ralph Jun Siegel  | Bernd Meinunger / Ralph Jun Siegel (郑国江) | GENGHIS KHAN / HOO HAA ALL THE WAY（一直 HOO HAA 的 Sally） |
+| NO.13 | 世间始终你好     | 罗文、甄妮 | 顾嘉辉                                 | 黄霑                                       | U ALWAYS BEST IN WORLD                                 |
+| NO.14 | 成吉思汗       | 林子祥   | Bernd Meinunger / Ralph Jun Siegel  | Bernd Meinunger / Ralph Jun Siegel (郑国江) | GENGHIS KHAN - HOO HAA ALL THE WAY（一直 HOO HAA 的 Sally） |
 | NO.15 | 亚里巴巴       | 林子祥   | Merkel Karlheinz                    | Cherry Laine (郑国江)                       | ALI BABA                                               |
-| NO.16 | 跟佢做个Friend | 许冠杰   | 许冠杰                                 | 许冠杰                                      | GUN KUEY GSOE GOH Friend                               |
-| NO.17 | 财神到        | 许冠杰   | 许冠杰                                 | 许冠杰 / 黎彼得                                | CHOI SUN DOE                                           |
-| NO.18 | 爱情陷阱       | 谭咏麟   | 芹泽广明                                | 潘源良                                      | OY TSING HUM GSING                                     |
+| NO.16 | 跟佢做个Friend | 许冠杰   | 许冠杰                                 | 许冠杰                                      | GUN KUEY GSOE GOH Friend - LET'S BE FRIEND             |
+| NO.17 | 财神到        | 许冠杰   | 许冠杰                                 | 许冠杰 / 黎彼得                                | CHOI SUN DOE - GOD OF WEALTH ARRIVES                   |
+| NO.18 | 爱情陷阱       | 谭咏麟   | 芹泽广明                                | 潘源良                                      | OY TSING HUM GSING - LOVE TRAP                         |
 | NO.19 | 夏日寒风       | 谭咏麟   | 芹泽广明                                | 林振强                                      | HAH YUT HON FOONG                                      |
 | NO.20 | 酒干倘卖无      | 苏芮    | 侯德健                                 | 罗大佑 / 侯德健                                | GSEEW GAN TANG MUEY BOH                                |
 
@@ -138,7 +138,7 @@
 
 <br/>
 
-### **NO.04：天鸟（TEEN NEEW）| 1983**
+### **NO.04：天鸟（TEEN NEEW - SKY BIRD）| 1983**
 
 歌词谐音：<br/>
 > 啊哈 我要飞往天上 <br/>
@@ -171,7 +171,7 @@
 
 <br/>
 
-### **NO.06：震荡（GSUN DOONG）| 1984**
+### **NO.06：震荡（GSUN DOONG - TREMBLING）| 1984**
 
 1：歌词谐音：<br/>
 > AHHHH... 震荡 <br/>
@@ -237,7 +237,7 @@
 
 <br/>
 
-### **NO.09：爱到发烧（OY DOE FAT SEEW）| 1984**
+### **NO.09：爱到发烧（OY DOE FAT SEEW - LOVE TILL THERE'S FEVER）| 1984**
 
 1：歌词谐音：<br/>
 > 爱到发烧！ <br/>
@@ -255,7 +255,7 @@
 
 <br/>
 
-### **NO.10：开心鬼（HOY SUM GWAI）| 1985**
+### **NO.10：开心鬼（HOY SUM GWAI - CHEERFUL GHOST）| 1985**
 
 1：歌词谐音：<br/>
 > 为人乐观无闭翳（开心鬼 开心鬼） <br/>
@@ -357,7 +357,7 @@
 
 <br/>
 
-### **NO.14：成吉思汗（GENGHIS KHAN / HOO HAA ALL THE WAY）| 1979**
+### **NO.14：成吉思汗（GENGHIS KHAN - HOO HAA ALL THE WAY）| 1979**
 
 1：影像资料：<br/>
 - 第一组Lam哥合唱的Live没找到出处。
@@ -376,21 +376,24 @@
 > ALI, ALI BABA, ALI BABA GUN GSOONG TOE FAY HOE SAI SUM <br/>
 > ALI, ALI BABA, ALI BABA跟踪土匪好勇敢 <br/>
 > ALI, ALI BABA, ALI BABA GUN GSOONG TOE FAY HOE YOONG GUM <br/>
-> ……
+> <br/>
+> 芝麻开门 芝麻开门（明白了 明白了） <br/>
+> **GSEE MA HOY MOON GSEE MA HOY MOON (MING BAK LEEW MING BAK LEEW)** _（推测）_
 
 2：备注：<br/>
-原背屏最后还有谐音：芝麻开门 芝麻开门（明白了 明白了），但是太下面了看不清楚，后面如果有能找到的资料再补充。
+原背屏最后还有谐音：芝麻开门 芝麻开门（明白了 明白了），但是太下面了看不清楚，后面如果有能找到的资料再补充。 <br/>
+20251125 二更：根据读音猜测原歌词谐音，仅供参考。
 
 <br/>
 
-### **NO.16：跟佢做个Friend（GUN KUEY GSOE GOH Friend）| 1983**
+### **NO.16：跟佢做个Friend（GUN KUEY GSOE GOH Friend - LET'S BE FRIEND）| 1983**
 
 备注：<br/>
 原背屏大标题下面的谐音 GUN KUEY GSOE GOH Friend 变成了 GUN KUEY **G SOE** GOH Friend。
 
 <br/>
 
-### **NO.17：财神到（CHOI SUN DOE）| 1978**
+### **NO.17：财神到（CHOI SUN DOE - GOD OF WEALTH ARRIVES）| 1978**
 
 1：歌词谐音：<br/>
 > 财神到 财神到 好心得好报 <br/>
@@ -410,7 +413,7 @@
 
 <br/>
 
-### **NO.18：爱情陷阱（OY TSING HUM GSING）| 1985**
+### **NO.18：爱情陷阱（OY TSING HUM GSING - LOVE TRAP）| 1985**
 
 1：歌词谐音：<br/>
 > _注：这一Part难度太高，左边竖版歌词，且太暗了看不清。以下X代表一个字的谐音。_ <br/>
