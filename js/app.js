@@ -331,6 +331,14 @@ function renderMap(mapType, fullItinerary) {
 
     const today = getToday();
 
+    const coordMap = {};
+    fullItinerary.forEach(item => {
+        const key = `${item.coord[0].toFixed(4)},${item.coord[1].toFixed(4)}`;
+        if (!coordMap[key]) coordMap[key] = [];
+        coordMap[key].push(item);
+    });
+    window.coordMap = coordMap;
+
     // ===== 第一步：在原始数据中查找最近的未完成站点（用于聚焦）=====
     let focusCoord = null;
     let minDiff = Infinity;
@@ -368,8 +376,6 @@ function renderMap(mapType, fullItinerary) {
         ? fullItinerary.filter(item => item.country === 'China')
         : fullItinerary;
 
-    itinerary = handleOverlappingCoords(itinerary);
-
     if (itinerary.length === 0) {
         chart.setOption({ series: [], geo: { map: mapType } }, true);
         return;
@@ -395,13 +401,8 @@ function renderMap(mapType, fullItinerary) {
             color = '#9E9E9E';
         }
 
-        let labelCity;
-        if (hasValidDate) {
-            const stationText = i18nInstance.t('map.station', { number: index + 1 }) || `第${index + 1}站`;
-            labelCity = `${stationText}：${item.city}`;
-        } else {
-            labelCity = item.city;
-        }
+        // 只显示城市名，避免编号重叠
+        let labelCity = item.city;
 
         return {
             name: item.name,
@@ -461,32 +462,37 @@ function renderMap(mapType, fullItinerary) {
             trigger: 'item',
             formatter: function (params) {
                 if (params.seriesType === 'effectScatter') {
-                    const { name, date } = params.data;
-                    const originalItem = fullItinerary.find(item => item.name === name);
-                    const dateInfo = parseDate(date);
-                    const hasValidDate = dateInfo !== null;
+                    const value = params.data.value;
+                    if (!Array.isArray(value) || value.length < 2) return params.name;
 
-                    let statusKey;
-                    if (name.includes('未官宣')) {
-                        statusKey = 'map.status.unofficial';
-                    } else if (!hasValidDate) {
-                        statusKey = 'map.status.pending';
-                    } else if (dateInfo.endDate < today) {
-                        statusKey = 'map.status.finished';
-                    } else if (dateInfo.startDate <= today && today <= dateInfo.endDate) {
-                        statusKey = 'map.status.ongoing';
-                    } else {
-                        statusKey = 'map.status.upcoming';
-                    }
+                    const lng = value[0];
+                    const lat = value[1];
+                    const key = `${lng.toFixed(4)},${lat.toFixed(4)}`;
+                    const items = window.coordMap?.[key] || [];
 
-                    const statusText = i18nInstance ? i18nInstance.t(statusKey) : statusKey;
+                    return items.map(item => {
+                        const dateInfo = parseDate(item.date);
+                        const hasValidDate = dateInfo !== null;
 
-                    if (hasValidDate) {
-                        return `${name}<br/>${date}<br/>${statusText}`;
-                    } else {
-                        return `${name}<br/>${statusText}`;
-                    }
+                        let statusKey;
+                        if (item.name.includes('未官宣')) {
+                            statusKey = 'map.status.unofficial';
+                        } else if (!hasValidDate) {
+                            statusKey = 'map.status.pending';
+                        } else if (dateInfo.endDate < getToday()) {
+                            statusKey = 'map.status.finished';
+                        } else if (dateInfo.startDate <= getToday() && getToday() <= dateInfo.endDate) {
+                            statusKey = 'map.status.ongoing';
+                        } else {
+                            statusKey = 'map.status.upcoming';
+                        }
+
+                        const statusText = i18nInstance ? i18nInstance.t(statusKey) : statusKey;
+
+                        return `<strong>${item.name}</strong><br/>${item.date}<br/>${statusText}`;
+                    }).join('<br/><br/>');
                 }
+
                 return params.name;
             }
         },
@@ -542,13 +548,19 @@ function initChart() {
             // 添加点击事件监听
             chart.on('click', function (params) {
                 if (params.seriesType === 'effectScatter') {
-                    // 找到对应的数据项
-                    const clickedItem = itineraryData.find(item =>
-                        item.name === params.name
-                    );
+                    const value = params.data.value;
+                    if (!Array.isArray(value) || value.length < 2) return;
 
-                    if (clickedItem) {
-                        const dateInfo = parseDate(clickedItem.date);
+                    const lng = value[0];
+                    const lat = value[1];
+                    const key = `${lng.toFixed(4)},${lat.toFixed(4)}`;
+                    const items = window.coordMap?.[key] || [];
+
+                    if (items.length > 1) {
+                        showStationSelector(items);
+                    } else if (items.length === 1) {
+                        const item = items[0];
+                        const dateInfo = parseDate(item.date);
                         const hasValidDate = dateInfo !== null;
 
                         if (!hasValidDate) {
@@ -556,14 +568,44 @@ function initChart() {
                                 ? i18nInstance.t('map.pending.noJump') || '该站点信息待定，敬请期待...'
                                 : '该站点信息待定，敬请期待...');
                         } else {
-                            // 跳转到歌单页面
-                            showSetlistForItem(clickedItem);
+                            showSetlistForItem(item);
                         }
                     }
                 }
             });
         }
     }
+}
+
+function showStationSelector(items) {
+    const overlay = document.createElement('div');
+    overlay.className = 'station-overlay';
+
+    const box = document.createElement('div');
+    box.className = 'station-box';
+
+    const title = document.createElement('h3');
+    title.textContent = i18nInstance ? i18nInstance.t('map.select.show') : '请选择演出场次';
+    box.appendChild(title);
+
+    items.forEach(item => {
+        const btn = document.createElement('button');
+        btn.textContent = `${item.name} - ${item.date}`;
+        btn.onclick = () => {
+            document.body.removeChild(overlay);
+            showSetlistForItem(item);
+        };
+        box.appendChild(btn);
+    });
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.textContent = i18nInstance ? i18nInstance.t('btn.cancel') : '取消';
+    cancelBtn.className = 'cancel-btn';
+    cancelBtn.onclick = () => document.body.removeChild(overlay);
+    box.appendChild(cancelBtn);
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
 }
 
 // 切换地图
