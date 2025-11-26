@@ -31,28 +31,28 @@
 
 ## Bonus 2：《十分十二吋》谐音拼读 📖
 
-| 编号    | 曲目         | 歌手    | 作曲                                  | 作词 (改编词)                                 | 英文 / 谐音标注（含备注）                                         |
-|-------|------------|-------|-------------------------------------|------------------------------------------|--------------------------------------------------------|
-| NO.01 | 200度       | 叶蒨文   | Peter Brown / Robert Rans           | 林振强                                      | 200 DEGREE                                             |
-| NO.02 | 漫漫前路       | 徐小凤   | 山木康世                                | 郑国江                                      | MAN MAN TSEEN LO                                       |
-| NO.03 | 天籁...星河传说  | 关正杰   | 卢冠廷                                 | 卡龙                                       | TIAN LAI...SHING HE CHUAN SHWOH（国语谐音）                  |
-| NO.04 | 天鸟         | 卢冠廷   | 卢冠廷                                 | 唐书琛                                      | TEEN NEEW - SKY BIRD                                   |
-| NO.05 | 你的眼神       | 林志美   | 苏来                                  | 郑国江                                      | NAY DIK NGAN SUN                                       |
-| NO.06 | 震荡         | 陈秀雯   | 杉林恭维                                | 林振强                                      | GSUN DOONG - TREMBLING                                 |
-| NO.07 | Monica     | 张国荣   | 吉川晃司                                | 黎彼得                                      | MONICA                                                 |
-| NO.08 | 不羁的风       | 张国荣   | 大沢誉志幸                               | 林振强                                      | BAT GSEE DUH FOONG                                     |
-| NO.09 | 爱到发烧       | 林子祥   | Reggie Andrew / Leon Ndugu Chancler | 林振强                                      | OY DOE FAT SEEW - TREMBLING                            |
-| NO.10 | 开心鬼        | 杜丽莎   | 林慕德                                 | 黄百鸣                                      | HOY SUM GWAI                                           |
-| NO.11 | 飞跃舞台       | 梅艳芳   | 黎小田                                 | 邓伟雄                                      | FAY YEEW MOE TOY                                       |
-| NO.12 | 激光中        | 罗文    | 林慕德                                 | 林振强                                      | GIK GWOONG GSOONG                                      |
-| NO.13 | 世间始终你好     | 罗文、甄妮 | 顾嘉辉                                 | 黄霑                                       | U ALWAYS BEST IN WORLD                                 |
-| NO.14 | 成吉思汗       | 林子祥   | Bernd Meinunger / Ralph Jun Siegel  | Bernd Meinunger / Ralph Jun Siegel (郑国江) | GENGHIS KHAN - HOO HAA ALL THE WAY（一直 HOO HAA 的 Sally） |
-| NO.15 | 亚里巴巴       | 林子祥   | Merkel Karlheinz                    | Cherry Laine (郑国江)                       | ALI BABA                                               |
-| NO.16 | 跟佢做个Friend | 许冠杰   | 许冠杰                                 | 许冠杰                                      | GUN KUEY GSOE GOH Friend - LET'S BE FRIEND             |
-| NO.17 | 财神到        | 许冠杰   | 许冠杰                                 | 许冠杰 / 黎彼得                                | CHOI SUN DOE - GOD OF WEALTH ARRIVES                   |
-| NO.18 | 爱情陷阱       | 谭咏麟   | 芹泽广明                                | 潘源良                                      | OY TSING HUM GSING - LOVE TRAP                         |
-| NO.19 | 夏日寒风       | 谭咏麟   | 芹泽广明                                | 林振强                                      | HAH YUT HON FOONG                                      |
-| NO.20 | 酒干倘卖无      | 苏芮    | 侯德健                                 | 罗大佑 / 侯德健                                | GSEEW GAN TANG MUEY BOH                                |
+| 编号    | 曲目         | 英文 / 谐音标注（含备注）                                         | 原歌手   | 作曲                                  | 作词 (改编词)                                 |
+|-------|------------|--------------------------------------------------------|-------|-------------------------------------|------------------------------------------|
+| NO.01 | 200度       | 200 DEGREE                                             | 叶蒨文   | Peter Brown / Robert Rans           | 林振强                                      |
+| NO.02 | 漫漫前路       | MAN MAN TSEEN LO                                       | 徐小凤   | 山木康世                                | 郑国江                                      |
+| NO.03 | 天籁...星河传说  | TIAN LAI...SHING HE CHUAN SHWOH（国语谐音）                  | 关正杰   | 卢冠廷                                 | 卡龙                                       |
+| NO.04 | 天鸟         | TEEN NEEW - SKY BIRD                                   | 卢冠廷   | 卢冠廷                                 | 唐书琛                                      |
+| NO.05 | 你的眼神       | NAY DIK NGAN SUN                                       | 林志美   | 苏来                                  | 郑国江                                      |
+| NO.06 | 震荡         | GSUN DOONG - TREMBLING                                 | 陈秀雯   | 杉林恭维                                | 林振强                                      |
+| NO.07 | Monica     | MONICA                                                 | 张国荣   | 吉川晃司                                | 黎彼得                                      |
+| NO.08 | 不羁的风       | BAT GSEE DUH FOONG                                     | 张国荣   | 大沢誉志幸                               | 林振强                                      |
+| NO.09 | 爱到发烧       | OY DOE FAT SEEW - TREMBLING                            | 林子祥   | Reggie Andrew / Leon Ndugu Chancler | 林振强                                      |
+| NO.10 | 开心鬼        | HOY SUM GWAI                                           | 杜丽莎   | 林慕德                                 | 黄百鸣                                      |
+| NO.11 | 飞跃舞台       | FAY YEEW MOE TOY                                       | 梅艳芳   | 黎小田                                 | 邓伟雄                                      |
+| NO.12 | 激光中        | GIK GWOONG GSOONG                                      | 罗文    | 林慕德                                 | 林振强                                      |
+| NO.13 | 世间始终你好     | U ALWAYS BEST IN WORLD                                 | 罗文、甄妮 | 顾嘉辉                                 | 黄霑                                       |
+| NO.14 | 成吉思汗       | GENGHIS KHAN - HOO HAA ALL THE WAY（一直 HOO HAA 的 Sally） | 林子祥   | Bernd Meinunger / Ralph Jun Siegel  | Bernd Meinunger / Ralph Jun Siegel (郑国江) |
+| NO.15 | 亚里巴巴       | ALI BABA                                               | 林子祥   | Merkel Karlheinz                    | Cherry Laine (郑国江)                       |
+| NO.16 | 跟佢做个Friend | GUN KUEY GSOE GOH Friend - LET'S BE FRIEND             | 许冠杰   | 许冠杰                                 | 许冠杰                                      |
+| NO.17 | 财神到        | CHOI SUN DOE - GOD OF WEALTH ARRIVES                   | 许冠杰   | 许冠杰                                 | 许冠杰 / 黎彼得                                |
+| NO.18 | 爱情陷阱       | OY TSING HUM GSING - LOVE TRAP                         | 谭咏麟   | 芹泽广明                                | 潘源良                                      |
+| NO.19 | 夏日寒风       | HAH YUT HON FOONG                                      | 谭咏麟   | 芹泽广明                                | 林振强                                      |
+| NO.20 | 酒干倘卖无      | GSEEW GAN TANG MUEY BOH                                | 苏芮    | 侯德健                                 | 罗大佑 / 侯德健                                |
 
 > 注：所有词曲作者等资料来源包括但不限于谷歌、维基百科、百度、音乐APP，此处不再一一列举。
 
