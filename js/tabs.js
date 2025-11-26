@@ -76,6 +76,8 @@ document.addEventListener('i18nReady', () => {
                 const text = await response.text();
                 const html = marked.parse(text);
                 contentEl.innerHTML = `<div class="content-body">${html}</div>`;
+                // 绑定歌词触发器
+                bindLyricTriggers();
 
                 // 关键：自动为所有 img 包裹 a 标签（如果还没包）
                 const contentBody = contentEl.querySelector('.content-body');
@@ -289,6 +291,61 @@ document.addEventListener('i18nReady', () => {
                 }
             }
         });
+    }
+
+    function bindLyricTriggers() {
+        const triggers = document.querySelectorAll('.lyric-trigger[data-lyric-file]');
+        triggers.forEach(el => {
+            el.style.cursor = 'pointer';
+            el.style.color = '#1976D2';
+            el.style.textDecoration = 'underline';
+
+            el.addEventListener('click', async () => {
+                const file = el.getAttribute('data-lyric-file');
+                const title = el.textContent.trim();
+
+                if (file) {
+                    try {
+                        const res = await fetch(`data/lyrics/${file}`, {
+                            headers: { 'Cache-Control': 'no-cache' }
+                        });
+                        if (!res.ok) throw new Error('歌词文件加载失败');
+                        const md = await res.text();
+                        const html = marked.parse(md);
+                        showLyricPopup(html, title);
+                    } catch (err) {
+                        showLyricPopup(`<div class="error">❌ 无法加载歌词：${file}</div>`, title);
+                        console.error('歌词加载失败:', err);
+                    }
+                }
+            });
+        });
+    }
+
+    function showLyricPopup(htmlContent, title = '') {
+        const overlay = document.createElement('div');
+        overlay.className = 'station-overlay';
+
+        const box = document.createElement('div');
+        box.className = 'station-box';
+
+        const heading = document.createElement('h3');
+        heading.textContent = title || '歌词';
+        box.appendChild(heading);
+
+        const content = document.createElement('div');
+        content.className = 'lyric-content';
+        content.innerHTML = htmlContent;
+        box.appendChild(content);
+
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = i18nInstance ? i18nInstance.t('btn.back') : '返回';
+        closeBtn.className = 'back-btn';
+        closeBtn.onclick = () => document.body.removeChild(overlay);
+        box.appendChild(closeBtn);
+
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
     }
 
 });
