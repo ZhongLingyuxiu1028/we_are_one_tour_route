@@ -298,7 +298,13 @@ document.addEventListener('i18nReady', () => {
         triggers.forEach(el => {
             el.style.cursor = 'pointer';
             el.style.color = '#1976D2';
-            el.style.textDecoration = 'underline';
+            // 悬浮下划线，鼠标移开取消
+            el.addEventListener('mouseover', () => {
+                el.style.textDecoration = 'underline';
+            })
+            el.addEventListener('mouseout', () => {
+                el.style.textDecoration = 'none';
+            })
 
             el.addEventListener('click', async () => {
                 const file = el.getAttribute('data-lyric-file');
