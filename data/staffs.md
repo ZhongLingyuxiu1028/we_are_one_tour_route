@@ -9,6 +9,12 @@
 
 ## Concert Credits（建设中……）
 
+> 巡演是有生命力的。<br/>
+> 除了台上Lam哥和Sally姐的星光熠熠，还有在他们身后的音乐团队，还有他们身边的舞蹈团队，还有他们幕后的工作人员。<br/>
+> 感谢所有这些人的努力和付出，为观众所呈现的《白头到老》演唱会，希望这个舞台未来会越来越好。<br/>
+> **Good Show!** <br/>
+> **Respect!**
+
 **Rolling 传送门**：<br/>
 - <a href="https://www.bilibili.com/video/BV1DWCSBAEZm" target="_blank" rel="noopener noreferrer">佛山站 | 致谢名单</a>
 - _后续待更新……_
