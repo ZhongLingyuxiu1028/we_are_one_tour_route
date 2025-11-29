@@ -159,7 +159,7 @@
 > TAH FONG TSEE GSOW LOY DIK YU <br/>
 > 我也难自禁抬头看你 <br/>
 > WO YAH NAN GSEE GUM TOY TOW HON NAY <br/>
-> 你偏将心事瞒住 <br/>
+> 你偏将心事留住 <br/>
 > NAY PEEN GSEUNG SUM SEE LOW GSUEEH <br/>
 > 就算默然不语 <br/>
 > GSOW SHUEEN MUK YEEN BUT YU <br/>
