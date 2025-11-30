@@ -321,7 +321,7 @@ function handleOverlappingCoords(itinerary) {
     return processedItinerary;
 }
 
-// 增强版 renderMap，支持自动聚焦最近未完成站点
+// 增强版 renderMap，支持自动聚焦最近未完成站点或根据所有点展示最佳比例
 function renderMap(mapType, fullItinerary) {
     // 安全检查：确保 i18n 实例已就绪
     if (!i18nInstance || !chart) return;
@@ -339,7 +339,7 @@ function renderMap(mapType, fullItinerary) {
     });
     window.coordMap = coordMap;
 
-    // ===== 第一步：在原始数据中查找最近的未完成站点（用于聚焦）=====
+    // ===== 第一步：在原始数据中查找最近的未完成站点（用于聚焦）
     let focusCoord = null;
     let minDiff = Infinity;
 
@@ -450,12 +450,75 @@ function renderMap(mapType, fullItinerary) {
         }));
     }
 
-    // 动态设置 center 和 zoom
-    const defaultCenter = mapType === 'world' ? [110, 20] : null;
-    const finalCenter = focusCoord || defaultCenter;
-    const finalZoom = focusCoord
-        ? (mapType === 'china' ? 5 : 3)   // 聚焦时放大
-        : (mapType === 'china' ? 1.2 : 1.0); // 默认缩放
+    // ===== 新增：计算所有点的边界框并自动适配地图视野 =====
+    // ===== 优化版：根据所有点计算紧凑视野（带内边距）=====
+    function getBoundsAndCenter(coords) {
+        if (coords.length === 0) return { center: [105, 35], zoom: 1.2 };
+
+        let minLng = Infinity, maxLng = -Infinity;
+        let minLat = Infinity, maxLat = -Infinity;
+
+        coords.forEach(([lng, lat]) => {
+            if (lng == null || lat == null) return;
+            minLng = Math.min(minLng, lng);
+            maxLng = Math.max(maxLng, lng);
+            minLat = Math.min(minLat, lat);
+            maxLat = Math.max(maxLat, lat);
+        });
+
+        // 添加一点 padding（防止点紧贴边缘）
+        const paddingRatio = 0.1; // 10% 边距
+        const lngPadding = (maxLng - minLng) * paddingRatio;
+        const latPadding = (maxLat - minLat) * paddingRatio;
+
+        minLng -= lngPadding;
+        maxLng += lngPadding;
+        minLat -= latPadding;
+        maxLat += latPadding;
+
+        const center = [(minLng + maxLng) / 2, (minLat + maxLat) / 2];
+        const lngRange = maxLng - minLng;
+        const latRange = maxLat - minLat;
+
+        // 防止除零（单点情况）
+        if (lngRange === 0 && latRange === 0) {
+            return {
+                center: [coords[0][0], coords[0][1]],
+                zoom: mapType === 'china' ? 5 : 4
+            };
+        }
+
+        // 核心：通过视口与数据范围的比例反推 zoom
+        // ECharts 地图的默认宽高比约为 2:1（经度跨度 ≈ 2×纬度跨度时视觉平衡）
+        const aspectRatio = 2.0;
+        const adjustedLatRange = latRange * aspectRatio;
+        const maxRange = Math.max(lngRange, adjustedLatRange);
+
+        let zoom;
+        if (mapType === 'china') {
+            // 中国地图在 zoom=1 时大约覆盖经度 180°，纬度 90°（虚拟坐标系）
+            // 实际经验：zoom ≈ log2(360 / range) 更合理
+            zoom = Math.log2(360 / maxRange);
+            // 限制合理范围：至少 zoom=2（避免太小），最多 zoom=6（单城市级别）
+            zoom = Math.min(6, Math.max(2, zoom));
+        } else {
+            // 世界地图：zoom=1 覆盖全球（360°经度）
+            zoom = Math.log2(360 / maxRange);
+            zoom = Math.min(5, Math.max(1.5, zoom)); // 世界地图可稍小一点
+        }
+
+        return {
+            center: center,
+            zoom: parseFloat(zoom.toFixed(1))
+        };
+    }
+
+    // 提取当前地图类型下的所有有效坐标
+    const visibleCoords = itinerary
+        .filter(item => item.coord && Array.isArray(item.coord) && item.coord.length >= 2)
+        .map(item => item.coord);
+
+    const { center: finalCenter, zoom: finalZoom } = getBoundsAndCenter(visibleCoords);
 
     const option = {
         tooltip: {
