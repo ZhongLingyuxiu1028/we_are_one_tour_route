@@ -1,3 +1,16 @@
+### 关于曲目选择
+
+> Sally：<br/>
+> **其实免不了选了为人熟悉的歌** <br/>
+> **也想选大家在这几年听过的歌** <br/>
+> **因为亲切，而且听熟了** <br/>
+> <br/>
+> 注：<br/>
+> 为了避免断章取义，建议大家去看下原视频，谢谢~<br/>
+> <br/>
+> 资料来源：<br/>
+> <a href="https://www.bilibili.com/video/BV14tJ9zaE8c/" target="_blank" rel="noopener noreferrer">TVB特别节目《与你相约到白头》@林子祥叶蒨文巡演2025</a>
+
 ### 预习曲目歌单
 
 - <button onclick="navigator.clipboard.writeText('林子祥&叶蒨文-白头到老演唱会（预习版）')">
@@ -9,10 +22,6 @@
 - <button onclick="navigator.clipboard.writeText('林子祥&叶蒨文-白头到老演唱会（预习版） ')">
   点击复制歌单名（APP打开并搜索）</button> <a href="https://www.kugou.com/songlist/gcid_3z1b9rfj4z3z038/" target="_blank" rel="noopener noreferrer">
   酷狗音乐（需要登录）：林子祥&叶蒨文-白头到老演唱会（预习版）</a>
-- <button onclick="navigator.clipboard.writeText('林子祥&叶蒨文-白头到老演唱会（预习版） ')">
-  点击复制歌单名（APP打开并搜索）</button> 酷我音乐：林子祥&叶蒨文-白头到老演唱会（预习版）
-
-> 注：酷我音乐暂时无法搜索
 
 ### 曲目一览
 
