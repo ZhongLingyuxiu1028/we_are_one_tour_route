@@ -364,3 +364,15 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* 定义 emoji 浮动动画 */
+@keyframes emoji-float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50px) rotate(180deg);
+        opacity: 0;
+    }
+}
