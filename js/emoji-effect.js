@@ -2,39 +2,93 @@
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function () {
-    document.addEventListener('click', function (e) {
-        // 定义要显示的 emoji
-        const emojis = ['❤️', '💖', '💗', '💓', '✨', '🌟', '💫', '💞', '💕', '❣️', '💝','🧡','💛','💜'];
+    let isLongPressActive = false;
+    let lastClientX = 0;
+    let lastClientY = 0;
+    let longPressTimer = null;
+    let intervalId = null;
 
-        const x = e.pageX;
-        const y = e.pageY;
+    const LONG_PRESS_DELAY = 300; // 长按判定时间（毫秒）
 
-        // 随机决定这次点击要生成几个 emoji（例如 1 到 3 个）
-        const count = Math.floor(Math.random() * 2) + 1; // 1, 2, 或 3
+    // 获取当前鼠标在文档中的真实位置（结合滚动）
+    function getCurrentPageXY() {
+        return {
+            x: window.scrollX + lastClientX,
+            y: window.scrollY + lastClientY
+        };
+    }
 
-        for (let i = 0; i < count; i++) {
-            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    // 更新 client 坐标（来自 mousemove 或 mousedown）
+    function updateClientPos(e) {
+        lastClientX = e.clientX;
+        lastClientY = e.clientY;
+    }
 
-            const emojiElement = document.createElement('span');
-            emojiElement.textContent = randomEmoji;
-            emojiElement.style.cssText = `
-                position: absolute;
-                top: ${y + (Math.random() - 0.5) * 40}px;   /* 微微上下偏移 */
-                left: ${x + (Math.random() - 0.5) * 40}px;  /* 微微左右偏移 */
-                font-size: ${16 + Math.random() * 8}px;             /* 随机大小：16~24px */
-                pointer-events: none;
-                user-select: none;
-                animation: emoji-float 1.5s ease-out forwards;
-                z-index: 9999;
-                opacity: ${0.7 + Math.random() * 0.3};              /* 随机透明度 */
-            `;
+    // 鼠标移动时更新
+    document.addEventListener('mousemove', updateClientPos);
 
-            document.body.appendChild(emojiElement);
+    // 鼠标按下
+    document.addEventListener('mousedown', function (e) {
+        updateClientPos(e); // 记录 client 坐标
 
-            // 自动清理
-            setTimeout(() => {
-                emojiElement.remove();
-            }, 1500);
-        }
+        longPressTimer = setTimeout(() => {
+            isLongPressActive = true;
+            intervalId = setInterval(() => {
+                const { x, y } = getCurrentPageXY(); // 每次都重新计算！
+                createEmoji(x, y);
+            }, 120);
+        }, LONG_PRESS_DELAY);
     });
+
+    // 鼠标释放或离开
+    function stopAll() {
+        if (longPressTimer) clearTimeout(longPressTimer);
+        if (intervalId) clearInterval(intervalId);
+        isLongPressActive = false;
+        longPressTimer = null;
+        intervalId = null;
+    }
+
+    // 单击处理（短按）
+    document.addEventListener('mouseup', function (e) {
+        if (!isLongPressActive && longPressTimer) {
+            clearTimeout(longPressTimer);
+            const { x, y } = getCurrentPageXY();
+            const count = Math.floor(Math.random() * 3) + 1;
+            for (let i = 0; i < count; i++) {
+                createEmoji(x, y);
+            }
+        }
+        stopAll();
+    });
+
+    document.addEventListener('mouseleave', stopAll);
+
+    // （虽然 clientX/Y 没变，但 scrollX/Y 变了）
+    window.addEventListener('scroll', () => {
+        // 不需要做任何事，getCurrentPageXY() 会自动用最新的 scrollX/Y
+    }, { passive: true });
+
+    // 创建 emoji 的函数（复用）
+    function createEmoji(x, y) {
+        const emojis = ['❤️', '💖', '💗', '💓', '✨', '🌟', '💫', '💞', '💕', '❣️', '💝', '🧡', '💛', '💜'];
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+        const emojiElement = document.createElement('span');
+        emojiElement.textContent = randomEmoji;
+        emojiElement.style.cssText = `
+            position: absolute;
+            top: ${y + (Math.random() - 0.5) * 40}px;
+            left: ${x + (Math.random() - 0.5) * 40}px;
+            font-size: ${16 + Math.random() * 8}px;
+            pointer-events: none;
+            user-select: none;
+            animation: emoji-float 1.5s ease-out forwards;
+            z-index: 9999;
+            opacity: ${0.7 + Math.random() * 0.3};
+        `;
+
+        document.body.appendChild(emojiElement);
+        setTimeout(() => emojiElement.remove(), 1500);
+    }
 });
