@@ -13,6 +13,7 @@
   "map.status.pending": "⚫ 待定",
   "map.pending.noJump": "该站点信息待定，敬请期待...",
   "map.select.show": "请选择演出场次",
+  "btn.diary": "\uD83D\uDCD7 巡演日程",
   "btn.songlist": "\uD83C\uDFA7 预习曲目",
   "btn.setlist": "\uD83C\uDFA4 演出歌单",
   "btn.staffs": "\uD83D\uDE4F 致谢名单",

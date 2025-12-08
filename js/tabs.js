@@ -20,6 +20,7 @@ document.addEventListener('i18nReady', () => {
     // 按钮元素
     const btnChina = document.getElementById('btnChina');
     const btnWorld = document.getElementById('btnWorld');
+    const btnDiary = document.getElementById('btnDiary');
     const btnSonglist = document.getElementById('btnSonglist');
     const btnSetlist = document.getElementById('btnSetlist');
     const btnStaffs = document.getElementById('btnStaffs');
@@ -27,7 +28,7 @@ document.addEventListener('i18nReady', () => {
     const btnAbout = document.getElementById('btnAbout');
 
     // 所有控制按钮
-    const allButtons = [btnChina, btnWorld, btnSonglist, btnSetlist, btnStaffs, btnBonus, btnAbout];
+    const allButtons = [btnChina, btnWorld, btnDiary, btnSonglist, btnSetlist, btnStaffs, btnBonus, btnAbout];
 
     function setActive(button) {
         allButtons.forEach(btn => btn.classList.remove('active'));
@@ -117,6 +118,11 @@ document.addEventListener('i18nReady', () => {
             contentEl.innerHTML = `<div class="error">${i18n.t(errorKey)}</div>`;
         }
     };
+
+    // 巡演日志
+    btnDiary.addEventListener('click', () =>
+        loadMarkdownTab(btnDiary, 'data/diary.md', 'loading.diary')
+    );
 
     // 预习曲目
     btnSonglist.addEventListener('click', () =>
