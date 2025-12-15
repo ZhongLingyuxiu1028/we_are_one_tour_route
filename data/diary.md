@@ -8,6 +8,7 @@
 
 <img src="/we_are_one_tour_route/img/diary/hangzhou-ks3.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/hangzhou-ks2.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/hangzhou-ks1.jpg" alt="" style="width:10%;">
 <br/>
 
 **2025-12-08：杭州站官宣**<br/>
