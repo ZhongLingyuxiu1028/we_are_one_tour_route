@@ -7,6 +7,7 @@
 **2025-12-18 至 2025-12-20：武汉站开演倒计时**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/wuhan-ky2.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/wuhan-ky1.jpg" alt="" style="width:10%;">
 <br/>
 
 **2025-12-12 至 2025-12-16：杭州站开售倒计时**<br/>
