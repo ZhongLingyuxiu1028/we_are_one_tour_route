@@ -19,7 +19,8 @@
 - <a href="https://www.bilibili.com/video/BV1DUqsBjE72" target="_blank" rel="noopener noreferrer">香港站 | 致谢名单（03:04:53开始，感谢 BV1DUqsBjE72@煎郭传奇）</a>
 - <a href="https://www.bilibili.com/video/BV1DWCSBAEZm" target="_blank" rel="noopener noreferrer">佛山站 | 致谢名单</a>
 - 成都站 | 致谢名单（暂缺）
-- _后续待更新……_
+- <a href="https://www.bilibili.com/video/BV1m5BMBbEEZ" target="_blank" rel="noopener noreferrer">武汉站 | 致谢名单（置顶评论为文字版本）</a>
+- _后续等待施工……_
 
 <br/>
 
