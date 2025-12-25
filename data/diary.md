@@ -4,6 +4,11 @@
 
 ### 2025
 
+**2025-12-25：杭州站加场官宣**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/hangzhou-jcgx.jpg" alt="" style="width:10%;">
+<br/>
+
 **2025-12-18 至 2025-12-20：武汉站开演倒计时**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/wuhan-ky2.jpg" alt="" style="width:10%;">
