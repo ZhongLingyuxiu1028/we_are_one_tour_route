@@ -4,6 +4,11 @@
 
 ### 2025
 
+**2025-12-28：杭州站二次开售倒计时**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/hangzhou-ek1.jpg" alt="" style="width:10%;">
+<br/>
+
 **2025-12-25：杭州站加场官宣**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/hangzhou-jcgx.jpg" alt="" style="width:10%;">

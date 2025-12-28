@@ -48,5 +48,15 @@
     "city": "杭州市",
     "province": "浙江省",
     "country": "China"
+  },
+  {
+    "name": "#06 澳门站 Macau（未官宣）",
+    "location": "澳门威尼斯人金光综艺馆",
+    "setlist-name": "macau",
+    "date": "2026-01-31 至 2026-02-01",
+    "coord": [113.566, 22.145],
+    "city": "澳门特别行政区",
+    "province": "澳门特别行政区",
+    "country": "China"
   }
 ]
