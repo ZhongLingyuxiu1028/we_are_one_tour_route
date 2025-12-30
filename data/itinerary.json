@@ -58,5 +58,15 @@
     "city": "澳门特别行政区",
     "province": "澳门特别行政区",
     "country": "China"
+  },
+  {
+    "name": "#07 吉隆坡站 Kuala Lumpur（未官宣）",
+    "location": "Axiata Arena",
+    "setlist-name": "kualalumpur",
+    "date": "2026-03-14",
+    "coord": [101.6931889, 3.0538522],
+    "city": "Kuala Lumpur",
+    "province": "",
+    "country": "Malaysia"
   }
 ]
