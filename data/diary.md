@@ -4,6 +4,11 @@
 
 ### 2025
 
+**2025-12-30：吉隆坡站官宣**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/kualalumpur-gx.jpg" alt="" style="width:10%;">
+<br/>
+
 **2025-12-29：澳门站官宣**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/macau-gx.jpg" alt="" style="width:10%;">
@@ -94,4 +99,9 @@
 <img src="/we_are_one_tour_route/img/diary/hongkong-ky3.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/hongkong-ky2.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/hongkong-ky1.jpg" alt="" style="width:10%;">
+<br/>
+
+**2025-07-13：香港站官宣**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/hongkong-gx.jpg" alt="" style="width:10%;">
 <br/>
