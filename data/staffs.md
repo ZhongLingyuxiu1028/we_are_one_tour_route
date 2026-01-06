@@ -55,7 +55,7 @@
 
 **舞蹈总监**：麦秋成 <br/>
 **排舞师**：姜浚彦 Apple <br/>
-**中国风舞蹈总监**：董肖华 <br/>
+**中国风舞蹈总监**：董霄华 <br/>
 **排舞助理**：Wong Yee Ling <br/>
 **舞蹈员**：Apple Keung tsun yin, Elaine Wong Yee Ling, SK, Lam Yiu Cheung, Chiu Shing Hin, Leung Wing Ho, Lau Ka Ho, 小砂,
 Chan Yuet Ling, Wilson Wong Wing Lung, Naomi Louie, Katherine Pumar, Cindi Li, Shum Venus Ho Kwa, 细Joe Lee Hin Chung,
