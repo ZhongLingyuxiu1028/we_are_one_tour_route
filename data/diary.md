@@ -2,6 +2,13 @@
 
 > 注：本页面所有信息及图片转载自微博官方账号：<a href="https://weibo.com/u/8011783575" target="_blank" rel="noopener noreferrer">林子祥叶蒨文白头到老演唱会</a>
 
+### 2026
+
+**2026-01-15 至 2025-01-17：杭州站开演倒计时**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/hangzhou-ky2.jpg" alt="" style="width:10%;">
+<br/>
+
 ### 2025
 
 **2025-12-30：吉隆坡站官宣**<br/>
