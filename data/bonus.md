@@ -127,7 +127,7 @@
 > GSEUNG TOH, TSUM MIK LEEP WOO SING GSOH <br/>
 > 用歌 于黑暗悠悠拍和 <br/>
 > YOONG GOH, YU HAK NGUM YIOW YIOW PAK WOH <br/>
-> 众声 编出了一阙情歌 <br/>
+> 众声 编出了一阕情歌 <br/>
 > GSOONG SING PEEN TSOOT LEEW YUT KUEET TSING GOH
 
 2：影像资料：<br/>
