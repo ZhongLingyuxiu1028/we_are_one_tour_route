@@ -4,9 +4,10 @@
 
 ### 2026
 
-**2026-01-15 至 2025-01-17：杭州站开演倒计时**<br/>
+**2026-01-15 至 2026-01-17：杭州站开演倒计时**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/hangzhou-ky2.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/hangzhou-ky1.jpg" alt="" style="width:10%;">
 <br/>
 
 ### 2025
