@@ -8,6 +8,7 @@
 
 <img src="/we_are_one_tour_route/img/diary/hangzhou-ky2.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/hangzhou-ky1.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/hangzhou-ky.jpg" alt="" style="width:10%;">
 <br/>
 
 ### 2025
