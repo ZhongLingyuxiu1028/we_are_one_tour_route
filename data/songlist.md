@@ -95,7 +95,7 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="c5xinziji.md">信自己</span>                                          | 叶蒨文   | James Harris / T. Lewis | 林振强                   | Love Will Never Do (Without You) <br/>(Janet Jackson) |              |
 | <span class="lyric-trigger" data-lyric-file="c5zhufu.md">祝福</span>                                             | 叶蒨文   | 梁弘志                     | 潘伟源                   |                                                       | Medley：祝福+福气 |
 | <span class="lyric-trigger" data-lyric-file="c5fuqi.md">福气</span>                                              | 叶蒨文   | 殷文琦                     | 林振强                   |                                                       | Medley：祝福+福气 |
-| <span class="lyric-trigger" data-lyric-file="c5kushaqiuquqiulai.md">哭砂 <strong>[国]</strong>+秋去秋来</span>        | 叶蒨文   | 熊美玲                     | 哭砂：林秋离 <br/> 秋去秋来：林振强 |                                                       |              |
+| <span class="lyric-trigger" data-lyric-file="c5kushaqiuquqiulai.md">哭砂 <strong>[国]</strong>+秋去秋来</span>        | 叶蒨文   | 熊美玲                     | 哭砂：林秋离 <br/> 秋去秋来：林振强 | 哭砂 <br/>(黄莺莺)                                         |              |
 | <span class="lyric-trigger" data-lyric-file="c5zhenxinzhenyiguoyisheng.md">真心真意过一生 <strong>[国]</strong></span> | 叶蒨文   | 陈大力 / 陈秀男               | 陈大力                   |                                                       |              |
 
 #### Chapter6
