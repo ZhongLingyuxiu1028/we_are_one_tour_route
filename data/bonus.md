@@ -273,7 +273,7 @@
 > **HEE** HAHA MOE YUN GSAI **S** (MOE YUN GSAI, MOE YUN GSAI) <br/>
 > 时时扮懵诈诈谛（诈诈谛 诈诈谛） <br/>
 > SEE SEE BAN MOONG GSAH GSAH DAI (GSAH GSAH DAI GSAH GSAH DAI) <br/>
-> 开开心心最栈鬼 <br/>
+> 开开心心最盏鬼 <br/>
 > HOY HOY SUM SUM GSUEY GSAN GWAI
 
 2：影像资料：<br/>
