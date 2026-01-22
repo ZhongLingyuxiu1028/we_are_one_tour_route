@@ -268,9 +268,9 @@
 
 1：歌词谐音：<br/>
 > 为人乐观无闭翳（开心鬼 开心鬼） <br/>
-> WAI YUN LOK GWIN MOE BAI NGAI **S** (HOY SUM GWAI, HOY SUM GWAI) <br/>
+> WAI YUN LOK GWIN MOE BAI NGAI <del>**S**</del> (HOY SUM GWAI, HOY SUM GWAI) <br/>
 > 嘻嘻哈哈无人制（无人制 无人制） <br/>
-> **HEE** HAHA MOE YUN GSAI **S** (MOE YUN GSAI, MOE YUN GSAI) <br/>
+> **HEE** HAHA MOE YUN GSAI <del>**S**</del> (MOE YUN GSAI, MOE YUN GSAI) <br/>
 > 时时扮懵诈诈谛（诈诈谛 诈诈谛） <br/>
 > SEE SEE BAN MOONG GSAH GSAH DAI (GSAH GSAH DAI GSAH GSAH DAI) <br/>
 > 开开心心最盏鬼 <br/>
@@ -361,7 +361,7 @@
 > 论爱心，找不到更好 <br/>
 > LUIN OY SUM GSOW BUT DOE GUNG HOE (HOO HAA) <br/>
 > 待我心，世间始终你好 <br/>
-> GSOY WO SUM, SAI GAN TSEE GSOONG NAY HOE (HOO HAA) **ONG** 
+> GSOY WO SUM, SAI GAN TSEE GSOONG NAY HOE (HOO HAA) <del>**ONG**</del>
 
 2：备注：<br/>
 原背屏第一个分镜排版里面右边的第二段歌词只到 DAN WO GSEE,（但我知，），最后两句是摘自后面出现的完整歌词段落，但最后加粗的 **ONG** 没搞懂。 <br/>
