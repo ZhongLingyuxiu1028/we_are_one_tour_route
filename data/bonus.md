@@ -64,13 +64,16 @@
 **4：所有影像引用素材均包含了跳转链接（感谢所有分享视频的网友），注意 YouTube 链接需要特殊手段打开。** <br/>
 **5：本页面内容仅供学习参考，版权归原著作人所有，请勿用于商业用途。** <br/>
 <br/>
-**二更：（由于红薯太过辣鸡一直说违规所以直接贴一组存疑图片，对应下文部分备注内容）** <br/>
+**二更（20251122）：（由于红薯太过辣鸡一直说违规所以直接贴一组存疑图片，对应下文部分备注内容）** <br/>
 <img src="/we_are_one_tour_route/img/bonus1012/1.jpg" alt="" style="width:10%;"> 
 <img src="/we_are_one_tour_route/img/bonus1012/2.png" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/bonus1012/3.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/bonus1012/4.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/bonus1012/5.png" alt="" style="width:10%;">
-<img src="/we_are_one_tour_route/img/bonus1012/6.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/bonus1012/6.jpg" alt="" style="width:10%;"><br/>
+<br/>
+**三更（20260122）：** <br/>
+杭州站已修正上述存疑点（10/12）。
 
 ### **NO.01：200度（200 DEGREE）| 1985**
 
@@ -82,7 +85,8 @@
 - <a href="https://www.bilibili.com/video/BV11a4y1A7aF/" target="_blank" rel="noopener noreferrer">颁奖典礼Live（BV11a4y1A7aF@优先木木）</a>
 
 3：备注：<br/>
-原背屏第二句好像少了（GSAH）。
+原背屏第二句好像少了（GSAH）。 <br/>
+20260122 二更：已修正并优化排版。
 
 <br/>
 
@@ -114,7 +118,8 @@
 
 3：备注：<br/>
 原背屏不知是否长度限制没有最后（望一望）。<br/>
-20251125 二更：有一个分镜背景有整段完整谐音，但是实在太模糊很难看清楚，只能推测出其中一部分，第二段无法确定。
+20251125 二更：有一个分镜背景有整段完整谐音，但是实在太模糊很难看清楚，只能推测出其中一部分，第二段无法确定。 <br/>
+20260122 三更：删除了多出来的半句谐音（WAI SUM LOW BOE WUEY TOW）。
 
 <br/>
 
@@ -135,7 +140,8 @@
 - <a href="https://www.bilibili.com/video/BV1g54y1h72U/" target="_blank" rel="noopener noreferrer">天籁Live By 1984年度十大劲歌金曲颁奖典礼（BV1g54y1h72U@下岗男工）</a>
 
 3：备注：<br/>
-原背屏图片是1985颁奖典礼《十分十二吋》串烧Lam哥搂着许冠杰老师唱《跟佢做个Friend》和《财神到》，不知是不是放错了。
+原背屏图片是1985颁奖典礼《十分十二吋》串烧Lam哥搂着许冠杰老师唱《跟佢做个Friend》和《财神到》，不知是不是放错了。 <br/>
+20260122 二更：已修正，Lam哥和许冠杰老师的合照换成了Lam哥和关正杰老师的合照。
 
 <br/>
 
@@ -168,7 +174,8 @@
 > WO DOE SUM SUM GAY GSUEEH
 
 2：备注：<br/>
-原背屏整个版面有四处歌词谐音，但是排版断句有点奇怪，左下和右边有缺字音。
+原背屏整个版面有四处歌词谐音，但是排版断句有点奇怪，左下和右边有缺字音。 <br/>
+20260122 二更：谐音重新排版，不过还是有一句漏了前面“我也难自禁抬 WO YAH NAN GSEE GUM TOY” 目前开始是：头看你 TOW HON NAY。
 
 <br/>
 
@@ -212,7 +219,7 @@
 - <a href="https://www.bilibili.com/video/BV13J411W7ia/" target="_blank" rel="noopener noreferrer">2001年世纪金曲贺金禧Live（BV13J411W7ia@不羈的風970）</a>
 
 3：备注：<br/>
-原背屏图片在第二段回到《Monica》的时候有重复两段上面的第一part谐音，但是第一段最后一句是 MOE YEEN LOY FOONG HEEN（无言来奉献），没有后半句。
+原背屏图片在第二段回到《Monica》的时候有重复两段上面的第一part谐音，但是第一段最后一句是 MOE YEEN LOY FOONG HEEN（无言来奉献），没有后半句。 <br/>
 
 <br/>
 
@@ -252,7 +259,8 @@
 - <a href="https://www.bilibili.com/video/BV14q4y1Y7zt/" target="_blank" rel="noopener noreferrer">爱到发烧MV（BV14q4y1Y7zt@Nabati999）</a>
 
 3：备注：<br/>
-原背屏图片在接下一首《开心鬼》之前会回到第一首《200度》，有个上浮画面重复 GSEH MAN GSEH MAN WUEY LUEEN DOE BOW GSAH（这晚这晚会暖到爆炸），两句中间少了个空格粘在一起了。
+原背屏图片在接下一首《开心鬼》之前会回到第一首《200度》，有个上浮画面重复 GSEH MAN GSEH MAN WUEY LUEEN DOE BOW GSAH（这晚这晚会暖到爆炸），两句中间少了个空格粘在一起了。 <br/>
+20260122 二更：已修正并优化排版。
 
 <br/>
 
@@ -272,7 +280,8 @@
 - <a href="https://www.bilibili.com/video/BV1kqPYehEEA/" target="_blank" rel="noopener noreferrer">1985年博爱欢乐传万家Live（BV1kqPYehEEA@cy1120）</a>
 
 3：备注：<br/>
-上面谐音部分有三个地方加粗的，个人猜测 **S** 可能是代表 Sally姐，但是 HEE 不清楚是本身就这么写还是写漏了，按照读音感觉是 HEHE HAHA。
+上面谐音部分有三个地方加粗的，个人猜测 **S** 可能是代表 Sally姐，但是 HEE 不清楚是本身就这么写还是写漏了，按照读音感觉是 HEHE HAHA。 <br/>
+20260122 二更：已修正并优化排版，删除多余字符。
 
 <br/>
 
@@ -301,7 +310,8 @@
 
 3：备注：<br/>
 上面谐音部分又要是根据读音猜测的，唱的时候好像没太听清这里，梅姐原歌词也不是又要。<br/>
-原背屏有个歌词排版好像是从第一句到第四句 GSOONG GWAI WUEY SING WAI GSUEY HEUNG（终归会声威最响），然后后面多了个 GSOE（做）就没有了。
+原背屏有个歌词排版好像是从第一句到第四句 GSOONG GWAI WUEY SING WAI GSUEY HEUNG（终归会声威最响），然后后面多了个 GSOE（做）就没有了。 <br/>
+20260122 二更：已修正并优化排版，删除多余字符。
 
 <br/>
 
@@ -354,7 +364,8 @@
 > GSOY WO SUM, SAI GAN TSEE GSOONG NAY HOE (HOO HAA) **ONG** 
 
 2：备注：<br/>
-原背屏第一个分镜排版里面右边的第二段歌词只到 DAN WO GSEE,（但我知，），最后两句是摘自后面出现的完整歌词段落，但最后加粗的 **ONG** 没搞懂。
+原背屏第一个分镜排版里面右边的第二段歌词只到 DAN WO GSEE,（但我知，），最后两句是摘自后面出现的完整歌词段落，但最后加粗的 **ONG** 没搞懂。 <br/>
+20260122 二更：已修正并优化排版，删除多余字符。
 
 <br/>
 
@@ -366,7 +377,8 @@
 - <a href="https://www.bilibili.com/video/BV1es411z7ej/" target="_blank" rel="noopener noreferrer">右：2002港乐演唱会Live（BV1es411z7ej@Tiergff）</a>
 
 2：备注：<br/>
-在2002港乐演唱会Live视频的下面写的是下一首《亚里巴巴》的谐音： ALI, ALI BABA, ALI BABA GUN GSOONG TOE FAY HOE YOONG GUM（ALI, ALI BABA, ALI BABA跟踪土匪好勇敢）。
+在2002港乐演唱会Live视频的下面写的是下一首《亚里巴巴》的谐音： ALI, ALI BABA, ALI BABA GUN GSOONG TOE FAY HOE YOONG GUM（ALI, ALI BABA, ALI BABA跟踪土匪好勇敢）。 <br/>
+20260122 二更：视频下面的歌词修正为 HOO HAA HOO HAA HOO HAA。
 
 <br/>
 
@@ -476,7 +488,8 @@
 
 3：备注：<br/>
 有个分镜断句有点奇怪，右侧歌词两段，第一段到 YEH BOO HWAY（也不会），第二段到 HWAY WANG（会忘）。 <br/>
-这一首结束之后就是回到《200度》做最后Ending。
+这一首结束之后就是回到《200度》做最后Ending。 <br/>
+20260122 二更：已修正并优化排版，删除多余字符。
 
 <br/>
 
