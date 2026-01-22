@@ -54,7 +54,7 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="c3meiyechangbuting.md">每夜唱不停</span>        | 林子祥   | 林子祥                                                | 郑国江                  |                                                     | Medley：每夜唱不停+海阔天空 |
 | <span class="lyric-trigger" data-lyric-file="c3haikuotiankong.md">海阔天空</span>           | 林子祥   | 黄家驹                                                | 黄家驹                  |                                                     | Medley：每夜唱不停+海阔天空 |
 | <span class="lyric-trigger" data-lyric-file="c3qianyigeyewan.md">千亿个夜晚</span>           | 林子祥   | Foster / Jermaine Jackson <br/>/ Wakefield / Keane | 潘伟源                  | Lonely Won't Leave Me Alone <br/>(Jermaine Jackson) | **A组曲目**          |
-| <span class="lyric-trigger" data-lyric-file="c3meiyigewanshang.md">每一个晚上</span>         | 林子祥   | Andrew Lloyd Webber / 黄自                           | 林振强                  | 《猫》 Growltiger's Last Stand <br/>《花非花》同名曲           | **A组曲目**          |
+| <span class="lyric-trigger" data-lyric-file="c3meiyigewanshang.md">每一个晚上</span>         | 林子祥   | Andrew Lloyd Webber / 黄自                           | 林振强                  | Cats: Growltiger's Last Stand <br/>《花非花》同名曲         | **A组曲目**          |
 | <span class="lyric-trigger" data-lyric-file="c3zheyigeye.md">这一个夜</span>                | 林子祥   | 林子祥                                                | 林振强                  |                                                     | Medley：这一个夜+交出一切  |
 | <span class="lyric-trigger" data-lyric-file="c3jiaochuyiqie.md">交出一切</span>             | 林子祥   | 林子祥                                                | 因葵                   |                                                     | Medley：这一个夜+交出一切  |
 | <span class="lyric-trigger" data-lyric-file="c3dazhangfuzhendehanzi.md">大丈夫+真的汉子</span> | 林子祥   | 大丈夫：刘家昌<br/> 真的汉子：林子祥                              | 大丈夫：黄霑<br/> 真的汉子：郑国江 |                                                     |                   |
@@ -119,11 +119,11 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="ecjiangxiao.md">讲笑</span>                                | 林子祥 & 叶蒨文 | 林子祥                                                                                                                                                         | 郑国江                                                                                                                                |                                                                                                                                        |                                                                                                                                                                            |
 
 #### 未正式出演
-| 曲目      | 演唱会演唱     | 作曲                                            | 作词  | OT（原曲）                             | 备注    |
-|---------|-----------|-----------------------------------------------|-----|------------------------------------|-------|
-| 女人的弱点   | 叶蒨文       | 飞鸟凉                                           | 潘源良 |                                    | 未正式演唱 |
-| 我要活下去   | 叶蒨文       | Carl Sigman / Gino Paoli <br/>/ Umberto Bindi | 林振强 | You're My World <br/>(Cilla Black) | 未正式演唱 |
-| 爱到分离仍是爱 | 林子祥 & 叶蒨文 | 蒋三省                                           | 潘源良 |                                    | 未正式演唱 |
+| 曲目      | 演唱会演唱     | 作曲                                            | 作词  | OT（原曲）                             | 备注                 |
+|---------|-----------|-----------------------------------------------|-----|------------------------------------|--------------------|
+| 女人的弱点   | 叶蒨文       | 飞鸟凉                                           | 潘源良 |                                    | 未正式演唱              |
+| 我要活下去   | 叶蒨文       | Carl Sigman / Gino Paoli <br/>/ Umberto Bindi | 林振强 | You're My World <br/>(Cilla Black) | 未正式演唱              |
+| 爱到分离仍是爱 | 林子祥 & 叶蒨文 | 蒋三省                                           | 李安修 |                                    | 改编词：潘源良<br/> 未正式演唱 |
 
 <br/>
 
