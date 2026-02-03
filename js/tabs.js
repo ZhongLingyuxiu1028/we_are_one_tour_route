@@ -227,7 +227,12 @@ document.addEventListener('i18nReady', () => {
         `;
 
         const songListContent = document.getElementById('songListContent');
-        songListContent.innerHTML = `<div class="loading">${i18n.t("setlist.selectCityPrompt")}</div>`;
+        songListContent.innerHTML = `
+            <div class="loading">${i18n.t("setlist.selectCityPrompt")}</div>
+            <div style="text-align: center;">
+                <img src="./img/data/kiss.jpg" style="width: 38%; display: inline-block;" alt="Kiss">
+            </div>
+        `;
 
         document.getElementById('citySelect').addEventListener('change', async (e) => {
             const selectedValue = e.target.value;
