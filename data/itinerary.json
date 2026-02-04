@@ -68,5 +68,15 @@
     "city": "Kuala Lumpur",
     "province": "",
     "country": "Malaysia"
+  },
+  {
+    "name": "#08 新加坡站 Singapore",
+    "location": "Singapore Indoor Stadium",
+    "setlist-name": "singapore",
+    "date": "2026-04-04",
+    "coord": [103.87909192855807, 1.3499848642830865],
+    "city": "Singapore",
+    "province": "",
+    "country": "Singapore"
   }
 ]
