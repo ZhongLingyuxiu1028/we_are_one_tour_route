@@ -228,7 +228,7 @@ document.addEventListener('i18nReady', () => {
 
         const songListContent = document.getElementById('songListContent');
         songListContent.innerHTML = `
-            <div class="loading">${i18n.t("setlist.selectCityPrompt")}</div>
+            <div class="loading">${i18n.t("setlist.slogan")}</div>
             <div style="text-align: center;">
                 <img src="./img/data/kiss.jpg" style="width: 38%; display: inline-block;" alt="Kiss">
             </div>

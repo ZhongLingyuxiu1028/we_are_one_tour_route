@@ -31,6 +31,7 @@
   "error.loadFailed": "❌ 加载失败，请稍后再试。",
   "select.city": "选择城市:",
   "setlist.selectCityPrompt": "请选择一个城市查看歌单",
+  "setlist.slogan": "乐迷用人生参与歌者的音乐，歌者的音乐构筑乐迷的人生。",
   "loading.setlist.songs": "正在加载歌单...",
   "setlist.info.title": "演出信息",
   "setlist.info.venue": "场馆",

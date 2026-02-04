@@ -31,6 +31,7 @@
   "error.loadFailed": "❌ Failed to load. Please try again later.",
   "select.city": "Select City:",
   "setlist.selectCityPrompt": "Please select a city to view the rundown",
+  "setlist.slogan": "Fans live their lives through the artist's music; the artist's music shapes fans' lives.",
   "loading.setlist.songs": "Loading rundown...",
   "setlist.info.title": "Concert Info",
   "setlist.info.venue": "Venue",
