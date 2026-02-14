@@ -4,6 +4,11 @@
 
 ### 2026
 
+**2026-02-14：西安站官宣**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/xi_an-gx.jpg" alt="" style="width:10%;">
+<br/>
+
 **2026-02-13：广州站官宣**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/guangzhou-gx.jpg" alt="" style="width:10%;">
