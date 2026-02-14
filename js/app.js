@@ -426,7 +426,7 @@ function renderMap(mapType, fullItinerary) {
         const current = parseDate(itinerary[i].date);
         const next = parseDate(itinerary[i + 1].date);
         if (current !== null && next !== null) {
-            lines.push({ coords: [itinerary[i].coord, itinerary[i + 1].coord] });
+            // lines.push({ coords: [itinerary[i].coord, itinerary[i + 1].coord] });
         }
     }
 

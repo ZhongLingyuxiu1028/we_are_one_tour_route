@@ -78,5 +78,25 @@
     "city": "Singapore",
     "province": "",
     "country": "Singapore"
+  },
+  {
+    "name": "#09 西安站 Xi'an（未官宣）",
+    "location": "西安奥林匹克体育中心",
+    "setlist-name": "xi_an",
+    "date": "2026-04-25",
+    "coord": [108.54728869, 34.18293673],
+    "city": "西安市",
+    "province": "陕西省",
+    "country": "China"
+  },
+  {
+    "name": "#10 广州站 Guangzhou",
+    "location": "广州宝能国际体育中心",
+    "setlist-name": "guangzhou",
+    "date": "2026-05-09 至 2026-05-10",
+    "coord": [113.60268500, 23.11605200],
+    "city": "广州市",
+    "province": "广东省",
+    "country": "China"
   }
 ]

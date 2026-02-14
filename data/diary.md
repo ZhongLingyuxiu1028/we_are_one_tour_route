@@ -4,11 +4,15 @@
 
 ### 2026
 
-**2026-02-06：新加坡坡站官宣**<br/>
+**2026-02-13：广州站官宣**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/guangzhou-gx.jpg" alt="" style="width:10%;">
+<br/>
+
+**2026-02-06：新加坡站官宣**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/singapore-gx.jpg" alt="" style="width:10%;">
 <br/>
-
 
 **2026-01-15 至 2026-01-17：杭州站开演倒计时**<br/>
 
