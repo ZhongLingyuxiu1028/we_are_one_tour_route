@@ -22,6 +22,7 @@
   "btn.back": "Back",
   "btn.cancel": "Cancel",
   "btn.confirm": "Confirm",
+  "loading.diary": "Loading diary...",
   "loading.songlist": "Loading songlist...",
   "loading.staffs": "Loading credits...",
   "loading.bonus": "Loading bonus content...",
