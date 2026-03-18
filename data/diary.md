@@ -10,6 +10,8 @@
 <img src="/we_are_one_tour_route/img/diary/guangzhou-ks2.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/xi_an-ks1.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/guangzhou-ks1.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/xi_an-ks.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/guangzhou-ks.jpg" alt="" style="width:10%;">
 
 <br/>
 
