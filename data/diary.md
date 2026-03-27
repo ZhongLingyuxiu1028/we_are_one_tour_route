@@ -4,6 +4,11 @@
 
 ### 2026
 
+**2026-03-27：广州站加场官宣**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/guangzhou-jcgx.jpg" alt="" style="width:10%;">
+<br/>
+
 **2026-03-16 至 2026-03-18：西安站、广州站开售倒计时**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/xi_an-ks2.jpg" alt="" style="width:10%;">
