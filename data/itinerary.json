@@ -93,7 +93,17 @@
     "name": "#10 广州站 Guangzhou",
     "location": "广州宝能国际体育中心",
     "setlist-name": "guangzhou",
-    "date": "2026-05-09 至 2026-05-10，2026-05-16",
+    "date": "2026-05-09 至 2026-05-10",
+    "coord": [113.60268500, 23.11605200],
+    "city": "广州市",
+    "province": "广东省",
+    "country": "China"
+  },
+  {
+    "name": "#10 广州站 Guangzhou (+)",
+    "location": "广州宝能国际体育中心",
+    "setlist-name": "guangzhou2",
+    "date": "2026-05-16",
     "coord": [113.60268500, 23.11605200],
     "city": "广州市",
     "province": "广东省",
