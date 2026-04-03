@@ -70,7 +70,7 @@ function showSetlistForItem(item) {
         document.getElementById('btnChina'),
         document.getElementById('btnWorld'),
         btnSetlist,
-        document.getElementById('btnStaffs'),
+        document.getElementById('btnCredits'),
         document.getElementById('btnBonus'),
         document.getElementById('btnAbout')
     ];
@@ -246,7 +246,7 @@ function goBackToMap() {
         btnChina,
         btnWorld,
         document.getElementById('btnSetlist'),
-        document.getElementById('btnStaffs'),
+        document.getElementById('btnCredits'),
         document.getElementById('btnBonus'),
         document.getElementById('btnAbout')
     ];

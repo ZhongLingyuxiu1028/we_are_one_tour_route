@@ -23,12 +23,12 @@ document.addEventListener('i18nReady', () => {
     const btnDiary = document.getElementById('btnDiary');
     const btnSonglist = document.getElementById('btnSonglist');
     const btnSetlist = document.getElementById('btnSetlist');
-    const btnStaffs = document.getElementById('btnStaffs');
+    const btnCredits = document.getElementById('btnCredits');
     const btnBonus = document.getElementById('btnBonus');
     const btnAbout = document.getElementById('btnAbout');
 
     // 所有控制按钮
-    const allButtons = [btnChina, btnWorld, btnDiary, btnSonglist, btnSetlist, btnStaffs, btnBonus, btnAbout];
+    const allButtons = [btnChina, btnWorld, btnDiary, btnSonglist, btnSetlist, btnCredits, btnBonus, btnAbout];
 
     function setActive(button) {
         allButtons.forEach(btn => btn.classList.remove('active'));
@@ -130,8 +130,8 @@ document.addEventListener('i18nReady', () => {
     );
 
     // 致谢名单
-    btnStaffs.addEventListener('click', () =>
-        loadMarkdownTab(btnStaffs, 'data/staffs.md', 'loading.staffs')
+    btnCredits.addEventListener('click', () =>
+        loadMarkdownTab(btnCredits, 'data/credits.md', 'loading.credits')
     );
 
     // 彩蛋环节

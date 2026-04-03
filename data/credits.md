@@ -26,6 +26,7 @@
 - <a href="https://www.bilibili.com/video/BV1m5BMBbEEZ" target="_blank" rel="noopener noreferrer">武汉站 | 致谢名单（置顶评论为文字版本）</a>
 - <a href="https://www.bilibili.com/video/BV1uZzrBAEfH" target="_blank" rel="noopener noreferrer">杭州站 | 致谢名单（置顶评论为文字版本）</a>
 - <a href="https://www.bilibili.com/video/BV1NGfoBmEdb" target="_blank" rel="noopener noreferrer">澳门站 | 致谢名单（置顶评论为文字版本）</a>
+- 吉隆坡站 | 致谢名单（暂缺）
 - _后续等待施工……_
 
 
