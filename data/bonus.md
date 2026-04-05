@@ -385,17 +385,17 @@
 ### **NO.15：亚里巴巴（ALI BABA）| 1981**
 
 1：歌词谐音：<br/>
-> ALI, ALI BABA, ALI BABA跟踪土匪好细心 <br/>
+> ALI, ALI BABA, ALI BABA 跟踪土匪好细心 <br/>
 > ALI, ALI BABA, ALI BABA GUN GSOONG TOE FAY HOE SAI SUM <br/>
-> ALI, ALI BABA, ALI BABA跟踪土匪好勇敢 <br/>
+> ALI, ALI BABA, ALI BABA 跟踪土匪好勇敢 <br/>
 > ALI, ALI BABA, ALI BABA GUN GSOONG TOE FAY HOE YOONG GUM <br/>
-> <br/>
 > 芝麻开门 芝麻开门（明白了 明白了） <br/>
-> **GSEE MA HOY MOON GSEE MA HOY MOON (MING BAK LEEW MING BAK LEEW)** _（推测）_
+> GSEE MA HOY MUIN GSEE MA HOY MUIN (MING BAK LEEW MING BAK LEEW)
 
 2：备注：<br/>
 原背屏最后还有谐音：芝麻开门 芝麻开门（明白了 明白了），但是太下面了看不清楚，后面如果有能找到的资料再补充。 <br/>
-20251125 二更：根据读音猜测原歌词谐音，仅供参考。
+20251125 二更：根据读音猜测原歌词谐音，仅供参考。 <br/>
+20260405 三更：已根据饭拍视频更新谐音。（<a href="https://www.bilibili.com/video/BV1s6DMBREPx/?p=1" target="_blank" rel="noopener noreferrer">BV1s6DMBREPx@用来凑数的昵称</a>）
 
 <br/>
 
