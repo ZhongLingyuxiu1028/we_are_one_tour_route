@@ -96,6 +96,7 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="c5qingrenzhiji.md">情人知己</span>                                    | 叶蒨文   | 飞鸟凉                        | 潘源良                   | 男と女 <br/>(CHAGE & ASKA)                               |              |
 | <span class="lyric-trigger" data-lyric-file="c5aidekeneng.md">爱的可能 <strong>[国]</strong></span>                 | 叶蒨文   | 李偲菘                        | 刘虞瑞                   |                                                       |              |
 | <span class="lyric-trigger" data-lyric-file="c5kushaqiuquqiulai.md">哭砂 <strong>[国]</strong>+秋去秋来</span>        | 叶蒨文   | 熊美玲                        | 哭砂：林秋离 <br/> 秋去秋来：林振强 | 哭砂 <br/>(黄莺莺)                                         |              |
+| <span class="lyric-trigger" data-lyric-file="c5buyaogaosuta.md">不要告诉他</span>                                   | 叶蒨文   | 黄国伦                        | 王中言                   | 不要告诉他 <br/>(张信哲)                                      |              |
 | <span class="lyric-trigger" data-lyric-file="c5zhufu.md">祝福</span>                                             | 叶蒨文   | 梁弘志                        | 潘伟源                   |                                                       | Medley：祝福+福气 |
 | <span class="lyric-trigger" data-lyric-file="c5fuqi.md">福气</span>                                              | 叶蒨文   | 殷文琦                        | 林振强                   |                                                       | Medley：祝福+福气 |
 
