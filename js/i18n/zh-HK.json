@@ -41,5 +41,13 @@
   "setlist.unofficial": "⚠\uFE0F 該城市演出資訊暫未公佈，歌單待發布",
   "setlist.fileNotPublished": "⚠\uFE0F 歌單檔案尚未發布",
   "error.network": "❌ 網絡連接問題，請檢查檔案路徑是否正確",
-  "error.setlist.loadFailed": "❌ 載入歌單失敗，請稍後再試"
+  "error.setlist.loadFailed": "❌ 載入歌單失敗，請稍後再試",
+  "stats.area": "\uD83D\uDDFA\uFE0F 區域",
+  "stats.unlockCity": "\uD83C\uDFD9\uFE0F 解鎖城市",
+  "stats.unlockCount": "\uD83D\uDD13 解鎖場次",
+  "stats.completeCount": "✅ 完成場次",
+  "stats.pendingCount": "\uD83D\uDCCD 待完成場次",
+  "stats.chinaCount": "\uD83C\uDDE8\uD83C\uDDF3 中國內地以及港澳台地區",
+  "stats.worldCount": "\uD83C\uDF0F\uFE0F 海外地區",
+  "stats.total": "合計"
 }

@@ -1,0 +1,53 @@
+/* 场次统计表格样式 */
+.tour-stats {
+    width: 100%;
+    /*max-width: 800px;*/
+    margin: 20px auto;
+    table-layout: fixed;
+    font-family: "Microsoft YaHei", sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: #fff;
+
+    border-collapse: separate; /* 1. 必须改为 separate，不能是 collapse */
+    border-spacing: 0;         /* 2. 去除单元格间距 */
+    border-radius: 10px;       /* 3. 设置圆角大小 */
+    overflow: hidden;          /* 4. 隐藏超出圆角的部分（这是生效的关键！） */
+}
+
+/* 针对特定列设置宽度 */
+.tour-stats th:nth-child(1) { width: 20%; } /* 第一列“区域”占 40% */
+.tour-stats th:nth-child(2) { width: 20%; } /* 第二列“解锁城市”占 15% */
+.tour-stats th:nth-child(3) { width: 20%; } /* 第三列“解锁场次”占 15% */
+.tour-stats th:nth-child(4) { width: 20%; } /* 第四列“完成场次”占 15% */
+.tour-stats th:nth-child(5) { width: 20%; } /* 第五列“待完成”占 15% */
+
+.tour-stats th {
+    background-color: royalblue;
+    color: #ffffff;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
+
+.tour-stats td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.tour-stats tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.tour-stats tr:hover {
+    background-color: #f1f8ff;
+}
+
+/* 合计行特殊样式 */
+.tour-stats .total-row td {
+    font-weight: bold;
+    background-color: forestgreen !important;
+    color: #fff;
+}

@@ -41,5 +41,13 @@
   "setlist.unofficial": "⚠\uFE0F Concert details for this city have not been officially announced yet; rundown pending",
   "setlist.fileNotPublished": "⚠\uFE0F Setlist file has not been published yet",
   "error.network": "❌ Network connection issue. Please check if the file path is correct.",
-  "error.setlist.loadFailed": "❌ Failed to load setlist. Please try again later."
+  "error.setlist.loadFailed": "❌ Failed to load setlist. Please try again later.",
+  "stats.area": "\uD83D\uDDFA\uFE0F Area",
+  "stats.unlockCity": "\uD83C\uDFD9\uFE0F Unlocked City",
+  "stats.unlockCount": "\uD83D\uDD13 Unlocked Count",
+  "stats.completeCount": "✅ Complete Count",
+  "stats.pendingCount": "\uD83D\uDCCD Pending Count",
+  "stats.chinaCount": "\uD83C\uDDE8\uD83C\uDDF3 China Count",
+  "stats.worldCount": "\uD83C\uDF0F\uFE0F Oversea Count",
+  "stats.total": "Total"
 }

@@ -11,6 +11,7 @@
     <script src="lib/marked.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/simple-lightbox.min.css">
+    <link rel="stylesheet" href="css/statistical-table.css"></link>
     <style>
         /* 基础样式已在外部CSS文件中定义 */
     </style>
@@ -48,6 +49,43 @@
     <button id="btnBonus" data-i18n="btn.bonus">🎊 彩蛋环节</button>
     <button id="btnAbout" data-i18n="btn.about">💬 关于本站</button>
 </div>
+<br/>
+
+<!-- 场次统计表格 -->
+<table class="tour-stats">
+    <thead>
+    <tr>
+        <th data-i18n="stats.area">🗺️ 区域</th>
+        <th data-i18n="stats.unlockCity">🏙️ 解锁城市</th>
+        <th data-i18n="stats.unlockCount">🔓 解锁场次</th>
+        <th data-i18n="stats.completeCount">✅ 完成场次</th>
+        <th data-i18n="stats.pendingCount">📍 待完成场次</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td data-i18n="stats.chinaCount">🇨🇳 中国内地以及港澳台地区</td>
+        <td>9</td>
+        <td>19</td>
+        <td>13</td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td data-i18n="stats.worldCount">🌏️ 海外地区</td>
+        <td>2</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+    </tr>
+    <tr class="total-row">
+        <td data-i18n="stats.total">合计</td>
+        <td>11</td>
+        <td>22</td>
+        <td>16</td>
+        <td>6</td>
+    </tr>
+    </tbody>
+</table>
 
 <br/>
 <div id="map"></div>

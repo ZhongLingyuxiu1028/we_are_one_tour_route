@@ -70,10 +70,10 @@
     "country": "Malaysia"
   },
   {
-    "name": "#08 新加坡站 Singapore",
+    "name": "#08 新加坡站* Singapore",
     "location": "Singapore Indoor Stadium",
     "setlist-name": "singapore",
-    "date": "2026-04-04",
+    "date": "2026-04-04 至 2026-04-05",
     "coord": [103.87909192855807, 1.3499848642830865],
     "city": "Singapore",
     "province": "",
@@ -107,6 +107,16 @@
     "coord": [113.60268500, 23.11605200],
     "city": "广州市",
     "province": "广东省",
+    "country": "China"
+  },
+  {
+    "name": "#11 上海站 Shanghai（未官宣）",
+    "location": "上海东方体育中心",
+    "setlist-name": "shanghai",
+    "date": "2026-06-27 至 2026-06-28",
+    "coord": [121.47500, 31.15528],
+    "city": "上海市",
+    "province": "上海市",
     "country": "China"
   }
 ]
