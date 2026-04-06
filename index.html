@@ -65,24 +65,25 @@
     <tbody>
     <tr>
         <td data-i18n="stats.chinaCount">🇨🇳 中国内地以及港澳台地区</td>
-        <td>9</td>
-        <td>19</td>
-        <td>13 (6)</td>
-        <td>6 (3)</td>
+        <td><span class="count-val">9</span></td>
+        <td><span class="count-val">19</span></td>
+        <!-- 括号内的数字我们单独包一个 span，方便以后只计算纯数字 -->
+        <td><span class="count-val">13</span> (<span class="count-val">6</span>)</td>
+        <td><span class="pending-main"><span class="count-val">6</span> (<span class="count-val">3</span>)</span></td>
     </tr>
     <tr>
         <td data-i18n="stats.worldCount">🌏️ 海外地区</td>
-        <td>2</td>
-        <td>3</td>
-        <td>3 (2)</td>
-        <td>0 (0)</td>
+        <td><span class="count-val">2</span></td>
+        <td><span class="count-val">3</span></td>
+        <td><span class="count-val">3</span> (<span class="count-val">2</span>)</td>
+        <td><span class="pending-main"><span class="count-val">0</span> (<span class="count-val">0</span>)</span></td>
     </tr>
     <tr class="total-row">
         <td data-i18n="stats.total">合计</td>
-        <td>11</td>
-        <td>22</td>
-        <td>16 (8)</td>
-        <td>6 (3)</td>
+        <td class="total-cell"></td>
+        <td class="total-cell"></td>
+        <td class="total-cell"></td>
+        <td class="total-cell"></td>
     </tr>
     </tbody>
 </table>
@@ -102,5 +103,6 @@
 <script src="js/app.js"></script>
 <script src="js/tabs.js"></script>
 <script src="js/emoji-effect.js"></script>
+<script src="js/statistical-table.js"></script>
 </body>
 </html>
