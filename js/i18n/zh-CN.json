@@ -45,8 +45,8 @@
   "stats.area": "\uD83D\uDDFA\uFE0F 区域",
   "stats.unlockCity": "\uD83C\uDFD9\uFE0F 解锁城市",
   "stats.unlockCount": "\uD83D\uDD13 解锁场次",
-  "stats.completeCount": "✅ 完成场次",
-  "stats.pendingCount": "\uD83D\uDCCD 待完成场次",
+  "stats.completeCount": "✅ 完成场次（城市）",
+  "stats.pendingCount": "\uD83D\uDCCD 待完成场次（城市）",
   "stats.chinaCount": "\uD83C\uDDE8\uD83C\uDDF3 中国内地以及港澳台地区",
   "stats.worldCount": "\uD83C\uDF0F\uFE0F 海外地区",
   "stats.total": "合计"
