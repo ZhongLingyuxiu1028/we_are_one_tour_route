@@ -22,7 +22,7 @@
 > 凭着笑 让我和你接近 <br/>
 > With a smile, we can draw closer together <br/>
 > 说笑话 谁亦兴奋 <br/>
-> Cracking jokes -- everyone lights up <br/>
+> Cracking jokes -- everyone feels alive <br/>
 > 悲剧演成了喜剧 最开心 <br/>
 > Turning tragedy into comedy, that's the greatest joy <br/>
 >  <br/>
@@ -50,4 +50,5 @@
 > 笑声中 到结局 更吸引 <br/>
 > In laughter, even the ending becomes more beautiful <br/>
 >  <br/>
-> **歌词英文来源：20260404 - 20260405. 新加坡站**
+> **歌词英文来源：20260404. 新加坡站**<br/>
+> 感谢：<a href="https://www.bilibili.com/video/BV12jDaBbEBo/" target="_blank" rel="noopener noreferrer">BV12jDaBbEBo@雨中的路人-阿靜</a>
