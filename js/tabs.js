@@ -245,6 +245,11 @@ document.addEventListener('i18nReady', () => {
             </div>
         `;
 
+        const contentDiv = document.getElementById('content');
+        if (window.BackToTop && contentDiv) {
+            window.BackToTop.bind(contentDiv);
+        }
+
         document.getElementById('citySelect').addEventListener('change', async (e) => {
             const selectedValue = e.target.value;
             const selectedIndex = e.target.options[e.target.selectedIndex]?.dataset.index;
