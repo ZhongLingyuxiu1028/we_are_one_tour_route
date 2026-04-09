@@ -47,8 +47,8 @@ document.addEventListener('i18nReady', () => {
         mapEl.style.display = 'none';
         contentEl.style.display = 'block';
 
-        // ✅ 切换时重置滚动（推荐）
-        window.scrollTo({ top: 0 });
+        // ✅ 切换时重置滚动
+        // window.scrollTo({ top: 0 });
     }
 
     // 默认显示地图（中国地图）
