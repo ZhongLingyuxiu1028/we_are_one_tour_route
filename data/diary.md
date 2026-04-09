@@ -7,6 +7,7 @@
 **2026-04-08 至 2026-04-09：广州站二次开售倒计时**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/guangzhou-ek1.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/guangzhou-ek.jpg" alt="" style="width:10%;">
 <br/>
 
 **2026-03-27：广州站加场官宣**<br/>
