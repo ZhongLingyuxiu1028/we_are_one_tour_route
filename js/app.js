@@ -83,9 +83,6 @@ function showSetlistForItem(item) {
     // 渲染歌单内容
     renderSetlistForItem(item);
 
-    if (window.bindScrollTarget && contentDiv) {
-        window.bindScrollTarget(contentDiv);
-    }
 }
 
 // 渲染特定项目的歌单
@@ -269,6 +266,10 @@ function goBackToMap() {
     // 重新渲染当前地图类型
     if (itineraryData) {
         renderMap(currentMapType, itineraryData);
+    }
+
+    if (window.BackToTop) {
+        window.BackToTop.bind(null);
     }
 }
 
@@ -730,59 +731,3 @@ window.switchMap = switchMap;
 window.itineraryData = itineraryData;
 window.goBackToMap = goBackToMap;
 window.parseDate = parseDate;
-
-let currentScrollTarget = window;
-
-function initBackToTop() {
-    const btn = document.getElementById('backToTopBtn');
-    if (!btn) return;
-
-    // 点击返回顶部
-    btn.onclick = () => {
-        if (currentScrollTarget === window) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-            currentScrollTarget.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    };
-}
-
-// 切换滚动监听对象
-function bindScrollTarget(target) {
-    const btn = document.getElementById('backToTopBtn');
-    if (!btn) return;
-
-    // 先解绑旧监听
-    if (currentScrollTarget) {
-        currentScrollTarget.removeEventListener('scroll', handleScroll);
-    }
-
-    currentScrollTarget = target;
-
-    // 绑定新监听
-    currentScrollTarget.addEventListener('scroll', handleScroll);
-
-    // 立即触发一次
-    handleScroll();
-}
-
-function handleScroll() {
-    const btn = document.getElementById('backToTopBtn');
-    if (!btn) return;
-
-    let scrollTop = currentScrollTarget === window
-        ? document.documentElement.scrollTop || document.body.scrollTop
-        : currentScrollTarget.scrollTop;
-
-    if (scrollTop > 200) {
-        btn.classList.add('show');
-    } else {
-        btn.classList.remove('show');
-    }
-}
-
-// 初始化
-document.addEventListener('DOMContentLoaded', () => {
-    initBackToTop();
-    bindScrollTarget(window); // 默认地图
-});

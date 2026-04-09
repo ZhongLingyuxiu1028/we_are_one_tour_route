@@ -38,16 +38,17 @@ document.addEventListener('i18nReady', () => {
     function showMap() {
         mapEl.style.display = 'block';
         contentEl.style.display = 'none';
+
+        const btn = document.getElementById('backToTopBtn');
+        if (btn) btn.classList.remove('show');
     }
 
     function showContent() {
         mapEl.style.display = 'none';
         contentEl.style.display = 'block';
 
-        // 绑定 content 滚动
-        if (window.bindScrollTarget) {
-            window.bindScrollTarget(contentEl);
-        }
+        // ✅ 切换时重置滚动（推荐）
+        window.scrollTo({ top: 0 });
     }
 
     // 默认显示地图（中国地图）
@@ -85,9 +86,9 @@ document.addEventListener('i18nReady', () => {
                 // 绑定歌词触发器
                 bindLyricTriggers();
 
-                // ✅ 关键：重新绑定 & 触发滚动检测
-                if (window.bindScrollTarget) {
-                    window.bindScrollTarget(contentEl);
+                const contentDiv = document.getElementById('content');
+                if (window.BackToTop && contentDiv) {
+                    window.BackToTop.bind(contentDiv);
                 }
 
                 // 关键：自动为所有 img 包裹 a 标签（如果还没包）

@@ -1,0 +1,32 @@
+/* 返回顶部按钮 */
+.back-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    z-index: 9999;
+    padding: 10px 14px;
+    font-size: 18px;
+    border: none;
+    border-radius: 50%;
+    background: #1976D2;
+    color: #fff;
+    cursor: pointer;
+
+    /* 初始隐藏状态 */
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+
+    /* 动画 */
+    transition: all 0.3s ease;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.back-to-top:hover {
+    background: #0d47a1;
+}
