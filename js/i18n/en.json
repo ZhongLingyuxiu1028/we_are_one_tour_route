@@ -47,7 +47,7 @@
   "stats.unlockCount": "\uD83D\uDD13 Unlocked Count",
   "stats.completeCount": "✅ Complete Count (City)",
   "stats.pendingCount": "\uD83D\uDCCD Pending Count (City)",
-  "stats.chinaCount": "\uD83C\uDDE8\uD83C\uDDF3 China Count",
-  "stats.worldCount": "\uD83C\uDF0F\uFE0F Oversea Count",
+  "stats.chinaCount": "\uD83C\uDDE8\uD83C\uDDF3 China",
+  "stats.worldCount": "\uD83C\uDF0F\uFE0F Oversea",
   "stats.total": "Total"
 }
