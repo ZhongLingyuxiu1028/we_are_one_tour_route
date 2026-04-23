@@ -4,6 +4,11 @@
 
 ### 2026
 
+**2026-04-23 至 2026-04-25：西安站开演倒计时**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/xi_an-ky2.jpg" alt="" style="width:10%;">
+<br/>
+
 **2026-04-13：上海站官宣**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/shanghai-gx.jpg" alt="" style="width:10%;">
