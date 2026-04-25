@@ -8,6 +8,7 @@
 
 <img src="/we_are_one_tour_route/img/diary/xi_an-ky2.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/xi_an-ky1.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/xi_an-ky.jpg" alt="" style="width:10%;">
 <br/>
 
 **2026-04-13：上海站官宣**<br/>
