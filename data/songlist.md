@@ -57,6 +57,7 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="c3meiyigewanshang.md">每一个晚上</span>         | 林子祥   | Andrew Lloyd Webber / 黄自                                           | 林振强                  | Cats: Growltiger's Last Stand <br/>《花非花》同名曲         | **A组曲目**          |
 | <span class="lyric-trigger" data-lyric-file="c3zheyigeye.md">这一个夜</span>                | 林子祥   | 林子祥                                                                | 林振强                  |                                                     | Medley：这一个夜+交出一切  |
 | <span class="lyric-trigger" data-lyric-file="c3jiaochuyiqie.md">交出一切</span>             | 林子祥   | 林子祥                                                                | 因葵                   |                                                     | Medley：这一个夜+交出一切  |
+| <span class="lyric-trigger" data-lyric-file="c3gaibianchanggaibian.md">改变常改变</span>     | 林子祥   | 林子祥                                                                | 潘伟源                  |                                                     | Medley：这一个夜+改变常改变 |
 | <span class="lyric-trigger" data-lyric-file="c3shamoxiaozi.md">沙漠小子</span>              | 林子祥   | 林子祥                                                                | 林振强                  |                                                     |                   |
 | <span class="lyric-trigger" data-lyric-file="c3dazhangfuzhendehanzi.md">大丈夫+真的汉子</span> | 林子祥   | 大丈夫：刘家昌<br/> 真的汉子：林子祥                                              | 大丈夫：黄霑<br/> 真的汉子：郑国江 |                                                     |                   |
 
@@ -106,6 +107,7 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="c6lantian.md">蓝天 <strong>[国]</strong></span>          | 叶蒨文       | 西村由纪江                                                                                                        | 刘虞瑞                                                                                                         | いつまでも <br/>(西村由纪江)                                                                                                                     |                           |
 | <span class="lyric-trigger" data-lyric-file="c6zhuiyidanchekongdeng.md">追忆+单车+空凳</span>            | 林子祥       | 追忆：林子祥<br/> 单车：柳重言<br/> 空凳：林敏怡                                                                               | 追忆：林振强<br/> 单车：黄伟文<br/> 空凳：林振强                                                                              | 单车 (陈奕迅) <br/> 空凳 (夏韶声)                                                                                                                | 单车作曲者柳重言(Jim)为本次演唱会和音老师之一 |
 | <span class="lyric-trigger" data-lyric-file="c6mozaibeizuqu.md">莫再悲+我要走天涯<br/>+成吉思汗+亚里巴巴+狂欢</span> | 林子祥 & 叶蒨文 | 莫再悲：中岛美雪<br/> 我要走天涯：Peter Yarrow<br/> 成吉思汗：Ralph Siegel<br/> 亚里巴巴：Karl-Heinz Merkel<br/> 狂欢：Abraham Idelsohn | 莫再悲：中岛美雪<br/> 我要走天涯：Peter Yarrow<br/> 成吉思汗：Bernd Meinunger <br/> 亚里巴巴：Cherry Laine<br/> 狂欢：Abraham Idelsohn | 莫再悲：忘れな草をもう一度 <br/> 我要走天涯：Tall Pine Trees<br/> 成吉思汗：Dschinghis Khan<br/> 亚里巴巴：Thousand and One Nights (A Li Ba Ba)<br/> 狂欢：Hava Nagila | 全部改编词：郑国江                 |
+| <span class="lyric-trigger" data-lyric-file="c6aidaofenlirengshiai.md">爱到分离仍是爱</span>              | 林子祥 & 叶蒨文 | 蒋三省                                                                                                          | 李安修                                                                                                         |                                                                                                                                        | 改编词：潘源良<br/>              |
 | <span class="lyric-trigger" data-lyric-file="c6pingzheai.md">凭着爱</span>                            | 林子祥 & 叶蒨文 | 卢冠廷                                                                                                          | 潘源良                                                                                                         | 凭着爱 <br/>(苏芮)                                                                                                                          |                           |
 | <span class="lyric-trigger" data-lyric-file="c6woaini.md">我爱你</span>                               | 林子祥 & 叶蒨文 | Billy Joel                                                                                                   | 林振强                                                                                                         | Uptown Girl <br/>(Billy Joel)                                                                                                          |                           |
 
@@ -113,6 +115,7 @@ table th:nth-of-type(6) { width: 20%; }
 | 曲目                                                                                                  | 演唱会演唱     | 作曲                                 | 作词        | OT（原曲）                                                     | 备注 |
 |-----------------------------------------------------------------------------------------------------|-----------|------------------------------------|-----------|------------------------------------------------------------|----|
 | <span class="lyric-trigger" data-lyric-file="ecxiaosazouyihui.md">潇洒走一回 <strong>[国]</strong></span> | 叶蒨文       | 陈大力 / 陈秀男                          | 陈乐融 / 王蕙玲 |                                                            |    |
+| <span class="lyric-trigger" data-lyric-file="eclanhuacao.md">兰花草 <strong>[国]</strong></span>        | 叶蒨文       | 陈贤德 / 张弼                           | 胡适        | 兰花草 <br/>(银霞)                                              |    |
 | <span class="lyric-trigger" data-lyric-file="ecshuzirensheng.md">数字人生</span>                        | 林子祥 & 叶蒨文 | Sandy Linzer <br/>/ Denny Randell  | 潘源良       | A Lover's Concerto <br/>(the Toys)                         |    |
 | <span class="lyric-trigger" data-lyric-file="ecyouaichangcun.md">友爱长存</span>                        | 林子祥 & 叶蒨文 | Andrew Lloyd Webber                | 潘伟源       | Amigos Para Siempre <br/>(José Carreras / Sarah Brightman) |    |
 | <span class="lyric-trigger" data-lyric-file="ecfenfenzhongxuyaoni.md">分分钟需要你</span>                 | 林子祥 & 叶蒨文 | 林子祥                                | 郑国江       |                                                            |    |
@@ -122,11 +125,10 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="ecjiangxiao.md">讲笑</span>                              | 林子祥 & 叶蒨文 | 林子祥                                | 郑国江       |                                                            |    |
 
 #### 未正式出演
-| 曲目      | 演唱会演唱     | 作曲            | 作词  | OT（原曲）                             | 备注                 |
-|---------|-----------|---------------|-----|------------------------------------|--------------------|
-| 女人的弱点   | 叶蒨文       | 飞鸟凉           | 潘源良 |                                    | 未正式演唱              |
-| 我要活下去   | 叶蒨文       | Umberto Bindi | 林振强 | You're My World <br/>(Cilla Black) | 未正式演唱              |
-| 爱到分离仍是爱 | 林子祥 & 叶蒨文 | 蒋三省           | 李安修 |                                    | 改编词：潘源良<br/> 未正式演唱 |
+| 曲目      | 演唱会演唱     | 作曲            | 作词  | OT（原曲）                             | 备注                |
+|---------|-----------|---------------|-----|------------------------------------|-------------------|
+| 女人的弱点   | 叶蒨文       | 飞鸟凉           | 潘源良 |                                    | 未正式演唱             |
+| 我要活下去   | 叶蒨文       | Umberto Bindi | 林振强 | You're My World <br/>(Cilla Black) | 未正式演唱             |
 
 <br/>
 
