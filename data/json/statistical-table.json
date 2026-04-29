@@ -1,0 +1,18 @@
+[
+  {
+    "area": "china",
+    "labelKey": "stats.chinaCount",
+    "city": 9,
+    "unlock": 18,
+    "complete": 14,
+    "completeCity": 7
+  },
+  {
+    "area": "world",
+    "labelKey": "stats.worldCount",
+    "city": 2,
+    "unlock": 3,
+    "complete": 3,
+    "completeCity": 2
+  }
+]

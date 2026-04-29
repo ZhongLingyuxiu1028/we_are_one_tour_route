@@ -196,7 +196,7 @@ document.addEventListener('i18nReady', () => {
         try {
             let itinerary = window.itineraryData;
             if (!itinerary) {
-                const res = await fetch('data/itinerary.json');
+                const res = await fetch('data/json/itinerary.json');
                 if (res.ok) {
                     itinerary = await res.json();
                     window.itineraryData = itinerary; // 缓存

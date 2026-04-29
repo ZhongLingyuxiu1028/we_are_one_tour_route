@@ -49,30 +49,9 @@
         <th data-i18n="stats.pendingCount">📍 待完成场次（城市）</th>
     </tr>
     </thead>
-    <tbody>
-    <tr>
-        <td data-i18n="stats.chinaCount">🇨🇳 中国内地以及港澳台地区</td>
-        <!-- 中国内地以及港澳台地区城市 -->
-        <td><span class="count-val">9</span></td>
-        <!-- 中国内地以及港澳台地区场次 -->
-        <td><span class="count-val">18</span></td>
-        <!-- 中国内地以及港澳台地区完成场次（中国内地以及港澳台地区完成城市） -->
-        <!-- 括号内的数字我们单独包一个 span，方便以后只计算纯数字 -->
-        <td><span class="count-val">14</span> (<span class="count-val">7</span>)</td>
-        <!-- 中国内地以及港澳台地区待完成场次（中国内地以及港澳台地区待完成城市） -->
-        <td><span class="pending-main"><span class="count-val">6</span> (<span class="count-val">3</span>)</span></td>
-    </tr>
-    <tr>
-        <td data-i18n="stats.worldCount">🌏️ 海外地区</td>
-        <!-- 海外地区城市 -->
-        <td><span class="count-val">2</span></td>
-        <!-- 海外地区场次 -->
-        <td><span class="count-val">3</span></td>
-        <!-- 海外地区完成场次（海外地区完成城市） -->
-        <td><span class="count-val">3</span> (<span class="count-val">2</span>)</td>
-        <!-- 海外地区待完成场次（海外地区待完成城市） -->
-        <td><span class="pending-main"><span class="count-val">0</span> (<span class="count-val">0</span>)</span></td>
-    </tr>
+    <!-- 统计表格 statistical-table.js -->
+    <!-- 统计数据 statistical-table.json -->
+    <tbody id="stats-body">
     <tr class="total-row">
         <td data-i18n="stats.total">合计</td>
         <td class="total-cell"></td>

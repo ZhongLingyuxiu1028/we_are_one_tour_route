@@ -688,7 +688,7 @@ function switchMap(mapType) {
 }
 
 // 页面加载后执行
-fetch('data/itinerary.json')
+fetch('data/json/itinerary.json')
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -702,7 +702,7 @@ fetch('data/itinerary.json')
     })
     .catch(err => {
         console.error('加载行程数据失败:', err);
-        alert('无法加载行程数据，请检查 data/itinerary.json 文件是否存在。');
+        alert('无法加载行程数据，请检查 data/json/itinerary.json 文件是否存在。');
     });
 
 // 绑定按钮事件
