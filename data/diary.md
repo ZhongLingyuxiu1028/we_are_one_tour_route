@@ -7,8 +7,8 @@
 **2026-05-07 至 2026-05-09：广州站开演倒计时**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/guangzhou-ky2.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/guangzhou-ky1.jpg" alt="" style="width:10%;">
 
-[//]: # (<img src="/we_are_one_tour_route/img/diary/guangzhou-ky1.jpg" alt="" style="width:10%;">)
 [//]: # (<img src="/we_are_one_tour_route/img/diary/guangzhou-ky.jpg" alt="" style="width:10%;">)
 <br/>
 
