@@ -8,8 +8,7 @@
 
 <img src="/we_are_one_tour_route/img/diary/guangzhou-ky2.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/guangzhou-ky1.jpg" alt="" style="width:10%;">
-
-[//]: # (<img src="/we_are_one_tour_route/img/diary/guangzhou-ky.jpg" alt="" style="width:10%;">)
+<img src="/we_are_one_tour_route/img/diary/guangzhou-ky.jpg" alt="" style="width:10%;">
 <br/>
 
 **2026-04-23 至 2026-04-25：西安站开演倒计时**<br/>
