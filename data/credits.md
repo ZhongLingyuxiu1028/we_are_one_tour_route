@@ -29,6 +29,7 @@
 - 吉隆坡站 | 致谢名单（暂缺）
 - <a href="https://www.bilibili.com/video/BV1oTSXBwELA/?p=11" target="_blank" rel="noopener noreferrer">新加坡站 | 致谢名单（05:10开始，感谢 BV1oTSXBwELA@JesseJW）</a>
 - <a href="https://www.bilibili.com/video/BV1zMofB3EXH" target="_blank" rel="noopener noreferrer">西安站 | 致谢名单（35:55开始，感谢 BV1zMofB3EXH@大豪傑物語	）</a>
+- <a href="https://www.bilibili.com/video/BV1Na5T6vEY3/?p=2" target="_blank" rel="noopener noreferrer">广州站 | 致谢名单（置顶评论为文字版本）</a>
 - _后续等待施工……_
 
 
