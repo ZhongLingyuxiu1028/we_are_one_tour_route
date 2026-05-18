@@ -4,6 +4,19 @@
 
 ### 2026
 
+**2026-05-16 至 2026-05-18：上海开售倒计时**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/shanghai-ks2.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/shanghai-ks1.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/shanghai-ks.jpg" alt="" style="width:10%;">
+<br/>
+
+**2026-05-15 至 2026-05-16：广州站加场开演倒计时**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/guangzhou-jcky1.jpg" alt="" style="width:10%;">
+<img src="/we_are_one_tour_route/img/diary/guangzhou-jcky.jpg" alt="" style="width:10%;">
+<br/>
+
 **2026-05-07 至 2026-05-09：广州站开演倒计时**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/guangzhou-ky2.jpg" alt="" style="width:10%;">
