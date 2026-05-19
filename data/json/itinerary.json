@@ -118,5 +118,15 @@
     "city": "上海市",
     "province": "上海市",
     "country": "China"
+  },
+  {
+    "name": "#12 北京 Beijing（未官宣）",
+    "location": "国家体育馆",
+    "setlist-name": "beijing",
+    "date": "2026-07-25",
+    "coord": [116.390218, 39.996251],
+    "city": "北京市",
+    "province": "北京市",
+    "country": "China"
   }
 ]
