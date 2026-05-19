@@ -2,9 +2,9 @@
 
 | 社交媒体     | 账号                                                                                                                                                                            |
 |----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 小红书      | <a href="https://www.xiaohongshu.com/user/profile/6212607500000000210220cd" target="_blank" rel="noopener noreferrer">林子祥叶蒨文白头到老演唱会2025</a>                                   |
+| 小红书      | <a href="https://www.xiaohongshu.com/user/profile/6212607500000000210220cd" target="_blank" rel="noopener noreferrer">林子祥叶蒨文白头到老演唱会2026</a>                                   |
 | 微博       | <a href="https://weibo.com/u/8011783575" target="_blank" rel="noopener noreferrer">林子祥叶蒨文白头到老演唱会</a>                                                                          |
-| 抖音       | <a href="https://www.douyin.com/user/MS4wLjABAAAAZ3FPdXxt9OkIvVwlQimzhS6XUEsEHaxbm0MmyCQnSM_Chc_EArRDhtkZeBoAxCBi" target="_blank" rel="noopener noreferrer">林子祥叶蒨文巡演2025</a> |
+| 抖音       | <a href="https://www.douyin.com/user/MS4wLjABAAAAZ3FPdXxt9OkIvVwlQimzhS6XUEsEHaxbm0MmyCQnSM_Chc_EArRDhtkZeBoAxCBi" target="_blank" rel="noopener noreferrer">林子祥叶蒨文巡演2026</a> |
 | Bilibili | <a href="https://space.bilibili.com/3546936640538628" target="_blank" rel="noopener noreferrer">林子祥叶蒨文巡演2025</a>                                                              |
 
 ## Concert Credits（建设中……）
