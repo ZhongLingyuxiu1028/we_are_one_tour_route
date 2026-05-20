@@ -241,7 +241,7 @@ document.addEventListener('i18nReady', () => {
         songListContent.innerHTML = `
             <div class="loading">${i18n.t("setlist.slogan")}</div>
             <div style="text-align: center;">
-                <img src="./img/data/kiss.jpg" style="width: 38%; display: inline-block;" alt="Kiss">
+                <img src="./img/data/guangzhou.jpg" style="width: 45%; display: inline-block;" alt="Kiss">
             </div>
         `;
 
@@ -258,7 +258,7 @@ document.addEventListener('i18nReady', () => {
                 songListContent.innerHTML = `
                     <div class="loading">${i18n.t("setlist.slogan")}</div>
                     <div style="text-align: center;">
-                        <img src="./img/data/kiss.jpg" style="width: 38%; display: inline-block;" alt="Kiss">
+                        <img src="./img/data/guangzhou.jpg" style="width: 45%; display: inline-block;" alt="Kiss">
                     </div>
                 `;
                 return;
