@@ -4,7 +4,12 @@
 
 ### 2026
 
-**2026-05-16 至 2026-05-18：上海开售倒计时**<br/>
+**2026-03-27：上海站加场官宣**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/shanghai-jcgx.jpg" alt="" style="width:10%;">
+<br/>
+
+**2026-05-16 至 2026-05-18：上海站开售倒计时**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/shanghai-ks2.jpg" alt="" style="width:10%;">
 <img src="/we_are_one_tour_route/img/diary/shanghai-ks1.jpg" alt="" style="width:10%;">
