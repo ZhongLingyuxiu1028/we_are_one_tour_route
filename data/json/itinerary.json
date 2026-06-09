@@ -128,5 +128,15 @@
     "city": "北京市",
     "province": "北京市",
     "country": "China"
+  },
+  {
+    "name": "#13 深圳站 Shenzhen",
+    "location": "深圳大运中心体育馆",
+    "setlist-name": "shenzhen",
+    "date": "2026-08-08",
+    "coord": [114.22688800, 22.69976200],
+    "city": "深圳市",
+    "province": "广东省",
+    "country": "China"
   }
 ]

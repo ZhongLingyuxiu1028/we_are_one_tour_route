@@ -4,6 +4,11 @@
 
 ### 2026
 
+**2026-06-09：深圳站官宣**<br/>
+
+<img src="/we_are_one_tour_route/img/diary/shenzhen-gx.jpg" alt="" style="width:10%;">
+<br/>
+
 **2026-05-26：北京站官宣**<br/>
 
 <img src="/we_are_one_tour_route/img/diary/beijing-gx.jpg" alt="" style="width:10%;">
