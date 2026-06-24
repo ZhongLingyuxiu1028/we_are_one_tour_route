@@ -28,7 +28,8 @@ document.addEventListener('i18nReady', () => {
     const btnAbout = document.getElementById('btnAbout');
 
     // 所有控制按钮
-    const allButtons = [btnChina, btnWorld, btnDiary, btnSonglist, btnSetlist, btnCredits, btnBonus, btnAbout];
+    // const allButtons = [btnChina, btnWorld, btnDiary, btnSonglist, btnSetlist, btnCredits, btnBonus, btnAbout];
+    const allButtons = [btnChina, btnWorld, btnSonglist, btnSetlist, btnCredits, btnBonus, btnAbout];
 
     function setActive(button) {
         allButtons.forEach(btn => btn.classList.remove('active'));
@@ -131,9 +132,9 @@ document.addEventListener('i18nReady', () => {
     };
 
     // 巡演日志
-    btnDiary.addEventListener('click', () =>
+    /*btnDiary.addEventListener('click', () =>
         loadMarkdownTab(btnDiary, 'data/diary.md', 'loading.diary')
-    );
+    );*/
 
     // 预习曲目
     btnSonglist.addEventListener('click', () =>
