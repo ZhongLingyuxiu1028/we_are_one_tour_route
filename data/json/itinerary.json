@@ -138,5 +138,15 @@
     "city": "深圳市",
     "province": "广东省",
     "country": "China"
+  },
+  {
+    "name": "#14 苏州站 Suzhou（未官宣）",
+    "location": "苏州奥林匹克体育中心体育馆",
+    "setlist-name": "suzhou",
+    "date": "2026-09-19",
+    "coord": [120.74983120, 31.30744849],
+    "city": "苏州市",
+    "province": "江苏省",
+    "country": "China"
   }
 ]
