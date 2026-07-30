@@ -140,13 +140,13 @@
     "country": "China"
   },
   {
-    "name": "#14 苏州站 Suzhou（未官宣）",
-    "location": "苏州奥林匹克体育中心体育馆",
-    "setlist-name": "suzhou",
-    "date": "2026-09-19",
-    "coord": [120.74983120, 31.30744849],
-    "city": "苏州市",
-    "province": "江苏省",
+    "name": "#14 重庆站 Chongqing（未官宣）",
+    "location": "重庆华熙生物·润百颜ECM中心",
+    "setlist-name": "chongqing",
+    "date": "2026-09-26",
+    "coord": [106.50853800, 29.38039000],
+    "city": "重庆市",
+    "province": "重庆市",
     "country": "China"
   }
 ]
