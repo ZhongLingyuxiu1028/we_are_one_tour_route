@@ -138,5 +138,15 @@
     "city": "深圳市",
     "province": "广东省",
     "country": "China"
+  },
+  {
+    "name": "#14 重庆站 Chongqing（未官宣）",
+    "location": "重庆华熙生物·润百颜ECM中心",
+    "setlist-name": "chongqing",
+    "date": "2026-09-26",
+    "coord": [106.50853800, 29.38039000],
+    "city": "重庆市",
+    "province": "重庆市",
+    "country": "China"
   }
 ]
