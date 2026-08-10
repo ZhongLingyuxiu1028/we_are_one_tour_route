@@ -275,6 +275,33 @@ function goBackToMap() {
 
 function parseDate(dateStr) {
     if (!dateStr) return null;
+
+    // 逗号分隔的多日期: "2026-05-09, 2026-05-10, 2026-05-16"
+    // 取最早为 startDate、最晚为 endDate，便于地图绿/蓝/红判定
+    if (dateStr.includes(',')) {
+        const dates = dateStr.split(',')
+            .map(s => s.trim())
+            .filter(Boolean)
+            .map(part => {
+                const seg = part.split('-').map(Number);
+                let y, m, d;
+                if (seg.length === 3) [y, m, d] = seg;
+                else if (seg.length === 2) { m = seg[0]; d = seg[1]; y = new Date().getFullYear(); }
+                else return null;
+                if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
+                const dt = new Date(y, m - 1, d);
+                if (dt.getMonth() !== m - 1 || dt.getDate() !== d) return null;
+                return dt;
+            })
+            .filter(Boolean);
+
+        if (dates.length === 0) return null;
+        return {
+            startDate: new Date(Math.min(...dates)),
+            endDate: new Date(Math.max(...dates))
+        };
+    }
+
     const dateRange = dateStr.split('至');
     const startDateStr = dateRange[0].trim();
     const endDateStr = dateRange[1] ? dateRange[1].trim() : startDateStr;
@@ -628,10 +655,8 @@ function initChart() {
                         showStationSelector(items);
                     } else if (items.length === 1) {
                         const item = items[0];
-                        const dateInfo = parseDate(item.date);
-                        const hasValidDate = dateInfo !== null;
 
-                        if (!hasValidDate) {
+                        if (!hasValidDate(item.date)) {
                             alert(i18nInstance
                                 ? i18nInstance.t('map.pending.noJump') || '该站点信息待定，敬请期待...'
                                 : '该站点信息待定，敬请期待...');
@@ -643,6 +668,14 @@ function initChart() {
             });
         }
     }
+}
+
+// ==================== 统一日期有效性判断 ====================
+function hasValidDate(dateStr) {
+    const dateInfo = parseDate(dateStr);
+    if (dateInfo === null) return false;
+    if (Array.isArray(dateInfo)) return dateInfo.length > 0;
+    return true;
 }
 
 function showStationSelector(items) {

@@ -156,11 +156,47 @@ document.addEventListener('i18nReady', () => {
         loadMarkdownTab(btnAbout, 'data/about.md', 'loading.about')
     );
 
-    // 解析日期字符串，处理多种格式
+    // ==================== 日期解析（兼容三种格式） ====================
     function parseDate(dateStr) {
         if (!dateStr) return null;
 
-        // 处理"2025-11-29"或"2025-11-29 至 2025-12-01"格式
+        // 逗号分隔的多日期: "2026-05-09, 2026-05-10, 2026-05-16"
+        // 取最早为 startDate、最晚为 endDate，便于地图绿/蓝/红判定
+        if (dateStr.includes(',')) {
+            const dates = dateStr.split(',')
+                .map(s => s.trim())
+                .filter(Boolean)
+                .map(part => {
+                    const seg = part.split('-').map(Number);
+                    let y, m, d;
+                    if (seg.length === 3) {
+                        [y, m, d] = seg;
+                    } else if (seg.length === 2) {
+                        m = seg[0];
+                        d = seg[1];
+                        y = new Date().getFullYear();
+                    } else {
+                        return null;
+                    }
+                    if (isNaN(y) || isNaN(m) || isNaN(d)) {
+                        return null;
+                    }
+                    const dt = new Date(y, m - 1, d);
+                    if (dt.getMonth() !== m - 1 || dt.getDate() !== d) {
+                        return null;
+                    }
+                    return dt;
+                })
+                .filter(Boolean);
+
+            if (dates.length === 0) return null;
+            return {
+                startDate: new Date(Math.min(...dates)),
+                endDate: new Date(Math.max(...dates))
+            };
+        }
+
+        // 2. "至" 分隔的日期范围 / 单个日期: "2025-11-29 至 2025-12-01"
         const dateRange = dateStr.split('至');
         const startDateStr = dateRange[0].trim();
         const endDateStr = dateRange[1] ? dateRange[1].trim() : startDateStr;
