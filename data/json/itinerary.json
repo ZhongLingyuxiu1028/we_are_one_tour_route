@@ -130,7 +130,7 @@
     "country": "China"
   },
   {
-    "name": "#14 重庆站 Chongqing（未官宣）",
+    "name": "#14 重庆站 Chongqing",
     "location": "重庆华熙生物·润百颜ECM中心",
     "setlist-name": "chongqing",
     "date": "2026-10-11",
@@ -138,5 +138,35 @@
     "city": "重庆市",
     "province": "重庆市",
     "country": "China"
+  },
+  {
+    "name": "#15 南京站 Nanjing",
+    "location": "南京青奥体育公园体育馆",
+    "setlist-name": "nanjing",
+    "date": "2026-11-14",
+    "coord": [118.663643, 32.049184],
+    "city": "南京市",
+    "province": "江苏省",
+    "country": "China"
+  },
+  {
+    "name": "#16 拉斯维加斯站 Las Vegas",
+    "location": "Live at Park MGM",
+    "setlist-name": "lasvegas",
+    "date": "2026-12-19, 2026-12-20",
+    "coord": [-115.1797, 36.1078],
+    "city": "Las Vegas",
+    "province": "",
+    "country": "America"
+  },
+  {
+    "name": "#17 北加州站 Northern California",
+    "location": "The Venue at Thunder Valley",
+    "setlist-name": "california",
+    "date": "2026-12-26, 2026-12-27",
+    "coord": [-121.3136, 38.8405],
+    "city": "California",
+    "province": "",
+    "country": "America"
   }
 ]

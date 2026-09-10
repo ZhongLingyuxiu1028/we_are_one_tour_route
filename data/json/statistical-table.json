@@ -2,16 +2,16 @@
   {
     "area": "china",
     "labelKey": "stats.chinaCount",
-    "city": 12,
-    "unlock": 22,
+    "city": 13,
+    "unlock": 23,
     "complete": 21,
     "completeCity": 11
   },
   {
     "area": "world",
     "labelKey": "stats.worldCount",
-    "city": 2,
-    "unlock": 3,
+    "city": 4,
+    "unlock": 7,
     "complete": 3,
     "completeCity": 2
   }
