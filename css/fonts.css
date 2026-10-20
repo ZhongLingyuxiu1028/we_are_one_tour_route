@@ -1,0 +1,25 @@
+/* css/fonts.css · 本地字体子集（按站点实际用字裁剪，约 1.5MB 总量） */
+
+@font-face {
+    font-family: "Noto Serif SC";
+    src: url("../fonts/NotoSerifSC.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans SC";
+    src: url("../fonts/NotoSansSC.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}

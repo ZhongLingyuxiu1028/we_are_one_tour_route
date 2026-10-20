@@ -9,90 +9,187 @@
     <script src="lib/china.js"></script>
     <script src="lib/world.js"></script>
     <script src="lib/marked.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fonts.css?v=20261020">
+    <link rel="stylesheet" href="css/tokens.css?v=20261020">
+    <link rel="stylesheet" href="css/style.css?v=20261020">
     <link rel="stylesheet" href="css/simple-lightbox.min.css">
-    <link rel="stylesheet" href="css/statistical-table.css">
+    <link rel="stylesheet" href="css/statistical-table.css?v=20261020">
     <link rel="stylesheet" href="css/back-to-top.css">
-
-    <style>
-        /* 基础样式已在外部CSS文件中定义 */
-    </style>
 </head>
 <body>
-<!-- GitHub 链接 -->
-<div>
-    <a href="https://github.com/ZhongLingyuxiu1028/we_are_one_tour_route/" target="_blank" style="display:inline-block; margin-left:8px; vertical-align: middle;">
-        <img src="https://github.com/favicon.ico" alt="GitHub" width="20" height="20">
-    </a>
-</div>
-<!-- 语言切换器（固定在右上角） -->
-<div id="lang-selector">
-    <span data-i18n="lang"></span>
-    <select id="lang-switch">
-        <option value="zh-CN">🇨🇳 简体中文</option>
-        <option value="zh-HK">🇨🇳 繁體中文</option>
-        <option value="en">🇺🇸 English</option>
-    </select>
-</div>
 
-<h2 style="text-align: center;" data-i18n="title">林子祥 & 叶蒨文 ❤️ 白头到老演唱会</h2>
-<h4 style="text-align: center;">- George Lam & Sally Yeh ❤️ We Are One -</h4>
+<header class="topbar">
+    <div class="topbar-inner">
+        <a class="brand" href="#top">Lam<span class="amp">&amp;</span>Sally · We Are One</a>
+        <nav class="nav">
+            <a href="#map" data-scroll="#map-section" data-i18n="nav.map">巡演足迹</a>
+            <a href="#songlist" data-goto-tab="btnSonglist" data-i18n="btn.songlist">🎧 预习曲目</a>
+            <a href="#setlist" data-goto-tab="btnSetlist" data-i18n="btn.setlist">🎤 演出歌单</a>
+            <a href="#bonus" data-goto-tab="btnBonus" data-i18n="btn.bonus">🎊 彩蛋环节</a>
+            <a href="#credits" data-goto-tab="btnCredits" data-i18n="btn.credits">🙏 致谢名单</a>
+            <a href="#about" data-goto-tab="btnAbout" data-i18n="btn.about">💬 关于本站</a>
+        </nav>
+        <div id="lang-selector">
+            <span data-i18n="lang"></span>
+            <select id="lang-switch">
+                <option value="zh-CN">🇨🇳 简体中文</option>
+                <option value="zh-HK">🇨🇳 繁體中文</option>
+                <option value="en">🇺🇸 English</option>
+            </select>
+        </div>
+        <a class="gh" href="https://github.com/ZhongLingyuxiu1028/we_are_one_tour_route/" target="_blank" title="GitHub">
+            <img src="img/github-favicon.ico" alt="GitHub" width="20" height="20">
+        </a>
+    </div>
+</header>
 
-<!-- 场次统计表格 -->
-<table class="tour-stats">
-    <thead>
-    <tr>
-        <th data-i18n="stats.area">🗺️ 区域</th>
-        <th data-i18n="stats.unlockCity">🏙️ 解锁城市</th>
-        <th data-i18n="stats.unlockCount">🔓 解锁场次</th>
-        <th data-i18n="stats.completeCount">✅ 完成场次（城市）</th>
-        <th data-i18n="stats.pendingCount">📍 待完成场次（城市）</th>
-    </tr>
-    </thead>
-    <!-- 统计表格 statistical-table.js -->
-    <!-- 统计数据 statistical-table.json -->
-    <tbody id="stats-body">
-    <tr class="total-row">
-        <td data-i18n="stats.total">合计</td>
-        <td class="total-cell"></td>
-        <td class="total-cell"></td>
-        <td class="total-cell"></td>
-        <td class="total-cell"></td>
-    </tr>
-    </tbody>
-</table>
+<section class="hero" id="top">
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+    <div class="wrap hero-inner">
+        <div class="eyebrow">George Lam &amp; Sally Yeh · World Tour 2025–2026</div>
+        <div class="hero-title">
+            <img class="t-angel-lam" src="img/angels/lam-angel.png" alt="Lam">
+            <h1 data-i18n="hero.title">白头到老</h1>
+            <img class="t-angel-sally" src="img/angels/sally-angel.png" alt="Sally">
+        </div>
+        <div class="sub" data-i18n="hero.sub">We Are One · 世界巡回演唱会 · 野生观察站</div>
+        <p class="slogan" data-i18n="setlist.slogan">「乐迷用人生参与歌者的音乐，歌者的音乐构筑乐迷的人生。」</p>
+        <div class="cta">
+            <a class="btn btn-lam" href="#map" data-scroll="#map-section" data-i18n="hero.cta.map">查看巡演足迹 ↓</a>
+            <a class="btn btn-sally" href="#songlist" data-goto-tab="btnSonglist" data-i18n="hero.cta.songlist">开始预习曲目</a>
+        </div>
+    </div>
+</section>
 
-<div class="controls">
-    <button id="btnChina" data-i18n="btn.china">🇨🇳 中国地图</button>
-    <button id="btnWorld" data-i18n="btn.world">🌏️ 世界地图</button>
-</div>
+<section id="stats">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <div class="kicker">TOUR PROGRESS</div>
+            <h2 data-i18n="sec.stats">巡演进度看板</h2>
+        </div>
+        <div class="stats-grid" id="stats-dashboard"></div>
+        <div class="progress-wrap reveal">
+            <div class="progress-meta">
+                <span data-i18n="stats.progress">总进度</span>
+                <b data-progress-label>0%</b>
+            </div>
+            <div class="progress"><div class="bar" data-progress="0"></div></div>
+        </div>
+        <details class="stats-details">
+            <summary data-i18n="stats.detail">查看区域明细</summary>
+            <table class="tour-stats">
+                <thead>
+                <tr>
+                    <th data-i18n="stats.area">🗺️ 区域</th>
+                    <th data-i18n="stats.unlockCity">🏙️ 解锁城市</th>
+                    <th data-i18n="stats.unlockCount">🔓 解锁场次</th>
+                    <th data-i18n="stats.completeCount">✅ 完成场次（城市）</th>
+                    <th data-i18n="stats.pendingCount">📍 待完成场次（城市）</th>
+                </tr>
+                </thead>
+                <tbody id="stats-body">
+                <tr class="total-row">
+                    <td data-i18n="stats.total">合计</td>
+                    <td class="total-cell"></td>
+                    <td class="total-cell"></td>
+                    <td class="total-cell"></td>
+                    <td class="total-cell"></td>
+                </tr>
+                </tbody>
+            </table>
+        </details>
+    </div>
+</section>
 
-<div class="controls" style="margin-top: 8px;">
-    <!--<button id="btnDiary" data-i18n="btn.diary">📗 巡演日程</button>-->
-    <button id="btnSonglist" data-i18n="btn.songlist">🎧 预习曲目</button>
-    <button id="btnSetlist" data-i18n="btn.setlist">🎤 演出歌单</button>
-    <button id="btnCredits" data-i18n="btn.credits">🙏 致谢名单</button>
-    <button id="btnBonus" data-i18n="btn.bonus">🎊 彩蛋环节</button>
-    <button id="btnAbout" data-i18n="btn.about">💬 关于本站</button>
-</div>
+<section id="map-section">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <div class="kicker">TOUR FOOTSTEPS</div>
+            <h2 data-i18n="sec.map">巡演足迹</h2>
+        </div>
+        <div class="map-card reveal">
+            <div class="map-tools">
+                <div class="legend">
+                    <span><i style="background: var(--status-done)"></i><em data-i18n="map.legend.finished">已结束</em></span>
+                    <span><i style="background: var(--status-doing)"></i><em data-i18n="map.legend.ongoing">进行中</em></span>
+                    <span><i style="background: var(--status-todo)"></i><em data-i18n="map.legend.upcoming">未开始</em></span>
+                    <span><i style="background: var(--status-tbd)"></i><em data-i18n="map.legend.pending">待定</em></span>
+                </div>
+                <div class="seg controls">
+                    <button id="btnChina" data-i18n="btn.china">🇨🇳 中国地图</button>
+                    <button id="btnWorld" data-i18n="btn.world">🌏️ 世界地图</button>
+                </div>
+            </div>
+            <div id="map"></div>
+        </div>
+    </div>
+</section>
 
-<br/>
-<div id="map"></div>
-<div id="content"></div>
+<section id="hall">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <div class="kicker">EXHIBITION HALLS</div>
+            <h2 data-i18n="sec.hall">内容展厅</h2>
+        </div>
+        <div class="tabs-bar controls">
+            <!--<button id="btnDiary" data-i18n="btn.diary">📗 巡演日程</button>-->
+            <button id="btnSonglist" data-i18n="btn.songlist">🎧 预习曲目</button>
+            <button id="btnSetlist" data-i18n="btn.setlist">🎤 演出歌单</button>
+            <button id="btnCredits" data-i18n="btn.credits">🙏 致谢名单</button>
+            <button id="btnBonus" data-i18n="btn.bonus">🎊 彩蛋环节</button>
+            <button id="btnAbout" data-i18n="btn.about">💬 关于本站</button>
+        </div>
+        <div id="content"></div>
+    </div>
+</section>
 
-<footer style="text-align: center; margin-top: 20px; color: #888; font-size: 14px;">
-    © 2025-2026 George Lam & Sally Yeh - We Are One Tour Route | Design By Michelle Chung
+<footer>
+    <hr class="angel-line">
+    <div class="wrap foot-grid">
+        <div>
+            <h4>Lam &amp; Sally · We Are One</h4>
+            <p data-i18n="footer.desc">林子祥 &amp; 叶蒨文《白头到老》世界巡回演唱会 · 野生观察站</p>
+        </div>
+        <div>
+            <h4 data-i18n="footer.quick">快速抵达</h4>
+            <a href="#map" data-scroll="#map-section" data-i18n="nav.map">巡演足迹</a>
+            <a href="#songlist" data-goto-tab="btnSonglist" data-i18n="btn.songlist">🎧 预习曲目</a>
+            <a href="#setlist" data-goto-tab="btnSetlist" data-i18n="btn.setlist">🎤 演出歌单</a>
+        </div>
+        <div>
+            <h4 data-i18n="footer.more">更多</h4>
+            <a href="#bonus" data-goto-tab="btnBonus" data-i18n="btn.bonus">🎊 彩蛋环节</a>
+            <a href="#credits" data-goto-tab="btnCredits" data-i18n="btn.credits">🙏 致谢名单</a>
+            <a href="https://github.com/ZhongLingyuxiu1028/we_are_one_tour_route/" target="_blank">GitHub</a>
+        </div>
+    </div>
+    <div class="copyright"><img src="img/angels/lam-angel.png" alt="Lam">© 2025-2026 George Lam &amp; Sally Yeh - We Are One Tour Route | Design By Michelle Chung<img src="img/angels/sally-angel.png" alt="Sally"></div>
 </footer>
 
-<!-- 图片预览 -->
 <script src="lib/simple-lightbox.min.js"></script>
 
 <script src="js/i18n.js"></script>
-<script src="js/app.js"></script>
-<script src="js/tabs.js"></script>
+<script src="js/app.js?v=20261020"></script>
+<script src="js/tabs.js?v=20261020"></script>
 <script src="js/emoji-effect.js"></script>
-<script src="js/statistical-table.js"></script>
-<script src="js/back-to-top.js"></script>
+<script src="js/statistical-table.js?v=20261020"></script>
+<script src="js/back-to-top.js?v=20261020"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+            if (en.isIntersecting) {
+                en.target.classList.add('in');
+                io.unobserve(en.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+});
+</script>
 
 <button id="backToTopBtn" class="back-to-top">⬆</button>
 </body>

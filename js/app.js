@@ -56,12 +56,13 @@ function showSetlistForItem(item) {
     // 缓存当前歌单项目
     currentSetlistItem = item;
 
-    // 隐藏地图，显示内容区域
-    const mapDiv = document.getElementById('map');
+    // 显示内容区域并滚动到展厅（地图常驻显示）
     const contentDiv = document.getElementById('content');
-    if (mapDiv && contentDiv) {
-        mapDiv.style.display = 'none';
+    if (contentDiv) {
         contentDiv.style.display = 'block';
+        contentDiv.classList.add('show');
+        const hall = document.getElementById('hall');
+        if (hall) hall.scrollIntoView({ behavior: 'smooth' });
     }
 
     // 激活歌单按钮
@@ -103,7 +104,7 @@ function renderSetlistForItem(item) {
 
     contentEl.innerHTML = `
         <div class="back-to-list">
-            <button onclick="goBackToMap()" style="margin-bottom: 16px; padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer;">← ${backText}</button>
+            <button onclick="goBackToMap()">← ${backText}</button>
         </div>
         <div class="city-info">
             <h3>🎤 ${item.name}</h3>
@@ -156,6 +157,7 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
             }
 
             contentEl.innerHTML = `<div class="content-body">${html}</div>`;
+            if (window.enhanceCompareTables) window.enhanceCompareTables(contentEl);
             if (!isLanguageUpdate) {
                 console.log('HTML文件加载成功:', response.url);
             }
@@ -184,6 +186,7 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
 
                 const html = marked.parse(text);
                 contentEl.innerHTML = `<div class="content-body">${html}</div>`;
+                if (window.enhanceCompareTables) window.enhanceCompareTables(contentEl);
 
                 if (!isLanguageUpdate) {
                     console.log('MD文件加载成功:', mdResponse.url);
@@ -233,12 +236,14 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
 
 // 返回地图函数
 function goBackToMap() {
-    const mapDiv = document.getElementById('map');
     const contentDiv = document.getElementById('content');
-    if (mapDiv && contentDiv) {
-        mapDiv.style.display = 'block';
+    if (contentDiv) {
         contentDiv.style.display = 'none';
+        contentDiv.classList.remove('show');
     }
+
+    const mapSection = document.getElementById('map-section');
+    if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth' });
 
     // 恢复地图按钮的激活状态，保持之前选择的地图类型
     const btnChina = document.getElementById('btnChina');
@@ -420,17 +425,17 @@ function renderMap(mapType, fullItinerary) {
 
         let color;
         if (item.name.includes('未官宣')) {
-            color = '#9E9E9E';
+            color = '#A8B8B0';
         } else if (hasValidDate) {
             if (dateInfo.endDate < today) {
-                color = '#4CAF50';
+                color = '#43A047';
             } else if (dateInfo.startDate <= today && today <= dateInfo.endDate) {
-                color = '#2196F3';
+                color = '#2E9BE6';
             } else {
-                color = '#F44336';
+                color = '#F5A8C9';
             }
         } else {
-            color = '#9E9E9E';
+            color = '#A8B8B0';
         }
 
         // 只显示城市名，避免编号重叠
@@ -446,7 +451,7 @@ function renderMap(mapType, fullItinerary) {
                 show: true,
                 position: 'right',
                 formatter: '{@[2]}',
-                color: '#333',
+                color: '#22333B',
                 fontSize: mapType === 'china' ? 12 : 10
             }
         };
@@ -470,7 +475,7 @@ function renderMap(mapType, fullItinerary) {
         );
         regions = Array.from(provinces).map(name => ({
             name: name,
-            itemStyle: {areaColor: '#BBDEFB', borderColor: '#1976D2'}
+            itemStyle: {areaColor: '#CDE9D2', borderColor: '#43A047'}
         }));
     } else {
         const countries = new Set(
@@ -478,7 +483,7 @@ function renderMap(mapType, fullItinerary) {
         );
         regions = Array.from(countries).map(name => ({
             name: name,
-            itemStyle: {areaColor: '#BBDEFB', borderColor: '#1976D2'}
+            itemStyle: {areaColor: '#CDE9D2', borderColor: '#43A047'}
         }));
     }
 
@@ -597,7 +602,7 @@ function renderMap(mapType, fullItinerary) {
             zoom: finalZoom,
             center: finalCenter,
             label: { show: false },
-            itemStyle: { areaColor: '#f0f9ff', borderColor: '#999' },
+            itemStyle: { areaColor: '#EAF5EC', borderColor: '#B9DCC4' },
             emphasis: { label: { show: true } },
             regions: regions
         },
@@ -607,7 +612,7 @@ function renderMap(mapType, fullItinerary) {
                 coordinateSystem: 'geo',
                 data: lines,
                 lineStyle: {
-                    color: '#2196F3',
+                    color: '#2E9BE6',
                     width: 3,
                     opacity: 0.8,
                     curveness: 0.2

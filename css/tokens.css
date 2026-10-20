@@ -1,0 +1,27 @@
+:root {
+    --bg: #F4FAFC;
+    --surface: #FFFFFF;
+    --tint-green: #EAF5EC;
+    --tint-blue: #E8F4FD;
+    --sky: #2E9BE6;
+    --sky-deep: #1B7AC2;
+    --leaf: #43A047;
+    --leaf-deep: #2E7D32;
+    --angel-blue: #7EC8F2;
+    --angel-pink: #F5A8C9;
+    --sun: #F6C453;
+    --ink: #22333B;
+    --ink-2: #5B6B73;
+    --line: #DCEAE4;
+    --status-done: #43A047;
+    --status-doing: #2E9BE6;
+    --status-todo: #F5A8C9;
+    --status-tbd: #A8B8B0;
+    --serif: "Noto Serif SC", "Source Han Serif SC", serif;
+    --sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --radius-s: 6px;
+    --radius-m: 12px;
+    --radius-l: 20px;
+    --shadow-card: 0 2px 12px rgba(27, 122, 194, .06);
+    --shadow-hover: 0 8px 24px rgba(27, 122, 194, .14);
+}

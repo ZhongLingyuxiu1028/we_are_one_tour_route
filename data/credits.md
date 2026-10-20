@@ -20,20 +20,20 @@
 
 
 **Rolling 视频传送门**：<br/>
-- <a href="https://www.bilibili.com/video/BV1DUqsBjE72" target="_blank" rel="noopener noreferrer">香港站 | 致谢名单（03:04:53开始，感谢 BV1DUqsBjE72@煎郭传奇）</a>
+- <a href="https://www.bilibili.com/video/BV1DUqsBjE72" target="_blank" rel="noopener noreferrer">香港站 | 致谢名单（03:04:53，感谢 BV1DUqsBjE72@煎郭传奇）</a>
 - <a href="https://www.bilibili.com/video/BV1DWCSBAEZm" target="_blank" rel="noopener noreferrer">佛山站 | 致谢名单</a>
 - 成都站 | 致谢名单（暂缺）
 - <a href="https://www.bilibili.com/video/BV1m5BMBbEEZ" target="_blank" rel="noopener noreferrer">武汉站 | 致谢名单（置顶评论为文字版本）</a>
 - <a href="https://www.bilibili.com/video/BV1uZzrBAEfH" target="_blank" rel="noopener noreferrer">杭州站 | 致谢名单（置顶评论为文字版本）</a>
 - <a href="https://www.bilibili.com/video/BV1NGfoBmEdb" target="_blank" rel="noopener noreferrer">澳门站 | 致谢名单（置顶评论为文字版本）</a>
 - 吉隆坡站 | 致谢名单（暂缺）
-- <a href="https://www.bilibili.com/video/BV1oTSXBwELA/?p=11" target="_blank" rel="noopener noreferrer">新加坡站 | 致谢名单（05:10开始，感谢 BV1oTSXBwELA@JesseJW）</a>
-- <a href="https://www.bilibili.com/video/BV1zMofB3EXH" target="_blank" rel="noopener noreferrer">西安站 | 致谢名单（35:55开始，感谢 BV1zMofB3EXH@大豪傑物語	）</a>
+- <a href="https://www.bilibili.com/video/BV1oTSXBwELA/?p=11" target="_blank" rel="noopener noreferrer">新加坡站 | 致谢名单（05:10，感谢 BV1oTSXBwELA@JesseJW）</a>
+- <a href="https://www.bilibili.com/video/BV1zMofB3EXH" target="_blank" rel="noopener noreferrer">西安站 | 致谢名单（35:55，感谢 BV1zMofB3EXH@大豪傑物語	）</a>
 - <a href="https://www.bilibili.com/video/BV1Na5T6vEY3/?p=2" target="_blank" rel="noopener noreferrer">广州站 | 致谢名单（置顶评论为文字版本）</a>
 - 上海站 | 致谢名单（已更新文字版）
 - 北京站 | 致谢名单（已更新文字版）
 - 深圳站 | 致谢名单（已更新文字版）
-- <a href="https://www.bilibili.com/video/BV1nXpH6dEHs" target="_blank" rel="noopener noreferrer">重庆站 | 致谢名单（02:47:47开始，感谢 BV1nXpH6dEHs@这是个水印）</a>
+- <a href="https://www.bilibili.com/video/BV1nXpH6dEHs" target="_blank" rel="noopener noreferrer">重庆站 | 致谢名单（02:47:47，感谢 BV1nXpH6dEHs@这是个水印）</a>
 
 
 [//]: # (以下名单为备份... )
