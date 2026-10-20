@@ -1,5 +1,19 @@
 // js/tabs.js
 
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+if (location.hash === '#map') {
+    history.replaceState(null, '', location.pathname + location.search);
+}
+
+window.addEventListener('load', () => {
+    if (!location.hash || location.hash === '#map') {
+        window.scrollTo(0, 0);
+    }
+});
+
 // 全局变量：记录当前激活的非地图 tab 按钮
 window.activeTabButton = null;
 
@@ -752,9 +766,8 @@ document.addEventListener('i18nReady', () => {
     if (hashBtnId) {
         const btn = document.getElementById(hashBtnId);
         if (btn) btn.click();
-    } else if (initialHash === 'map') {
-        const mapSection = document.getElementById('map-section');
-        if (mapSection) mapSection.scrollIntoView();
+    } else {
+        window.scrollTo(0, 0);
     }
 
 });
