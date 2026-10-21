@@ -572,6 +572,54 @@ footer .angel-line {
 .solo.lam i { background: var(--angel-blue); }
 .solo.sally i { background: var(--angel-pink); }
 
+/* ==================== 预习歌单入口（预习曲目） ==================== */
+.playlist-list { display: grid; gap: 12px; margin: 14px 0; }
+.playlist-item { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.playlist-link {
+    --pl: var(--sky);
+    flex: 1 1 260px; min-width: 0;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-m); padding: 10px 14px;
+    color: var(--ink); font-size: 14px;
+    box-shadow: var(--shadow-card);
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.playlist-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--pl); text-decoration: none; }
+.playlist-link .pl-tag {
+    flex: none; font-weight: 700; font-size: 12px; color: #fff;
+    background: var(--pl); padding: 3px 10px; border-radius: 999px; letter-spacing: .05em;
+    min-width: 68px; text-align: center; box-sizing: border-box;
+}
+.playlist-link .pl-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.playlist-link .pl-note {
+    flex: none; font-size: 12px; color: var(--ink-2);
+    background: var(--bg); border: 1px solid var(--line);
+    border-radius: 999px; padding: 2px 8px;
+}
+.playlist-link .pl-go { flex: none; color: var(--ink-2); font-weight: 700; transition: color .2s; }
+.playlist-link:hover .pl-go { color: var(--pl); }
+.playlist-link.pl-163 { --pl: #C20C0C; }
+.playlist-link.pl-qq { --pl: #2BB56B; }
+.playlist-link.pl-kg { --pl: #0CA6E9; }
+.copy-btn {
+    flex: none; cursor: pointer; font-family: var(--sans);
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--sky-deep);
+    background: var(--tint-blue); border: 1px dashed var(--sky);
+    border-radius: 999px; padding: 9px 16px;
+    transition: background .2s, color .2s, border-color .2s, transform .2s;
+}
+.copy-btn:hover { background: var(--sky); border-color: var(--sky); color: #fff; transform: translateY(-1px); }
+.copy-btn:active { transform: scale(.96); }
+.copy-btn.copied { background: var(--leaf); border: 1px solid var(--leaf); color: #fff; }
+.playlist-hint { display: block; color: var(--ink-2); font-size: 12px; margin-top: 10px; }
+@media (max-width: 640px) {
+    .playlist-item { flex-direction: column; align-items: stretch; }
+    .playlist-link { flex-basis: auto; }
+    .copy-btn { justify-content: center; }
+}
+
 /* ==================== 城市卡片选择器（演出歌单） ==================== */
 .filter-chips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
 .chip {

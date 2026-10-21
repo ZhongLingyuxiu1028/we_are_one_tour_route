@@ -587,6 +587,21 @@ document.addEventListener('i18nReady', () => {
         const body = contentEl.querySelector('.content-body');
         if (!body) return;
 
+        // 复制歌单名按钮：写入剪贴板并给出「已复制」反馈
+        body.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const text = btn.getAttribute('data-copy');
+                if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+                const original = btn.innerHTML;
+                btn.classList.add('copied');
+                btn.innerHTML = i18nInstance ? i18nInstance.t('btn.copied') : '已复制 ✓';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = original;
+                }, 1500);
+            });
+        });
+
         const heads = Array.from(body.querySelectorAll('h4'))
             .filter(h => /^(Chapter|Encore)/i.test(h.textContent.trim()));
         const cards = [];
