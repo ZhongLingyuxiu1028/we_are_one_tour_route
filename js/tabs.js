@@ -861,16 +861,28 @@ document.addEventListener('i18nReady', () => {
         foot.appendChild(copyBtn);
         drawer.appendChild(foot);
 
+        function lockScroll() {
+            // 锁定背景页面滚动，并补偿滚动条消失引起的布局跳动
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.body.style.overflow = 'hidden';
+            if (scrollbarWidth > 0) document.body.style.paddingRight = scrollbarWidth + 'px';
+        }
+        function unlockScroll() {
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        }
         function close() {
             mask.remove();
             drawer.remove();
             document.removeEventListener('keydown', onKey);
+            unlockScroll();
         }
         function onKey(e) { if (e.key === 'Escape') close(); }
         mask.addEventListener('click', close);
         closeBtn.addEventListener('click', close);
         document.addEventListener('keydown', onKey);
 
+        lockScroll();
         document.body.appendChild(mask);
         document.body.appendChild(drawer);
     }

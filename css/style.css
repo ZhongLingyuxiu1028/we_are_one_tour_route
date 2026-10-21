@@ -485,6 +485,7 @@ section { padding: 72px 0; }
 .drawer-close:hover { background: var(--tint-blue); color: var(--sky-deep); }
 .drawer-body {
     flex: 1; overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 24px 28px;
     line-height: 2; color: var(--ink-2); font-size: 15px;
 }
