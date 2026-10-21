@@ -1,5 +1,5 @@
 > **Lam：** <br/>
-> I was as wrong as I cloud be <br/>
+> I was as wrong as I could be <br/>
 > 我错得不能再错 <br/>
 > to let you get away from me <br/>
 > 竟让你离我而去 <br/>
