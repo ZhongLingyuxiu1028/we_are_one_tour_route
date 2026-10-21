@@ -54,6 +54,7 @@ class I18n {
     async setLang(lang) {
         await this.loadTranslations(lang);
         this.applyTranslations();
+        this.updateLangMenu();
 
         // ✅ 关键新增：语言切换完成后，触发自定义事件
         document.dispatchEvent(new CustomEvent('i18n:langChanged', {
@@ -64,6 +65,10 @@ class I18n {
         if (typeof window.reloadActiveTab === 'function') {
             window.reloadActiveTab();
         }
+
+        // 切换语言后回到页面顶部（覆盖 langChanged 链路中的地图/展厅滚动）
+        if (window.ScrollSpy) window.ScrollSpy.suspend();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     getSavedLang() {
@@ -71,6 +76,7 @@ class I18n {
     }
 
     setupLangSwitch() {
+        // 兼容原生 select（若存在）
         const select = document.getElementById('lang-switch');
         if (select) {
             select.value = this.currentLang;
@@ -78,6 +84,28 @@ class I18n {
                 this.setLang(e.target.value);
             });
         }
+        // 顶栏自定义语言下拉
+        this.langMenuMap = {
+            'zh-CN': '🇨🇳 简体中文',
+            'zh-HK': '🇨🇳 繁體中文',
+            'en': '🇺🇸 English'
+        };
+        document.querySelectorAll('#langMenu [data-lang]').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.setLang(el.getAttribute('data-lang'));
+            });
+        });
+        this.updateLangMenu();
+    }
+
+    // 同步语言下拉按钮文案与当前语言高亮
+    updateLangMenu() {
+        const cur = document.getElementById('lang-current');
+        if (cur) cur.textContent = this.langMenuMap[this.currentLang] || this.currentLang;
+        document.querySelectorAll('#langMenu [data-lang]').forEach(el => {
+            el.classList.toggle('active', el.getAttribute('data-lang') === this.currentLang);
+        });
     }
 }
 

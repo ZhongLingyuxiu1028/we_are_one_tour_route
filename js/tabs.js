@@ -20,6 +20,8 @@ window.activeTabButton = null;
 // 全局函数：重新加载当前激活的 tab（用于语言切换后刷新内容）
 window.reloadActiveTab = function () {
     if (window.activeTabButton) {
+        // 语言切换后由 setLang 统一控制滚动位置，重载内容时不滚到展厅
+        window.__skipContentScroll = true;
         // 使用 setTimeout 确保 DOM 和 i18n 状态稳定后再触发
         setTimeout(() => {
             window.activeTabButton.click();
@@ -59,10 +61,9 @@ document.addEventListener('i18nReady', () => {
         allButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
 
-        document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
         const navLink = document.querySelector(`.nav a[data-goto-tab="${button.id}"]`)
             || (TAB_HASH[button.id] === 'map' ? document.querySelector('.nav a[data-scroll="#map-section"]') : null);
-        if (navLink) navLink.classList.add('active');
+        setNavActive(navLink);
 
         const hashName = TAB_HASH[button.id];
         if (hashName) history.replaceState(null, '', '#' + hashName);
@@ -84,6 +85,11 @@ document.addEventListener('i18nReady', () => {
 
         const hall = document.getElementById('hall');
         if (hall) {
+            // 语言切换重载：跳过滚动，保持当前视图位置
+            if (window.__skipContentScroll) {
+                window.__skipContentScroll = false;
+                return;
+            }
             suspendSpy();
             hall.scrollIntoView({ behavior: 'smooth' });
         }
@@ -107,16 +113,43 @@ document.addEventListener('i18nReady', () => {
     document.querySelectorAll('[data-scroll]').forEach(el => {
         el.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.querySelector(el.getAttribute('data-scroll'));
+            const sel = el.getAttribute('data-scroll');
+            const target = document.querySelector(sel);
             if (target) {
                 suspendSpy();
                 target.scrollIntoView({ behavior: 'smooth' });
             }
-            document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-            const mapNav = document.querySelector('.nav a[data-scroll="#map-section"]');
-            if (mapNav) mapNav.classList.add('active');
-            history.replaceState(null, '', '#map');
+            setNavActive(document.querySelector(`.nav a[data-scroll="${sel}"]`));
+            history.replaceState(null, '', el.getAttribute('href') || '#map');
         });
+    });
+
+    // ==================== 顶栏下拉菜单（巡演探索 / 语言选择） ====================
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    const setDdOpen = (dd, open) => {
+        dd.classList.toggle('open', open);
+        const t = dd.querySelector('.nav-drop-toggle');
+        if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    navDropdowns.forEach(dd => {
+        const toggle = dd.querySelector('.nav-drop-toggle');
+        if (!toggle) return;
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const open = !dd.classList.contains('open');
+            navDropdowns.forEach(o => setDdOpen(o, o === dd && open));
+        });
+        dd.querySelectorAll('.nav-drop-menu a').forEach(a =>
+            a.addEventListener('click', () => setDdOpen(dd, false))
+        );
+    });
+    document.addEventListener('click', (e) => {
+        navDropdowns.forEach(dd => {
+            if (!dd.contains(e.target)) setDdOpen(dd, false);
+        });
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') navDropdowns.forEach(dd => setDdOpen(dd, false));
     });
 
     // 左上角标题：平滑回到页面顶部
@@ -138,7 +171,7 @@ document.addEventListener('i18nReady', () => {
     //  - 编程式平滑滚动期间挂起，滚动静止后恢复；用户滚轮/触摸/按键介入时立即恢复
     const spySections = [
         { id: 'top', hash: 'top' },
-        { id: 'stats', hash: 'stats' },
+        { id: 'stats', hash: 'stats', nav: '.nav a[data-scroll="#stats"]' },
         { id: 'map-section', hash: 'map', nav: '.nav a[data-scroll="#map-section"]' },
         { id: 'hall', hash: 'hall' }
     ].map(s => Object.assign(s, { el: document.getElementById(s.id) }));
@@ -151,12 +184,21 @@ document.addEventListener('i18nReady', () => {
         return !!contentEl && contentEl.style.display !== 'none';
     }
 
-    function syncNavActive(selector) {
-        document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-        if (selector) {
-            const el = document.querySelector(selector);
-            if (el) el.classList.add('active');
+    // 导航高亮：同步顶栏链接与「内容展厅」下拉父级状态
+    function setNavActive(el) {
+        document.querySelectorAll('.nav a, .nav-drop-toggle').forEach(n => n.classList.remove('active'));
+        if (el) {
+            el.classList.add('active');
+            const dd = el.closest('.nav-dropdown');
+            if (dd) {
+                const t = dd.querySelector('.nav-drop-toggle');
+                if (t) t.classList.add('active');
+            }
         }
+    }
+
+    function syncNavActive(selector) {
+        setNavActive(selector ? document.querySelector(selector) : null);
     }
 
     function updateHashFromScroll() {
