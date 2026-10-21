@@ -4,13 +4,18 @@
     right: 20px;
     bottom: 40px;
     z-index: 9999;
-    padding: 10px 14px;
-    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
     border: none;
     border-radius: 50%;
     background: #1976D2;
     color: #fff;
     cursor: pointer;
+    line-height: 1;
 
     /* 初始隐藏状态 */
     opacity: 0;
@@ -18,7 +23,14 @@
     pointer-events: none;
 
     /* 动画 */
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+}
+
+.back-to-top svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+    flex: none;
 }
 
 .back-to-top.show {

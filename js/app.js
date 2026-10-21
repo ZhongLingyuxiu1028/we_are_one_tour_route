@@ -62,7 +62,10 @@ function showSetlistForItem(item) {
         contentDiv.style.display = 'block';
         contentDiv.classList.add('show');
         const hall = document.getElementById('hall');
-        if (hall) hall.scrollIntoView({ behavior: 'smooth' });
+        if (hall) {
+            if (window.ScrollSpy) window.ScrollSpy.suspend();
+            hall.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 
     // 激活歌单按钮
@@ -243,7 +246,10 @@ function goBackToMap() {
     }
 
     const mapSection = document.getElementById('map-section');
-    if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth' });
+    if (mapSection) {
+        if (window.ScrollSpy) window.ScrollSpy.suspend();
+        mapSection.scrollIntoView({ behavior: 'smooth' });
+    }
 
     // 恢复地图按钮的激活状态，保持之前选择的地图类型
     const btnChina = document.getElementById('btnChina');

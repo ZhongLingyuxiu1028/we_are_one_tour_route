@@ -83,7 +83,10 @@ document.addEventListener('i18nReady', () => {
         contentEl.classList.add('show');
 
         const hall = document.getElementById('hall');
-        if (hall) hall.scrollIntoView({ behavior: 'smooth' });
+        if (hall) {
+            suspendSpy();
+            hall.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 
     // 先记录 URL hash，再执行默认激活（setActive 会改写 hash）
@@ -105,13 +108,119 @@ document.addEventListener('i18nReady', () => {
         el.addEventListener('click', (e) => {
             e.preventDefault();
             const target = document.querySelector(el.getAttribute('data-scroll'));
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
+            if (target) {
+                suspendSpy();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
             document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
             const mapNav = document.querySelector('.nav a[data-scroll="#map-section"]');
             if (mapNav) mapNav.classList.add('active');
             history.replaceState(null, '', '#map');
         });
     });
+
+    // 左上角标题：平滑回到页面顶部
+    const brand = document.querySelector('a.brand');
+    if (brand) {
+        brand.addEventListener('click', (e) => {
+            e.preventDefault();
+            suspendSpy();
+            history.replaceState(null, '', '#top');
+            syncNavActive(null);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ==================== 滚动监听（scroll-spy）：URL 锚点 / 导航高亮跟随滚动位置 ====================
+    // 规则：
+    //  - 命中板块 = 触发线（视口上部 35%）以上最后一个板块
+    //  - 位于地图板块 → #map；位于内容展厅且 Tab 打开 → 对应 Tab 锚点；其余 → 各自板块锚点
+    //  - 编程式平滑滚动期间挂起，滚动静止后恢复；用户滚轮/触摸/按键介入时立即恢复
+    const spySections = [
+        { id: 'top', hash: 'top' },
+        { id: 'stats', hash: 'stats' },
+        { id: 'map-section', hash: 'map', nav: '.nav a[data-scroll="#map-section"]' },
+        { id: 'hall', hash: 'hall' }
+    ].map(s => Object.assign(s, { el: document.getElementById(s.id) }));
+
+    let spySuspended = false;
+    let spySettleTimer = null;
+    let spyRafPending = false;
+
+    function isContentVisible() {
+        return !!contentEl && contentEl.style.display !== 'none';
+    }
+
+    function syncNavActive(selector) {
+        document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+        if (selector) {
+            const el = document.querySelector(selector);
+            if (el) el.classList.add('active');
+        }
+    }
+
+    function updateHashFromScroll() {
+        const line = window.innerHeight * 0.35;
+        let current = spySections[0];
+        for (const s of spySections) {
+            if (s.el && s.el.getBoundingClientRect().top <= line) current = s;
+        }
+
+        let hash = current.hash;
+        let navSelector = current.nav || null;
+
+        // 内容展厅内：锚点与导航高亮跟随当前激活的 Tab
+        if (current.id === 'hall' && isContentVisible()) {
+            const activeBtn = document.querySelector('.tabs-bar button.active');
+            const tabHash = activeBtn && TAB_HASH[activeBtn.id];
+            if (tabHash && tabHash !== 'map') {
+                hash = tabHash;
+                navSelector = `.nav a[data-goto-tab="${activeBtn.id}"]`;
+            }
+        }
+
+        if (('#' + hash) !== location.hash) {
+            history.replaceState(null, '', '#' + hash);
+        }
+        syncNavActive(navSelector);
+    }
+
+    function suspendSpy() {
+        spySuspended = true;
+        clearTimeout(spySettleTimer);
+        spySettleTimer = setTimeout(() => {
+            spySuspended = false;
+            updateHashFromScroll();
+        }, 150);
+    }
+
+    function onSpyScroll() {
+        if (spySuspended) {
+            // 编程式滚动进行中：滚动静止一小段时间后再恢复
+            clearTimeout(spySettleTimer);
+            spySettleTimer = setTimeout(() => {
+                spySuspended = false;
+                updateHashFromScroll();
+            }, 150);
+            return;
+        }
+        if (spyRafPending) return;
+        spyRafPending = true;
+        requestAnimationFrame(() => {
+            spyRafPending = false;
+            updateHashFromScroll();
+        });
+    }
+
+    window.addEventListener('scroll', onSpyScroll, { passive: true });
+    window.addEventListener('resize', () => {
+        if (!spySuspended) updateHashFromScroll();
+    }, { passive: true });
+    ['wheel', 'touchstart', 'keydown'].forEach(ev =>
+        window.addEventListener(ev, () => { spySuspended = false; }, { passive: true })
+    );
+
+    window.ScrollSpy = { suspend: suspendSpy, update: updateHashFromScroll };
 
     // === 地图按钮（不参与内容重载）===
     btnChina.addEventListener('click', () => {
@@ -766,8 +875,10 @@ document.addEventListener('i18nReady', () => {
     if (hashBtnId) {
         const btn = document.getElementById(hashBtnId);
         if (btn) btn.click();
+        // 滚动定位由 btn.click() 内部的 showContent 触发，锚点在滚动静止后由 scroll-spy 对齐
     } else {
         window.scrollTo(0, 0);
+        updateHashFromScroll();
     }
 
 });
