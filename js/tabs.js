@@ -487,6 +487,13 @@ document.addEventListener('i18nReady', () => {
             contentEl.querySelectorAll('.city-card').forEach(card => {
                 card.style.display = (f === 'all' || card.dataset.status === f) ? '' : 'none';
             });
+
+            // 当前选中的卡片在新筛选下不可见时，重置歌单详情为初始状态
+            const pickedCard = contentEl.querySelector('.city-card.picked');
+            if (pickedCard && pickedCard.style.display === 'none') {
+                pickedCard.classList.remove('picked');
+                songListContent.innerHTML = defaultHtml;
+            }
         });
 
         contentEl.querySelector('.city-grid').addEventListener('click', async (e) => {
