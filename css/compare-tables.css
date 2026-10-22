@@ -1,24 +1,42 @@
-/* compare-tables.css */
+/* =========================================================
+   舞台变化点对比表 · 与歌单表同风格
+   （发丝横线 + 细竖线 + 淡蓝表头 + 白/浅灰斑马纹 + 浅蓝悬浮）
+   保留原有列宽约定。
+   ========================================================= */
 
-.compare-table {
+#content .compare-table {
     border-collapse: collapse;
     width: 100%;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     table-layout: fixed;
+    box-shadow: none;
+    border-radius: 0;
+    border: 1px solid var(--line);
 }
 
-.compare-table th,
-.compare-table td {
-    border: 1px solid #ccc;
-    padding: 6px;
+#content .compare-table th,
+#content .compare-table td {
+    border: none;
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    padding: 7px 10px;
+    text-align: left;
     vertical-align: middle;
 }
+#content .compare-table th:last-child,
+#content .compare-table td:last-child { border-right: none; }
 
-.compare-table th {
-    background-color: #f2f2f2;
+#content .compare-table th {
+    background: var(--tint-blue);
+    color: var(--sky-deep);
+    font-weight: 600;
     text-align: left;
 }
+
+#content .compare-table tbody tr:nth-child(odd) { background: #FFFFFF; }
+#content .compare-table tbody tr:nth-child(even) { background: #F5F7F8; }
+#content .compare-table tbody tr:nth-child(n):hover { background: var(--tint-blue); }
+#content .compare-table tr:last-child td { border-bottom: none; }
 
 /* 列宽比例：曲目 25%｜变化点 10%｜变化点说明 35%｜备注 30% */
 .compare-table .col-track     { width: 25%; }

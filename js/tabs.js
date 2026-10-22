@@ -705,17 +705,51 @@ document.addEventListener('i18nReady', () => {
                     }
                 }
 
-                // 渲染演出信息 + 歌单
+                // 渲染演出信息（主题横幅头 + 键值网格）+ 歌单
+                const dInfo = parseDate(eventInfo.date);
+                let stClass = 'ci-tbd', stKey = 'map.status.pending';
+                if (dInfo) {
+                    const today = getToday();
+                    if (dInfo.endDate < today) { stClass = 'ci-done'; stKey = 'map.status.finished'; }
+                    else if (dInfo.startDate <= today && today <= dInfo.endDate) { stClass = 'ci-doing'; stKey = 'map.status.ongoing'; }
+                    else { stClass = 'ci-todo'; stKey = 'map.status.upcoming'; }
+                }
+                const stopNo = (eventInfo.name.match(/#(\d+)/) || [])[1] || '—';
+
                 songListContent.innerHTML = `
                     <div class="city-info">
-                        <strong>${i18n.t("setlist.info.title")}:</strong><br>
-                        ${i18n.t("setlist.info.venue")}: ${eventInfo.location}<br>
-                        ${i18n.t("setlist.info.date")}: ${eventInfo.date}<br>
-                        ${i18n.t("setlist.info.location")}: ${eventInfo.province} ${eventInfo.city}
+                        <div class="ci-head">
+                            <span class="ci-title">🎤 ${eventInfo.name}</span>
+                            <span class="ci-sub">${i18n.t("setlist.info.subtitle")}</span>
+                        </div>
+                        <div class="ci-grid">
+                            <div class="ci-cell"><div class="ci-k">${i18n.t("setlist.info.venue")}</div><div class="ci-v">${eventInfo.location}</div></div>
+                            <div class="ci-cell"><div class="ci-k">${i18n.t("setlist.info.date")}</div><div class="ci-v">${eventInfo.date}</div></div>
+                            <div class="ci-cell"><div class="ci-k">${i18n.t("setlist.info.location")}</div><div class="ci-v">${eventInfo.province} ${eventInfo.city}</div></div>
+                            <div class="ci-cell"><div class="ci-k">${i18n.t("setlist.info.status")}</div><div class="ci-v ${stClass}">${i18n.t(stKey).replace(/^\P{L}+/u, '').trim()}</div></div>
+                            <div class="ci-cell"><div class="ci-k">${i18n.t("setlist.info.songs")}</div><div class="ci-v ci-v-songs">…</div></div>
+                            <div class="ci-cell"><div class="ci-k">${i18n.t("setlist.info.progress")}</div><div class="ci-v">#${stopNo} / ${itinerary.length} ${i18n.t("setlist.info.stopUnit")}</div></div>
+                        </div>
                     </div>
                     <div class="content-body">${html}</div>
                 `;
+
+                // 填充歌单曲数：按首场（第一组）非空曲目计（须在 enhance 之后，表格才有 .setlist-table 标记）
+                const fillSongsCount = () => {
+                    const songsCell = songListContent.querySelector('.ci-v-songs');
+                    if (!songsCell) return;
+                    let songCount = 0;
+                    songListContent.querySelectorAll('.setlist-table tr').forEach(tr => {
+                        if (tr.classList.contains('date-header') || tr.classList.contains('label-header') || tr.classList.contains('chapter-row')) return;
+                        const tds = tr.children;
+                        if (tds.length >= 3 && (tds[1].textContent || '').trim()) songCount++;
+                    });
+                    songsCell.textContent = songCount
+                        ? `${songCount} ${i18n.t("setlist.info.songUnit")}`
+                        : i18n.t("setlist.info.collected");
+                };
                 enhanceCompareTables(songListContent);
+                fillSongsCount();
             } catch (err) {
                 console.error('Setlist load error:', err);
                 if (err.code === 'FILE_NOT_PUBLISHED') {
@@ -750,6 +784,8 @@ document.addEventListener('i18nReady', () => {
     function enhanceSonglist(contentEl) {
         const body = contentEl.querySelector('.content-body');
         if (!body) return;
+        // 打上视图标记：预习曲目表格套用与歌单表一致的风格（见 style.css .songlist-view）
+        body.classList.add('songlist-view');
 
         // 复制歌单名按钮：写入剪贴板并给出「已复制」反馈
         body.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
@@ -816,16 +852,47 @@ document.addEventListener('i18nReady', () => {
         });
     }
 
+    // 差异比较前归一化歌名：括号内的版别/说明（如「黄包车版」「国」）不参与比较
+    function normalizeSongName(name) {
+        return name.replace(/[（(][^）)]*[）)]/g, '').trim();
+    }
+
+    // 歌单主表打标：.setlist-table 类 + 演唱人胶囊 td.sg.lam/.sally/.both（数据文件零改动）
+    function tagSetlistTable(table) {
+        table.classList.add('setlist-table');
+        table.querySelectorAll('tr').forEach(tr => {
+            if (tr.classList.contains('date-header') || tr.classList.contains('label-header') || tr.classList.contains('chapter-row')) return;
+            const tds = tr.querySelectorAll('td');
+            for (let i = 2; i < tds.length; i += 3) {
+                const td = tds[i];
+                const singer = (td.textContent || '').trim();
+                if (!singer) continue;
+                td.classList.add('sg');
+                if (singer.includes('&')) td.classList.add('both');
+                else if (/Lam|林子祥/i.test(singer)) td.classList.add('lam');
+                else if (/Sally|叶蒨文/i.test(singer)) td.classList.add('sally');
+            }
+        });
+    }
+
     function enhanceCompareTables(container) {
+        // 数据文件自带的 <link> 剥离：相关 CSS 已由 index.html 统一引入（带版本号），
+        // 避免注入 link 触发浏览器启发式缓存导致样式版本不一致
+        container.querySelectorAll('link').forEach(link => link.remove());
+
         container.querySelectorAll('table').forEach(table => {
+            const labelHeader = table.querySelector('tr.label-header');
+            if (labelHeader) tagSetlistTable(table);
+
             if (!table.closest('.table-scroll')) {
                 const wrap = document.createElement('div');
-                wrap.className = 'table-scroll';
+                wrap.className = labelHeader ? 'table-scroll sl-wrap' : 'table-scroll';
                 table.parentNode.insertBefore(wrap, table);
                 wrap.appendChild(table);
+            } else if (labelHeader) {
+                table.parentElement.classList.add('sl-wrap');
             }
 
-            const labelHeader = table.querySelector('tr.label-header');
             if (!labelHeader) return;
             const groups = labelHeader.children.length / 3;
             if (!Number.isInteger(groups) || groups < 2) return;
@@ -836,23 +903,40 @@ document.addEventListener('i18nReady', () => {
             toggle.innerHTML = `<label><input type="checkbox"> ${i18n.t('setlist.diffHighlight')}</label>`;
             wrap.parentNode.insertBefore(toggle, wrap);
 
+            // 预收集歌曲行，并按场次建立归一化歌名全集：
+            // 某曲目只要在其他任意场次出现过（不论顺序），即视为「两场都有」，不算差异
+            const songRows = [];
+            table.querySelectorAll('tr').forEach(tr => {
+                if (tr.classList.contains('date-header') || tr.classList.contains('label-header') || tr.classList.contains('chapter-row')) return;
+                const tds = tr.querySelectorAll('td');
+                if (tds.length < groups * 3) return;
+                songRows.push({ tr, tds });
+            });
+            const showSets = [];
+            for (let g = 0; g < groups; g++) {
+                const set = new Set();
+                songRows.forEach(({ tds }) => {
+                    const cell = tds[g * 3 + 1];
+                    const name = cell ? normalizeSongName(cell.textContent.trim()) : '';
+                    if (name) set.add(name);
+                });
+                showSets.push(set);
+            }
+
             const checkbox = toggle.querySelector('input');
             checkbox.addEventListener('change', () => {
                 const on = checkbox.checked;
-                table.querySelectorAll('tr').forEach(tr => {
-                    if (tr.classList.contains('date-header') || tr.classList.contains('label-header') || tr.classList.contains('chapter-row')) return;
-                    const tds = tr.querySelectorAll('td');
-                    if (tds.length < groups * 3) return;
-                    const names = [];
-                    for (let g = 0; g < groups; g++) {
-                        names.push(tds[g * 3 + 1] ? tds[g * 3 + 1].textContent.trim() : '');
-                    }
-                    const diff = names.some(n => n !== names[0]);
-                    tr.classList.toggle('row-diff', on && diff);
+                songRows.forEach(({ tr, tds }) => {
+                    let rowDiff = false;
                     for (let g = 0; g < groups; g++) {
                         const cell = tds[g * 3 + 1];
-                        if (cell) cell.classList.toggle('cell-diff', on && diff && names[g] !== names[0]);
+                        const name = cell ? normalizeSongName(cell.textContent.trim()) : '';
+                        // 独有曲目 = 本场有、且其余任一场的全集里没有
+                        const unique = !!name && showSets.some((set, g2) => g2 !== g && !set.has(name));
+                        if (cell) cell.classList.toggle('cell-diff', on && unique);
+                        if (unique) rowDiff = true;
                     }
+                    tr.classList.toggle('row-diff', on && rowDiff);
                 });
             });
         });

@@ -98,22 +98,41 @@ function renderSetlistForItem(item) {
     setlistName = setlistName.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
 
     // 使用 i18n 翻译固定文本
-    const title = i18nInstance ? i18nInstance.t('setlist.info.title') : '演出信息';
     const venue = i18nInstance ? i18nInstance.t('setlist.info.venue') : '场馆';
     const date = i18nInstance ? i18nInstance.t('setlist.info.date') : '日期';
     const locationText = i18nInstance ? i18nInstance.t('setlist.info.location') : '地点';
     const backText = i18nInstance ? i18nInstance.t('btn.return.map') : '返回地图';
+    const t = (key, fallback) => i18nInstance ? i18nInstance.t(key) : fallback;
+
+    // 场次状态：按日期与今天比较
+    const dInfo = parseDate(item.date);
+    let stClass = 'ci-tbd', stKey = 'map.status.pending';
+    if (dInfo) {
+        const today = getToday();
+        if (dInfo.endDate < today) { stClass = 'ci-done'; stKey = 'map.status.finished'; }
+        else if (dInfo.startDate <= today && today <= dInfo.endDate) { stClass = 'ci-doing'; stKey = 'map.status.ongoing'; }
+        else { stClass = 'ci-todo'; stKey = 'map.status.upcoming'; }
+    }
+    const stopNo = (String(item.name || '').match(/#(\d+)/) || [])[1] || '—';
+    const totalStops = (itineraryData && itineraryData.length) || '—';
 
     contentEl.innerHTML = `
         <div class="back-to-list">
             <button onclick="goBackToMap()">← ${backText}</button>
         </div>
         <div class="city-info">
-            <h3>🎤 ${item.name}</h3>
-            <strong>${title}:</strong><br>
-            ${venue}: ${item.location}<br>
-            ${date}: ${item.date}<br>
-            ${locationText}: ${item.province} ${item.city}
+            <div class="ci-head">
+                <span class="ci-title">🎤 ${item.name}</span>
+                <span class="ci-sub">${t("setlist.info.subtitle", "We Are One 世界巡回演唱会")}</span>
+            </div>
+            <div class="ci-grid">
+                <div class="ci-cell"><div class="ci-k">${venue}</div><div class="ci-v">${item.location}</div></div>
+                <div class="ci-cell"><div class="ci-k">${date}</div><div class="ci-v">${item.date}</div></div>
+                <div class="ci-cell"><div class="ci-k">${locationText}</div><div class="ci-v">${item.province} ${item.city}</div></div>
+                <div class="ci-cell"><div class="ci-k">${t("setlist.info.status", "场次状态")}</div><div class="ci-v ${stClass}">${t(stKey, "待定").replace(/^\P{L}+/u, '').trim()}</div></div>
+                <div class="ci-cell"><div class="ci-k">${t("setlist.info.songs", "歌单")}</div><div class="ci-v ci-v-songs">…</div></div>
+                <div class="ci-cell"><div class="ci-k">${t("setlist.info.progress", "巡演进度")}</div><div class="ci-v">#${stopNo} / ${totalStops} ${t("setlist.info.stopUnit", "站")}</div></div>
+            </div>
         </div>
         <div id="songListContent" style="margin-top: 16px;"></div>
     `;
@@ -126,6 +145,25 @@ function renderSetlistForItem(item) {
 async function loadSongList(setlistName, item, isLanguageUpdate = false) {
     const contentEl = document.getElementById('songListContent');
     if (!contentEl) return;
+
+    // 回填演出信息卡片中的歌单曲数（按首场非空曲目计）
+    const fillSongsCount = () => {
+        const cell = document.querySelector('.ci-v-songs');
+        if (!cell) return;
+        let songCount = 0;
+        contentEl.querySelectorAll('.setlist-table tr').forEach(tr => {
+            if (tr.classList.contains('date-header') || tr.classList.contains('label-header') || tr.classList.contains('chapter-row')) return;
+            const tds = tr.children;
+            if (tds.length >= 3 && (tds[1].textContent || '').trim()) songCount++;
+        });
+        cell.textContent = songCount
+            ? `${songCount} ${i18nInstance ? i18nInstance.t('setlist.info.songUnit') : '首'}`
+            : (i18nInstance ? i18nInstance.t('setlist.info.collected') : '已收录');
+    };
+    const clearSongsCount = () => {
+        const cell = document.querySelector('.ci-v-songs');
+        if (cell) cell.textContent = '—';
+    };
 
     if (!setlistName) {
         const warning = i18nInstance ? i18nInstance.t('error.setlist.loadFailed') : '⚠️ 歌单名称未设置';
@@ -160,6 +198,7 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
 
             contentEl.innerHTML = `<div class="content-body">${html}</div>`;
             if (window.enhanceCompareTables) window.enhanceCompareTables(contentEl);
+            fillSongsCount();
             if (!isLanguageUpdate) {
                 console.log('HTML文件加载成功:', response.url);
             }
@@ -196,6 +235,7 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
             } else {
                 // 检查是否是（未官宣）的情况
                 const isUnofficial = item.city.includes('（未官宣）') || item['setlist-name'] === '';
+                clearSongsCount();
 
                 if (isUnofficial) {
                     contentEl.innerHTML = `
@@ -216,6 +256,7 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
         }
     } catch (err) {
         console.error('加载歌单失败:', err);
+        clearSongsCount();
 
         // 检查是否是网络问题
         if (err.name === 'TypeError' && err.message.includes('fetch')) {

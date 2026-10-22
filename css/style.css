@@ -161,9 +161,13 @@ a:hover { text-decoration: underline; }
 .btn:hover { transform: translateY(-2px); text-decoration: none; }
 .btn-explore {
     display: inline-flex; align-items: center;
-    background: linear-gradient(120deg, var(--sky-deep) 0%, var(--sky) 45%, var(--leaf) 100%);
-    color: #fff; font-weight: 700; letter-spacing: .06em;
-    box-shadow: 0 8px 22px rgba(27, 122, 194, .30), 0 3px 10px rgba(67, 160, 71, .20);
+    border: 2px solid transparent;
+    /* 白底 + 蓝粉渐变描边（双背景裁切实现，圆角处过渡自然） */
+    background:
+        linear-gradient(var(--surface), var(--surface)) padding-box,
+        linear-gradient(120deg, var(--sky-deep) 0%, var(--angel-blue) 55%, var(--angel-pink) 100%) border-box;
+    color: var(--sky-deep); font-weight: 700; letter-spacing: .06em;
+    box-shadow: 0 6px 18px rgba(126, 200, 242, .30), 0 2px 8px rgba(245, 168, 201, .22);
     animation: ctaBreath 3.2s ease-in-out infinite;
 }
 .btn-explore::after {
@@ -173,12 +177,12 @@ a:hover { text-decoration: underline; }
 .btn-explore:hover {
     animation: none;
     transform: translateY(-3px);
-    box-shadow: 0 14px 32px rgba(27, 122, 194, .42), 0 6px 14px rgba(67, 160, 71, .30);
+    box-shadow: 0 12px 28px rgba(126, 200, 242, .45), 0 5px 14px rgba(245, 168, 201, .32);
 }
 .btn-explore:hover::after { transform: translateX(5px); }
 @keyframes ctaBreath {
-    0%, 100% { box-shadow: 0 8px 22px rgba(27, 122, 194, .30), 0 3px 10px rgba(67, 160, 71, .20); }
-    50% { box-shadow: 0 12px 30px rgba(27, 122, 194, .46), 0 5px 14px rgba(67, 160, 71, .32); }
+    0%, 100% { box-shadow: 0 6px 18px rgba(126, 200, 242, .30), 0 2px 8px rgba(245, 168, 201, .22); }
+    50% { box-shadow: 0 10px 26px rgba(126, 200, 242, .45), 0 4px 12px rgba(245, 168, 201, .32); }
 }
 
 /* ==================== 板块通用 ==================== */
@@ -238,9 +242,12 @@ section { padding: 72px 0; }
 }
 
 .stats-table-scroll {
-    margin-top: 18px; background: var(--surface);
-    border: 1px solid var(--line); border-radius: var(--radius-l);
-    box-shadow: var(--shadow-card);
+    margin-top: 18px;
+    /* 透明化：去掉白色卡片底，透出页面背景，表头/斑马纹/合计行自带结构感 */
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
 }
 .stats-details[open] .stats-table-scroll { animation: detailsIn .4s ease both; }
 @keyframes detailsIn {
@@ -265,8 +272,7 @@ table.tour-stats {
     border-bottom: 1px solid var(--line);
     color: var(--ink-2); font-variant-numeric: tabular-nums;
 }
-.tour-stats tbody tr { transition: background .18s; }
-.tour-stats tbody tr:nth-child(even):not(.total-row) { background: var(--tint-green); }
+.tour-stats tbody tr:not(.total-row) { background: var(--surface); transition: background .18s; }
 .tour-stats tbody tr:hover:not(.total-row) { background: #FDF6E0; }
 .tour-stats td:first-child { color: var(--ink); font-weight: 600; }
 /* 数字：粗体 + 语义色，不加底色 */
@@ -276,14 +282,14 @@ table.tour-stats {
 .tour-stats td:nth-child(2), .tour-stats td:nth-child(3) { color: var(--sky-deep); }
 .tour-stats td:nth-child(4) { color: var(--leaf-deep); }
 .tour-stats td:nth-child(5) { color: #B07A1A; }
-/* 合计行：深绿底 + 白字 */
+/* 合计行：浅绿底 + 深绿字 */
 .tour-stats tr.total-row td {
     padding: 13px 16px;
-    background: var(--leaf-deep);
+    background: var(--tint-green);
     border-bottom: none;
-    color: #fff; font-weight: 700;
+    color: var(--leaf-deep); font-weight: 700;
 }
-.tour-stats .total-row td:first-child { color: #fff; font-size: 15px; }
+.tour-stats .total-row td:first-child { color: var(--leaf-deep); font-size: 15px; }
 
 @media (max-width: 640px) {
     .stats-details summary { padding: 9px 20px; font-size: 13px; }
@@ -429,17 +435,37 @@ table.tour-stats {
     box-shadow: 0 0 0 3px rgba(46, 155, 230, .18);
 }
 
+/* 演出信息卡片 · 主题横幅头 + 键值网格 */
 .city-info {
-    background: linear-gradient(135deg, var(--tint-blue), var(--tint-green));
-    padding: 15px 18px;
-    border-radius: var(--radius-m);
-    margin-bottom: 16px;
-    border-left: 4px solid var(--sky);
-    box-shadow: var(--shadow-card);
+    background: var(--surface);
     border: 1px solid var(--line);
+    border-radius: var(--radius-s); /* 与照片/表格圆角一致 */
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
 }
-.city-info strong { color: var(--sky-deep); display: block; margin-bottom: 8px; font-size: 1.1em; }
-.city-info h3 { font-family: var(--serif); color: var(--ink); margin: 0 0 8px; }
+.city-info .ci-head {
+    background: var(--tint-blue);
+    border-bottom: 2px solid var(--sky);
+    padding: 10px 16px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 16px;
+    flex-wrap: wrap;
+}
+.city-info .ci-title { font-family: var(--serif); font-weight: 700; font-size: 17px; line-height: 24px; color: var(--sky-deep); }
+.city-info .ci-sub { font-size: 12px; color: var(--sky-deep); opacity: .75; }
+.city-info .ci-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.city-info .ci-cell { padding: 10px 16px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.city-info .ci-cell:nth-child(3n) { border-right: none; }
+.city-info .ci-cell:nth-child(-n+3) { border-top: none; }
+.city-info .ci-k { font-size: 11px; color: var(--ink-2); letter-spacing: 1px; margin-bottom: 3px; }
+.city-info .ci-v { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+.city-info .ci-v.ci-done  { color: var(--leaf-deep); }
+.city-info .ci-v.ci-doing { color: var(--sky-deep); }
+.city-info .ci-v.ci-todo  { color: #C2537F; }
+.city-info .ci-v.ci-tbd   { color: var(--ink-2); }
 
 .back-to-list button {
     margin-bottom: 16px; padding: 8px 20px;
@@ -673,6 +699,34 @@ footer .angel-line {
 }
 .chapter-card table { margin: 4px 0 0; box-shadow: none; }
 
+/* 预习曲目表格：与演出歌单表同风格（发丝线 + 淡蓝表头 + 白/浅灰斑马纹 + 浅蓝悬浮），直角外框 */
+#content .songlist-view table {
+    font-size: 13px;
+    box-shadow: none;
+    border-radius: 0;
+    border: 1px solid var(--line);
+}
+#content .songlist-view th,
+#content .songlist-view td {
+    border: none;
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    padding: 7px 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+#content .songlist-view th:last-child,
+#content .songlist-view td:last-child { border-right: none; }
+#content .songlist-view th {
+    background: var(--tint-blue);
+    color: var(--sky-deep);
+    font-weight: 600;
+}
+#content .songlist-view tbody tr:nth-child(odd) { background: #FFFFFF; }
+#content .songlist-view tbody tr:nth-child(even) { background: #F5F7F8; }
+#content .songlist-view tbody tr:nth-child(n):hover { background: var(--tint-blue); }
+#content .songlist-view tr:last-child td { border-bottom: none; }
+
 /* 合唱曲目标记（双天使色） */
 .duet { display: inline-flex; margin-right: 6px; vertical-align: middle; }
 .duet i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
@@ -773,9 +827,8 @@ footer .angel-line {
     padding: 6px 14px; border-radius: 20px;
 }
 .diff-toggle input { accent-color: var(--sky); }
-tr.row-diff td { background: #fdf6e0; }
-td.cell-diff { background: var(--sun) !important; font-weight: 600; }
-
+/* 差异只标对应格子，整行不再染色 */
+td.cell-diff { background: #FCF1D4 !important; box-shadow: inset 3px 0 0 var(--sun); font-weight: 600; }
 /* ==================== 致谢名单卡片视图 ==================== */
 #content .credits-view h2 {
     font-family: var(--serif); font-size: 19px; color: var(--ink);

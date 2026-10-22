@@ -39,6 +39,13 @@
   "setlist.info.venue": "場館",
   "setlist.info.date": "日期",
   "setlist.info.location": "地點",
+  "setlist.info.subtitle": "Sally & Lam · We Are One · 野生觀察站",
+  "setlist.info.status": "場次狀態",
+  "setlist.info.songs": "歌單",
+  "setlist.info.progress": "巡演進度",
+  "setlist.info.songUnit": "首",
+  "setlist.info.stopUnit": "站",
+  "setlist.info.collected": "已收錄",
   "setlist.unofficial": "⚠\uFE0F 該城市演出資訊暫未公佈，歌單待發布",
   "setlist.fileNotPublished": "⚠\uFE0F 歌單檔案尚未發布",
   "error.network": "❌ 網絡連接問題，請檢查檔案路徑是否正確",
@@ -74,5 +81,5 @@
   "btn.copyLyric": "複製歌詞",
   "btn.copied": "已複製 ✓",
   "filter.all": "全部",
-  "setlist.diffHighlight": "高亮與首場不同的曲目"
+  "setlist.diffHighlight": "高亮各場獨有曲目"
 }

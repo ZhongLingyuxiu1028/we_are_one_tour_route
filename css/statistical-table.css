@@ -4,8 +4,9 @@
     margin: 20px auto;
     table-layout: fixed;
     font-family: var(--sans);
-    box-shadow: var(--shadow-card);
-    background-color: var(--surface);
+    /* 透明底：透出页面浅雾蓝背景，斑马纹与边框保留结构感 */
+    background-color: transparent;
+    box-shadow: none;
     border-collapse: separate;
     border-spacing: 0;
     border-radius: 10px;
@@ -35,17 +36,12 @@
     color: var(--ink);
 }
 
-.tour-stats tr:nth-child(even) {
-    background-color: var(--tint-green);
-}
+/* 行底色与悬浮统一由 style.css 的 .tour-stats tbody tr 规则接管，
+   此处不再声明，避免两文件加载顺序引起的优先级竞争 */
 
-.tour-stats tr:hover {
-    background-color: var(--tint-blue);
-}
-
-/* 合计行特殊样式 */
+/* 合计行特殊样式（与 style.css 保持一致：浅绿底 + 深绿字） */
 .tour-stats .total-row td {
     font-weight: bold;
-    background-color: var(--leaf-deep) !important;
-    color: #fff;
+    background-color: var(--tint-green) !important;
+    color: var(--leaf-deep);
 }

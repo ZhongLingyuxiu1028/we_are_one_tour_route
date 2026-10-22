@@ -1,69 +1,135 @@
-table {
+/* =========================================================
+   歌单表格 · 「极简留白」方案（紧凑密度）
+   去底色、去胶囊、去竖线：仅发丝横线 + 场次中缝分隔线，
+   演唱人为纯色文字（Lam 蓝 / Sally 粉 / 合唱灰），信息密度最大化。
+   配合 js/tabs.js 的 enhanceCompareTables：
+   - 歌单主表会被添加 .setlist-table 类、外层 .sl-wrap
+   - 演唱人单元格自动打标 td.sg.lam / .sally / .both
+   数据文件（data/setlist/*.html）零改动。
+   ========================================================= */
+
+/* ---------- 外框：边框与圆角挂在滚动容器上（与照片圆角一致），负责横向滚动兜底 ---------- */
+#content .sl-wrap {
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-s);
+    box-shadow: none;
+    margin: 12px 0;
+}
+
+#content .setlist-table {
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: 13px;
+}
+
+/* 基线：无网格边框，仅发丝横线，紧凑内距 */
+#content .setlist-table th,
+#content .setlist-table td {
+    border: none;
+    border-bottom: 1px solid var(--line);
+    padding: 5px 8px;
+    text-align: left;
+    vertical-align: middle;
+    line-height: 1.45;
+}
+
+/* 日期头：淡蓝主题底 + 衬线体，场次间细线分隔 */
+#content .setlist-table tr.date-header th {
+    background: var(--tint-blue);
+    color: var(--sky-deep);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    padding: 7px 8px;
+    border-bottom: 2px solid var(--sky);
+}
+#content .setlist-table tr.date-header th + th {
+    border-left: 1px solid var(--line);
+}
+
+/* 字段行（No./名称/演唱人）隐藏，列含义由样式自解释 */
+#content .setlist-table tr.label-header { display: none; }
+
+/* 章节行：淡绿主题底 */
+#content .setlist-table tr.chapter-row td {
+    background: var(--tint-green);
+    color: var(--leaf-deep);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-align: left;
+    padding: 6px 8px;
+}
+
+/* 斑马纹：白色 / 浅灰相间（跳过章节行） */
+#content .setlist-table tbody tr:nth-child(odd):not(.chapter-row) { background: #FFFFFF; }
+#content .setlist-table tbody tr:nth-child(even):not(.chapter-row) { background: #F5F7F8; }
+
+/* 悬浮：统一浅蓝。置于斑马纹之后并补足优先级（:nth-child(n)），
+   确保每一行（无论奇偶）都有悬浮反馈，不会再出现部分行无高亮 */
+#content .setlist-table tbody tr:nth-child(n):hover:not(.chapter-row) { background: var(--tint-blue); }
+
+/* 末行无横线 */
+#content .setlist-table tr:last-child td { border-bottom: none; }
+
+/* 场次中缝分隔线（末列不画，右缘由表格外框承担） */
+#content .setlist-table td:nth-child(3n):not(:last-child) { border-right: 1px solid var(--line); }
+
+/* 序号列：窄列、小号灰字、等宽数字、居中 */
+#content .setlist-table tr:not(.chapter-row):not(.date-header):not(.label-header) td:nth-child(3n+1) {
+    color: var(--ink-2);
+    font-size: 11px;
+    width: 34px;
+    min-width: 30px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 演唱人：纯色文字，宽度自适应、视觉统一 */
+#content .setlist-table td.sg {
+    white-space: nowrap;
+    font-size: 12px;
+    color: var(--ink-2);
+}
+#content .setlist-table td.sg.lam   { color: var(--sky-deep); }
+#content .setlist-table td.sg.sally { color: #C2537F; }
+
+/* ---------- 参考目录表：与歌单表同风格（发丝线 + 淡蓝表头 + 斑马纹），直角外框 ---------- */
+#content .reference-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: "Microsoft YaHei", Arial, sans-serif;
-    margin: 20px 0;
-    font-size: 14px;
+    font-size: 13px;
+    box-shadow: none;
+    border-radius: 0;
+    border: 1px solid var(--line);
 }
 
-th, td {
-    padding: 8px;
+#content .reference-table th,
+#content .reference-table td {
+    border: none;
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    padding: 7px 10px;
     text-align: left;
-    border: 1px solid #ccc;
+    vertical-align: middle;
 }
+#content .reference-table th:last-child,
+#content .reference-table td:last-child { border-right: none; }
 
-.date-header th {
-    background-color: #e8f4fc;
-    font-weight: bold;
-    text-align: center;
-}
-
-.label-header th {
-    background-color: #f0f8ff;
-    font-weight: bold;
-    text-align: center;
-}
-
-.chapter-row td {
-    background-color: #2c3e50;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* 斑马纹：跳过章节行 */
-tbody tr:nth-child(even):not(.chapter-row) {
-    background-color: #fafafa;
-}
-tbody tr:nth-child(odd):not(.chapter-row) {
-    background-color: #fff;
-}
-
-/* 引用表格样式 */
-.reference-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: "Microsoft YaHei", Arial, sans-serif;
-    margin: 20px 0;
-    font-size: 14px;
-}
-
-.reference-table th,
-.reference-table td {
-    padding: 10px;
+#content .reference-table th {
+    background: var(--tint-blue);
+    color: var(--sky-deep);
+    font-weight: 600;
     text-align: left;
-    border: 1px solid #ccc;
 }
 
-.reference-table th {
-    background-color: #f0f8ff;
-    font-weight: bold;
-    text-align: center;
-}
-
-.reference-table tbody tr:nth-child(even) {
-    background-color: #fafafa;
-}
+#content .reference-table tbody tr:nth-child(odd) { background: #FFFFFF; }
+#content .reference-table tbody tr:nth-child(even) { background: #F5F7F8; }
+#content .reference-table tbody tr:nth-child(n):hover { background: var(--tint-blue); }
+#content .reference-table tr:last-child td { border-bottom: none; }
 
 /* 列宽比例：No. 8%｜内容 42%｜原作@原作者 35%｜出处 15% */
 .reference-table .col-no        { width: 8%;  }
