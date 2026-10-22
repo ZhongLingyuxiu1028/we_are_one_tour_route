@@ -47,24 +47,24 @@
 
 <style>
 table th:nth-of-type(1) { width: 16%; }
-table th:nth-of-type(2) { width: 10%; }
+table th:nth-of-type(2) { width: 8%; }
 table th:nth-of-type(3) { width: 18%; }
 table th:nth-of-type(4) { width: 18%; }
-table th:nth-of-type(5) { width: 16%; }
+table th:nth-of-type(5) { width: 18%; }
 table th:nth-of-type(6) { width: 20%; }
 </style>
 
 #### Chapter1
 
-| 曲目                                                                                       | 演唱会演唱     | 作曲                            | 作词     | OT（原曲）                                 | 备注                |
-|------------------------------------------------------------------------------------------|-----------|-------------------------------|--------|----------------------------------------|-------------------|
+| 曲目                                                                                       | 演唱     | 作曲                            | 作词     | OT（原曲）                                 | 备注                |
+|------------------------------------------------------------------------------------------|----------|-------------------------------|--------|----------------------------------------|-------------------|
 | <span class="lyric-trigger" data-lyric-file="chapter1/c1ganaiganzuo.md">敢爱敢做（开场版）</span> | 林子祥 & 叶蒨文 | Albert Hammond / Diane Warren | 潘伟源    | Nothing's Gonna Stop Us Now (Starship) | <br />            |
-| <span class="lyric-trigger" data-lyric-file="chapter1/c1liangbaidu.md">200度</span>       | 叶蒨文       | Peter Brown / Robert Rans     | 林振强    | Material Girl (Madonna)                | <br />            |
+| <span class="lyric-trigger" data-lyric-file="chapter1/c1liangbaidu.md">200度</span>       | 叶蒨文      | Peter Brown / Robert Rans     | 林振强    | Material Girl (Madonna)                | <br />            |
 | <span class="lyric-trigger" data-lyric-file="chapter1/c1shifenshiercun.md">十分十二吋</span>  | 林子祥 & 叶蒨文 | <br />                        | <br /> | <br />                                 | 具体曲目见彩蛋环节 Bonus 2 |
 
 #### Chapter2
 
-| 曲目                                                                                                           | 演唱会演唱     | 作曲            | 作词           | OT（原曲）                                 | 备注      |
+| 曲目                                                                                                           | 演唱     | 作曲            | 作词           | OT（原曲）                                 | 备注      |
 |--------------------------------------------------------------------------------------------------------------|-----------|---------------|--------------|----------------------------------------|---------|
 | <span class="lyric-trigger" data-lyric-file="chapter2/c2chongfeng.md">重逢</span>                              | 林子祥 & 叶蒨文 | Johnny Mandel | 林振强          | Suicide is Painless                    | <br />  |
 | <span class="lyric-trigger" data-lyric-file="chapter2/c2lingshishifen.md">零时十分</span>                        | 叶蒨文       | 林子祥           | 林振强          | <br />                                 | <br />  |
@@ -73,13 +73,13 @@ table th:nth-of-type(6) { width: 20%; }
 
 #### Chapter3
 
-| 曲目                                                                                                  | 演唱会演唱   | 作曲                                                            | 作词              | OT（原曲）                                         | 备注                      |
+| 曲目                                                                                                  | 演唱   | 作曲                                                            | 作词              | OT（原曲）                                         | 备注                      |
 |-----------------------------------------------------------------------------------------------------|---------|---------------------------------------------------------------|-----------------|------------------------------------------------|-------------------------|
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3jueding.md">决定 <strong>\[国]</strong></span> | 林子祥     | 陈大力 / 陈秀男                                                     | 陈大力             | <br />                                         | 非常驻曲目                   |
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3meiyechangbuting.md">每夜唱不停</span>           | 林子祥     | 林子祥                                                           | 郑国江             | <br />                                         | 非常驻曲目<br /> Medley：每夜唱不停+海阔天空 |
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3haikuotiankong.md">海阔天空</span>              | 林子祥     | 黄家驹                                                           | 黄家驹             | 海阔天空 (Beyond)                                  | Medley：每夜唱不停+海阔天空       |
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3qianyigeyewan.md">千亿个夜晚</span>              | 林子祥     | David Foster / Jermaine Jackson / Tom Keane / Kathy Wakefield | 潘伟源             | Lonely Won't Leave Me Alone (Jermaine Jackson) | 非常驻曲目<br /> **A组曲目**          |
-| <span class="lyric-trigger" data-lyric-file="chapter3/c3meiyigewanshang.md">每一个晚上</span>            | 林子祥     | Andrew Lloyd Webber / 黄自                                      | 林振强             | Cats: Growltiger's Last Stand 《花非花》同名曲         | 非常驻曲目<br /> **A组曲目**          |
+| <span class="lyric-trigger" data-lyric-file="chapter3/c3meiyigewanshang.md">每一个晚上</span>            | 林子祥     | Andrew Lloyd Webber <br />/ 黄自                                      | 林振强             | Cats: Growltiger's Last Stand <br />《花非花》同名曲         | 非常驻曲目<br /> **A组曲目**          |
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3shamoxiaozi.md">沙漠小子</span>                 | 林子祥     | 林子祥                                                           | 林振强             | <br />                                         | 非常驻曲目                   |
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3zaishuizhongyang.md">在水中央</span>            | 林子祥     | 林子祥                                                           | 郑国江             | <br />                                         | 非常驻曲目                   |
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3qianzhizhencizaixin.md">千枝针刺在心</span>       | 林子祥     | 林子祥                                                           | 郑国江             | <br />                                         | 非常驻曲目                   |
@@ -88,11 +88,11 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3jiaochuyiqie.md">交出一切</span>                | 林子祥     | 林子祥                                                           | 因葵              | <br />                                         | 非常驻曲目<br /> Medley：这一个夜+交出一切  |
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3gaibianchanggaibian.md">改变常改变</span>        | 林子祥     | 林子祥                                                           | 潘伟源             | <br />                                         | 非常驻曲目<br /> Medley：这一个夜+改变常改变 |
 | <span class="lyric-trigger" data-lyric-file="chapter3/c3huajieqishihao.md">花街70号</span>             | 林子祥     | Cousins / Amy Cray                                            | 林振强             | Smoking Gun (The Robert Cray Band)             | 非常驻曲目<br />                   |
-| <span class="lyric-trigger" data-lyric-file="chapter3/c3dazhangfuzhendehanzi.md">大丈夫+真的汉子</span>    | 林子祥     | 大丈夫：刘家昌 真的汉子：林子祥                                              | 大丈夫：黄霑 真的汉子：郑国江 | <br />                                         | <br />                  |
+| <span class="lyric-trigger" data-lyric-file="chapter3/c3dazhangfuzhendehanzi.md">大丈夫+真的汉子</span>    | 林子祥     | 大丈夫：刘家昌 真的汉子：林子祥                                              | 大丈夫：黄霑 <br />真的汉子：郑国江 | <br />                                         | <br />                  |
 
 #### Chapter4 - A
 
-| 曲目                                                                                                                        | 演唱会演唱   | 作曲        | 作词   | OT（原曲）  | 备注                                              |
+| 曲目                                                                                                                        | 演唱   | 作曲        | 作词   | OT（原曲）  | 备注                                              |
 |---------------------------------------------------------------------------------------------------------------------------|---------|-----------|------|---------|-------------------------------------------------|
 | <span class="lyric-trigger" data-lyric-file="chapter4/c4ayongchun.md">咏春</span>                                           | 林子祥     | 林子祥       | 陈少琪  | <br />  | **A组曲目**<br />  舞剧《咏春》                                |
 | <span class="lyric-trigger" data-lyric-file="chapter4/c4arenshengqishihenjiandan.md">人生其实很简单 <strong>\[国]</strong></span> | 叶蒨文     | 陈大力 / 陈秀男 | 陈大力  | <br />  | **A组曲目**                                        |
@@ -105,7 +105,7 @@ table th:nth-of-type(6) { width: 20%; }
 
 #### Chapter4 - B
 
-| 曲目                                                                                                               | 演唱会演唱   | 作曲   | 作词    | OT（原曲）  | 备注                                                                                                                                                          |
+| 曲目                                                                                                               | 演唱   | 作曲   | 作词    | OT（原曲）  | 备注                                                                                                                                                          |
 |------------------------------------------------------------------------------------------------------------------|---------|------|-------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <span class="lyric-trigger" data-lyric-file="chapter4/c4byoushixiyichang.md">又是戏一场 <strong>\[国]</strong></span>  | 叶蒨文     | 黄霑   | 黄霑    | <br />  | **B组曲目**<br />  Medley：又是戏一场+躲也躲不了<br />  电影《刀马旦》<br /> 没有发行流媒体音源，<a href="https://www.bilibili.com/video/BV162eme2EPb/" target="_blank" rel="noopener noreferrer">B站原版视频</a> |
 | <span class="lyric-trigger" data-lyric-file="chapter4/c4bduoyeduobuliao.md">躲也躲不了 <strong>\[国]</strong></span>   | 叶蒨文     | 黄霑   | 黄霑    | <br />  | **B组曲目**<br />  Medley：又是戏一场+躲也躲不了<br />   电影《刀马旦》                                                                                                                      |
@@ -118,7 +118,7 @@ table th:nth-of-type(6) { width: 20%; }
 
 #### Chapter5
 
-| 曲目                                                                                                                       | 演唱会演唱   | 作曲                         | 作词                | OT（原曲）                                           | 备注                              |
+| 曲目                                                                                                                       | 演唱   | 作曲                         | 作词                | OT（原曲）                                           | 备注                              |
 |--------------------------------------------------------------------------------------------------------------------------|---------|----------------------------|-------------------|--------------------------------------------------|---------------------------------|
 | <span class="lyric-trigger" data-lyric-file="chapter5/c5woyaonideai.md">我要你的爱 <strong>\[国]</strong></span>               | 叶蒨文     | 姚敏                         | 姚敏                | 我要你的爱 (葛兰)                                       | 非常驻曲目                           |
 | <span class="lyric-trigger" data-lyric-file="chapter5/c5zhenxinzhenyiguoyisheng.md">真心真意过一生 <strong>\[国]</strong></span> | 叶蒨文     | 陈大力 / 陈秀男                  | 陈大力               | <br />                                           | 非常驻曲目                           |
@@ -127,7 +127,7 @@ table th:nth-of-type(6) { width: 20%; }
 | <span class="lyric-trigger" data-lyric-file="chapter5/c5zhenzhong.md">珍重</span>                                          | 叶蒨文     | 王文清                        | 潘伟源               | <br />                                           | 非常驻曲目                           |
 | <span class="lyric-trigger" data-lyric-file="chapter5/c5qingrenzhiji.md">情人知己</span>                                     | 叶蒨文     | 飞鸟凉                        | 潘源良               | 男と女 (CHAGE & ASKA)                               | 非常驻曲目                           |
 | <span class="lyric-trigger" data-lyric-file="chapter5/c5aidekeneng.md">爱的可能 <strong>\[国]</strong></span>                 | 叶蒨文     | 李偲菘                        | 刘虞瑞               | <br />                                           | 非常驻曲目                           |
-| <span class="lyric-trigger" data-lyric-file="chapter5/c5kushaqiuquqiulai.md">哭砂 <strong>\[国]</strong>+秋去秋来</span>        | 叶蒨文     | 熊美玲                        | 哭砂：林秋离  秋去秋来：林振强  | 哭砂 (黄莺莺)                                         | 非常驻曲目                           |
+| <span class="lyric-trigger" data-lyric-file="chapter5/c5kushaqiuquqiulai.md">哭砂 <strong>\[国]</strong>+秋去秋来</span>        | 叶蒨文     | 熊美玲                        | 哭砂：林秋离  <br />秋去秋来：林振强  | 哭砂 (黄莺莺)                                         | 非常驻曲目                           |
 | <span class="lyric-trigger" data-lyric-file="chapter5/c5buyaogaosuta.md">不要告诉他 <strong>\[国]</strong></span>              | 叶蒨文     | 黄国伦                        | 王中言               | 不要告诉他 (张信哲)                                      | 非常驻曲目                           |
 | <span class="lyric-trigger" data-lyric-file="chapter5/c5tongnian.md">童年 <strong>\[国]</strong></span>                     | 叶蒨文     | 罗大佑                        | 罗大佑               | 童年 (张艾嘉)                                         | 非常驻曲目                           |
 | <span class="lyric-trigger" data-lyric-file="chapter5/c5wodeaiduinishuo.md">我的爱对你说 <strong>\[国]</strong></span>          | 叶蒨文     | 李海鹰                        | 陈洁明               | <br />                                           | 非常驻曲目                           |
@@ -138,18 +138,18 @@ table th:nth-of-type(6) { width: 20%; }
 
 #### Chapter6
 
-| 曲目                                                                                                     | 演唱会演唱     | 作曲                                                                                       | 作词                                                                                      | OT（原曲）                                                                                                             | 备注                        |
+| 曲目                                                                                                     | 演唱     | 作曲                                                                                       | 作词                                                                                      | OT（原曲）                                                                                                             | 备注                        |
 |--------------------------------------------------------------------------------------------------------|-----------|------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|---------------------------|
 | <span class="lyric-trigger" data-lyric-file="chapter6/c6lantian.md">蓝天 <strong>\[国]</strong></span>    | 叶蒨文       | 西村由纪江                                                                                    | 刘虞瑞                                                                                     | いつまでも (西村由纪江)                                                                                                      | <br />                    |
-| <span class="lyric-trigger" data-lyric-file="chapter6/c6zhuiyidanchekongdeng.md">追忆+单车+空凳</span>       | 林子祥       | 追忆：林子祥 单车：柳重言 空凳：林敏怡                                                                     | 追忆：林振强 单车：黄伟文 空凳：林振强                                                                    | 单车 (陈奕迅)  空凳 (夏韶声)                                                                                                 | 单车作曲者柳重言(Jim)为本次演唱会和音老师之一 |
-| <span class="lyric-trigger" data-lyric-file="chapter6/c6mozaibeizuqu.md">莫再悲+我要走天涯+成吉思汗+亚里巴巴+狂欢</span> | 林子祥 & 叶蒨文 | 莫再悲：中岛美雪 我要走天涯：Peter Yarrow 成吉思汗：Ralph Siegel 亚里巴巴：Karl-Heinz Merkel 狂欢：Abraham Idelsohn | 莫再悲：中岛美雪 我要走天涯：Peter Yarrow 成吉思汗：Bernd Meinunger  亚里巴巴：Cherry Laine 狂欢：Abraham Idelsohn | 莫再悲：忘れな草をもう一度  我要走天涯：Tall Pine Trees 成吉思汗：Dschinghis Khan 亚里巴巴：Thousand and One Nights (A Li Ba Ba) 狂欢：Hava Nagila | 全部改编词：郑国江                 |
+| <span class="lyric-trigger" data-lyric-file="chapter6/c6zhuiyidanchekongdeng.md">追忆+单车+空凳</span>       | 林子祥       | 追忆：林子祥 <br />单车：柳重言 <br />空凳：林敏怡                                                                     | 追忆：林振强 <br />单车：黄伟文 <br />空凳：林振强                                                                    | 单车 (陈奕迅)  <br />空凳 (夏韶声)                                                                                                | 单车作曲者柳重言(Jim)为本次演唱会和音老师之一 |
+| <span class="lyric-trigger" data-lyric-file="chapter6/c6mozaibeizuqu.md">莫再悲+我要走天涯+成吉思汗+亚里巴巴+狂欢</span> | 林子祥 & 叶蒨文 | 莫再悲：中岛美雪 <br />我要走天涯：Peter Yarrow <br />成吉思汗：Ralph Siegel <br />亚里巴巴：Karl-Heinz Merkel <br />狂欢：Abraham Idelsohn | 莫再悲：中岛美雪 <br />我要走天涯：Peter Yarrow <br />成吉思汗：Bernd Meinunger <br />亚里巴巴：Cherry Laine <br />狂欢：Abraham Idelsohn | 莫再悲：忘れな草をもう一度 <br />我要走天涯：Tall Pine Trees <br />成吉思汗：Dschinghis Khan <br />亚里巴巴：Thousand and One Nights (A Li Ba Ba) <br />狂欢：Hava Nagila | 全部改编词：郑国江                 |
 | <span class="lyric-trigger" data-lyric-file="chapter6/c6aidaofenlirengshiai.md">爱到分离仍是爱</span>         | 林子祥 & 叶蒨文 | 蒋三省                                                                                      | 李安修                                                                                     | <br />                                                                                                             | 改编词：潘源良                   |
 | <span class="lyric-trigger" data-lyric-file="chapter6/c6pingzheai.md">凭着爱</span>                       | 林子祥 & 叶蒨文 | 卢冠廷                                                                                      | 潘源良                                                                                     | 凭着爱 (苏芮)                                                                                                           | <br />                    |
 | <span class="lyric-trigger" data-lyric-file="chapter6/c6woaini.md">我爱你</span>                          | 林子祥 & 叶蒨文 | Billy Joel                                                                               | 林振强                                                                                     | Uptown Girl (Billy Joel)                                                                                           | <br />                    |
 
 #### Encore
 
-| 曲目                                                                                                           | 演唱会演唱     | 作曲                            | 作词        | OT（原曲）                                                | 备注     |
+| 曲目                                                                                                           | 演唱     | 作曲                            | 作词        | OT（原曲）                                                | 备注     |
 |--------------------------------------------------------------------------------------------------------------|-----------|-------------------------------|-----------|-------------------------------------------------------|--------|
 | <span class="lyric-trigger" data-lyric-file="encore/ecxiaosazouyihui.md">潇洒走一回 <strong>\[国]</strong></span>  | 叶蒨文       | 陈大力 / 陈秀男                     | 陈乐融 / 王蕙玲 | <br />                                                | <br /> |
 | <span class="lyric-trigger" data-lyric-file="encore/eclanhuacao.md">兰花草 <strong>\[国]</strong></span>         | 叶蒨文       | 陈贤德 / 张弼                      | 胡适        | 兰花草 (银霞)                                              | 非常驻曲目  |
@@ -164,7 +164,7 @@ table th:nth-of-type(6) { width: 20%; }
 
 #### 未正式出演
 
-| 曲目                               | 演唱会演唱   | 作曲                       | 作词   | OT（原曲）                             | 备注      |
+| 曲目                               | 演唱   | 作曲                       | 作词   | OT（原曲）                             | 备注      |
 |----------------------------------|---------|--------------------------|------|------------------------------------|---------|
 | 女人的弱点                            | 叶蒨文     | 飞鸟凉                      | 潘源良  | <br />                             | 未正式演唱   |
 | 我要活下去                            | 叶蒨文     | Umberto Bindi            | 林振强  | You're My World (Cilla Black)      | 未正式演唱   |
