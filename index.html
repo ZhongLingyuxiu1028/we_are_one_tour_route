@@ -11,7 +11,7 @@
     <script src="lib/marked.min.js"></script>
     <link rel="stylesheet" href="css/fonts.css?v=20261020">
     <link rel="stylesheet" href="css/tokens.css?v=20261020">
-    <link rel="stylesheet" href="css/style.css?v=20261021-8">
+    <link rel="stylesheet" href="css/style.css?v=20261022-2">
     <link rel="stylesheet" href="css/simple-lightbox.min.css">
     <link rel="stylesheet" href="css/statistical-table.css?v=20261020">
     <link rel="stylesheet" href="css/back-to-top.css">
@@ -36,7 +36,7 @@
                     <a href="#credits" data-goto-tab="btnCredits" data-i18n="btn.credits">🙏 致谢名单</a>
                 </div>
             </div>
-            <a href="#about" data-goto-tab="btnAbout" data-i18n="nav.about">关于本站</a>
+            <a href="#about" data-scroll="#about" data-i18n="nav.about">关于本站</a>
         </nav>
         <div id="lang-selector" class="nav-dropdown">
             <button class="nav-drop-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" aria-label="Language">
@@ -150,9 +150,18 @@
             <button id="btnSetlist" data-i18n="btn.setlist">🎤 演出歌单</button>
             <button id="btnCredits" data-i18n="btn.credits">🙏 致谢名单</button>
             <button id="btnBonus" data-i18n="btn.bonus">🎊 彩蛋环节</button>
-            <button id="btnAbout" data-i18n="btn.about">💬 关于本站</button>
         </div>
         <div id="content"></div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <div class="kicker">ABOUT</div>
+            <h2 data-i18n="sec.about">关于本站</h2>
+        </div>
+        <div id="about-content" class="about-timeline"></div>
     </div>
 </section>
 
@@ -182,8 +191,8 @@
 <script src="lib/simple-lightbox.min.js"></script>
 
 <script src="js/i18n.js?v=20261021-2"></script>
-<script src="js/app.js?v=20261021"></script>
-<script src="js/tabs.js?v=20261021-6"></script>
+<script src="js/app.js?v=20261022-2"></script>
+<script src="js/tabs.js?v=20261022-3"></script>
 <script src="js/emoji-effect.js"></script>
 <script src="js/statistical-table.js?v=20261020"></script>
 <script src="js/back-to-top.js?v=20261021-2"></script>

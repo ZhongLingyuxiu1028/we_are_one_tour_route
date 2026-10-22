@@ -41,11 +41,10 @@ document.addEventListener('i18nReady', () => {
     const btnSetlist = document.getElementById('btnSetlist');
     const btnCredits = document.getElementById('btnCredits');
     const btnBonus = document.getElementById('btnBonus');
-    const btnAbout = document.getElementById('btnAbout');
 
     // 所有控制按钮
     // const allButtons = [btnChina, btnWorld, btnDiary, btnSonglist, btnSetlist, btnCredits, btnBonus, btnAbout];
-    const allButtons = [btnChina, btnWorld, btnSonglist, btnSetlist, btnCredits, btnBonus, btnAbout];
+    const allButtons = [btnChina, btnWorld, btnSonglist, btnSetlist, btnCredits, btnBonus];
 
     const TAB_HASH = {
         btnChina: 'map',
@@ -53,8 +52,7 @@ document.addEventListener('i18nReady', () => {
         btnSonglist: 'songlist',
         btnSetlist: 'setlist',
         btnCredits: 'credits',
-        btnBonus: 'bonus',
-        btnAbout: 'about'
+        btnBonus: 'bonus'
     };
 
     function setActive(button) {
@@ -173,7 +171,8 @@ document.addEventListener('i18nReady', () => {
         { id: 'top', hash: 'top' },
         { id: 'stats', hash: 'stats', nav: '.nav a[data-scroll="#stats"]' },
         { id: 'map-section', hash: 'map', nav: '.nav a[data-scroll="#map-section"]' },
-        { id: 'hall', hash: 'hall' }
+        { id: 'hall', hash: 'hall' },
+        { id: 'about', hash: 'about', nav: '.nav a[data-scroll="#about"]' }
     ].map(s => Object.assign(s, { el: document.getElementById(s.id) }));
 
     let spySuspended = false;
@@ -279,69 +278,74 @@ document.addEventListener('i18nReady', () => {
         window.activeTabButton = null;
     });
 
-    // === 内容型 Tab：统一处理逻辑 ===
-    const loadMarkdownTab = async (button, filePath, loadingKey, errorKey = "error.loadFailed") => {
+    // === 内容型 Tab：统一处理逻辑（filePaths 支持单文件路径或多文件数组，多文件按顺序拼接渲染） ===
+    const loadMarkdownTab = async (button, filePaths, loadingKey, errorKey = "error.loadFailed") => {
+        const files = Array.isArray(filePaths) ? filePaths : [filePaths];
         window.activeTabButton = button;
         setActive(button);
         showContent();
         contentEl.innerHTML = `<div class="loading">${i18n.t(loadingKey)}</div>`;
 
         try {
-            const response = await fetch(filePath);
-            if (response.ok) {
-                const text = await response.text();
+            const responses = await Promise.all(files.map(f => fetch(f)));
+            if (responses.every(r => r.ok)) {
+                const text = (await Promise.all(responses.map(r => r.text()))).join('\n\n');
                 const html = marked.parse(text);
                 contentEl.innerHTML = `<div class="content-body">${html}</div>`;
                 // 绑定歌词触发器
                 bindLyricTriggers();
                 // 表格横向滚动包裹；预习曲目额外做章节卡片化
                 wrapTablesForScroll(contentEl);
-                if (filePath.includes('songlist')) enhanceSonglist(contentEl);
-                if (filePath.includes('credits')) enhanceCredits(contentEl);
+                if (files.some(f => f.includes('songlist'))) enhanceSonglist(contentEl);
+                if (files.some(f => f.includes('credits'))) enhanceCredits(contentEl);
 
                 const contentDiv = document.getElementById('content');
                 if (window.BackToTop && contentDiv) {
                     window.BackToTop.bind(contentDiv);
                 }
 
-                // 关键：自动为所有 img 包裹 a 标签（如果还没包）
-                const contentBody = contentEl.querySelector('.content-body');
-                if (contentBody) {
-                    const images = contentBody.querySelectorAll('img[src]');
-                    images.forEach(img => {
-                        // 跳过已经包裹在 <a> 中的图片
-                        if (img.parentElement.tagName === 'A') return;
-
-                        const src = img.src;
-                        // 只处理本站图片（避免外部链接出错）
-                        if (!src || !src.includes('/img/')) return;
-
-                        const a = document.createElement('a');
-                        a.href = src;
-                        a.setAttribute('data-lightbox', 'markdown-images'); // 可选：用于分组
-                        img.parentNode.insertBefore(a, img);
-                        a.appendChild(img);
-                    });
-
-                    // 初始化 Simple Lightbox（仅针对当前内容区域）
-                    new SimpleLightbox('.content-body a[href$=".jpg"], .content-body a[href$=".jpeg"], .content-body a[href$=".png"], .content-body a[href$=".gif"]', {
-                        captions: true,
-                        captionType: 'attr',
-                        captionsData: 'alt',
-                        closeText: '×',
-                        swipeClose: true,
-                        disableScroll: true,
-                        alertError: false
-                    });
-                }
+                enhanceContentImages(contentEl);
             } else {
                 contentEl.innerHTML = `<div class="error">${i18n.t("error.notFound")}</div>`;
             }
         } catch (err) {
-            console.error(`Failed to load ${filePath}:`, err);
+            console.error(`Failed to load ${files.join(', ')}:`, err);
             contentEl.innerHTML = `<div class="error">${i18n.t(errorKey)}</div>`;
         }
     };
+
+    // 图片增强：为本站 img 自动包裹 a 标签并初始化 Simple Lightbox（作用于容器内最近的 .content-body）
+    function enhanceContentImages(scope) {
+        const contentBody = scope.querySelector('.content-body');
+        if (!contentBody) return;
+
+        const images = contentBody.querySelectorAll('img[src]');
+        images.forEach(img => {
+            // 跳过已经包裹在 <a> 中的图片
+            if (img.parentElement.tagName === 'A') return;
+
+            const src = img.src;
+            // 只处理本站图片（避免外部链接出错）
+            if (!src || !src.includes('/img/')) return;
+
+            const a = document.createElement('a');
+            a.href = src;
+            a.setAttribute('data-lightbox', 'markdown-images'); // 可选：用于分组
+            img.parentNode.insertBefore(a, img);
+            a.appendChild(img);
+        });
+
+        // 初始化 Simple Lightbox（仅针对当前内容区域）
+        new SimpleLightbox('.content-body a[href$=".jpg"], .content-body a[href$=".jpeg"], .content-body a[href$=".png"], .content-body a[href$=".gif"]', {
+            captions: true,
+            captionType: 'attr',
+            captionsData: 'alt',
+            closeText: '×',
+            swipeClose: true,
+            disableScroll: true,
+            alertError: false
+        });
+    }
 
     // 巡演日志
     /*btnDiary.addEventListener('click', () =>
@@ -358,15 +362,133 @@ document.addEventListener('i18nReady', () => {
         loadMarkdownTab(btnCredits, 'data/credits.md', 'loading.credits')
     );
 
-    // 彩蛋环节
-    btnBonus.addEventListener('click', () =>
-        loadMarkdownTab(btnBonus, 'data/bonus.md', 'loading.bonus')
-    );
+    // ==================== 彩蛋环节：标题卡片 + 点击查看详情 ====================
+    const BONUS_FILES = [
+        'data/bonus/bonus1.md',
+        'data/bonus/bonus2.md',
+        'data/bonus/bonus3.md'
+    ];
 
-    // 关于本站
-    btnAbout.addEventListener('click', () =>
-        loadMarkdownTab(btnAbout, 'data/about.md', 'loading.about')
-    );
+    async function loadBonusTab(button) {
+        window.activeTabButton = button;
+        setActive(button);
+        showContent();
+        contentEl.innerHTML = `<div class="loading">${i18n.t('loading.bonus')}</div>`;
+
+        try {
+            // 从每个文件的 H2 标题提取编号与名称（如 "## Bonus 1：Opening 照片出处 💑"）
+            const entries = await Promise.all(BONUS_FILES.map(async (file) => {
+                const res = await fetch(file);
+                if (!res.ok) throw new Error(file);
+                const text = await res.text();
+                const m = text.match(/^##\s+Bonus\s*(\d+)[：:]\s*(.+)$/m);
+                return {
+                    no: m ? m[1] : '',
+                    title: m ? m[2].replace(/\*\*/g, '').trim() : file,
+                    html: marked.parse(text)
+                };
+            }));
+
+            contentEl.innerHTML = `
+                <div class="bonus-cards">
+                    ${entries.map((e, i) => `
+                        <button class="bonus-card" type="button" data-index="${i}">
+                            <span class="bonus-no">Bonus ${e.no}</span>
+                            <span class="bonus-title">${e.title}</span>
+                        </button>`).join('')}
+                </div>
+                <div id="bonusContent"></div>
+            `;
+
+            const detailEl = document.getElementById('bonusContent');
+            const renderHint = () => {
+                detailEl.innerHTML = `<div class="bonus-hint">${i18n.t('bonus.selectPrompt')}</div>`;
+            };
+            renderHint();
+
+            contentEl.querySelector('.bonus-cards').addEventListener('click', (e) => {
+                const card = e.target.closest('.bonus-card');
+                if (!card) return;
+                // 再次点击已选中卡片 → 收起回到提示
+                if (card.classList.contains('picked')) {
+                    card.classList.remove('picked');
+                    renderHint();
+                    return;
+                }
+                contentEl.querySelectorAll('.bonus-card').forEach(c => c.classList.remove('picked'));
+                card.classList.add('picked');
+                detailEl.innerHTML = `<div class="content-body">${entries[card.dataset.index].html}</div>`;
+                // 表格横向滚动包裹 + 图片灯箱
+                wrapTablesForScroll(detailEl);
+                enhanceContentImages(detailEl);
+            });
+
+            const contentDiv = document.getElementById('content');
+            if (window.BackToTop && contentDiv) {
+                window.BackToTop.bind(contentDiv);
+            }
+        } catch (err) {
+            console.error('Failed to load bonus:', err);
+            contentEl.innerHTML = `<div class="error">${i18n.t('error.loadFailed')}</div>`;
+        }
+    }
+
+    // 彩蛋环节
+    btnBonus.addEventListener('click', () => loadBonusTab(btnBonus));
+
+    // ==================== 关于本站：独立板块时间线（最新一条默认展开，其余折叠，点击展开/收起） ====================
+    // 文件名含日期，如 about20261020.md；数组顺序即展示顺序（最新在前）
+    const ABOUT_FILES = [
+        'data/about/about20261020.md',
+        'data/about/about20260118.md',
+        'data/about/about20251101.md'
+    ];
+
+    async function initAboutSection() {
+        const box = document.getElementById('about-content');
+        if (!box) return;
+
+        try {
+            const items = await Promise.all(ABOUT_FILES.map(async (file, i) => {
+                const res = await fetch(file);
+                if (!res.ok) throw new Error(file);
+                const text = await res.text();
+                let html = marked.parse(text);
+                // 提取第一个 H2 作为时间线标题，正文内不再重复渲染
+                const titleMatch = text.match(/^##\s+(.+)$/m);
+                const title = titleMatch ? titleMatch[1].trim() : '';
+                if (titleMatch) html = html.replace(/<h2[^>]*>[\s\S]*?<\/h2>\s*/, '');
+                const m = file.match(/(\d{4})(\d{2})(\d{2})/);
+                const date = m ? `${m[1]}.${m[2]}.${m[3]}` : '';
+                const expanded = i === 0;
+                return `<article class="timeline-item${i === 0 ? ' latest' : ' collapsed'}">
+                    <div class="timeline-node"></div>
+                    <button class="timeline-head" type="button" aria-expanded="${expanded}">
+                        <time class="timeline-date">${date}</time>
+                        <span class="timeline-title">${title}</span>
+                        ${i === 0 ? `<span class="timeline-badge" data-i18n="about.latest">${i18n.t('about.latest')}</span>` : ''}
+                        <svg class="timeline-chev" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="timeline-card">${html}</div>
+                </article>`;
+            }));
+            box.innerHTML = `<div class="timeline">${items.join('')}</div>`;
+
+            // 点击头部切换展开/折叠（最新一条不参与折叠）
+            box.addEventListener('click', (e) => {
+                const head = e.target.closest('.timeline-head');
+                if (!head) return;
+                const item = head.closest('.timeline-item');
+                if (item.classList.contains('latest')) return;
+                const collapsed = item.classList.toggle('collapsed');
+                head.setAttribute('aria-expanded', String(!collapsed));
+            });
+        } catch (err) {
+            console.error('Failed to load about timeline:', err);
+            box.innerHTML = `<div class="error">${i18n.t('error.loadFailed')}</div>`;
+        }
+    }
+    initAboutSection();
 
     // ==================== 日期解析（兼容三种格式） ====================
     function parseDate(dateStr) {
@@ -952,6 +1074,13 @@ document.addEventListener('i18nReady', () => {
         const btn = document.getElementById(hashBtnId);
         if (btn) btn.click();
         // 滚动定位由 btn.click() 内部的 showContent 触发，锚点在滚动静止后由 scroll-spy 对齐
+    } else if (initialHash === 'about') {
+        const aboutEl = document.getElementById('about');
+        if (aboutEl) {
+            suspendSpy();
+            aboutEl.scrollIntoView();
+            syncNavActive('.nav a[data-scroll="#about"]');
+        }
     } else {
         window.scrollTo(0, 0);
         updateHashFromScroll();

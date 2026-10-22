@@ -75,8 +75,7 @@ function showSetlistForItem(item) {
         document.getElementById('btnWorld'),
         btnSetlist,
         document.getElementById('btnCredits'),
-        document.getElementById('btnBonus'),
-        document.getElementById('btnAbout')
+        document.getElementById('btnBonus')
     ];
 
     if (allButtons.every(btn => btn)) {
@@ -259,8 +258,7 @@ function goBackToMap() {
         btnWorld,
         document.getElementById('btnSetlist'),
         document.getElementById('btnCredits'),
-        document.getElementById('btnBonus'),
-        document.getElementById('btnAbout')
+        document.getElementById('btnBonus')
     ];
 
     if (allButtons.every(btn => btn)) {
