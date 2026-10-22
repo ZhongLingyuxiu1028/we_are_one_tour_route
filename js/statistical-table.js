@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     (<span class="count-val">${item.completeCity}</span>)
                 </td>
                 <td>
-                    ${pending} (<span class="count-val">${pendingCity}</span>)
+                    <span class="count-val">${pending}</span> (<span class="count-val">${pendingCity}</span>)
                 </td>
             `;
             tbody.insertBefore(tr, totalRow);

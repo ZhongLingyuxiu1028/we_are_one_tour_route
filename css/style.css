@@ -217,13 +217,79 @@ section { padding: 72px 0; }
 }
 .stats-details { margin-top: 24px; }
 .stats-details summary {
-    cursor: pointer; text-align: center; color: var(--sky-deep);
-    font-size: 14px; font-weight: 600; padding: 8px;
-    list-style: none;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: fit-content; margin: 0 auto; padding: 10px 26px;
+    cursor: pointer; user-select: none; list-style: none;
+    color: var(--sky-deep); font-size: 14px; font-weight: 600; letter-spacing: .04em;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+    box-shadow: var(--shadow-card);
+    transition: color .2s, border-color .2s, box-shadow .2s, transform .2s;
 }
-.stats-details summary::before { content: "▸ "; }
-.stats-details[open] summary::before { content: "▾ "; }
-.stats-details summary:hover { text-decoration: underline; }
+.stats-details summary::-webkit-details-marker { display: none; }
+.stats-details summary::before {
+    content: ""; width: 8px; height: 8px; flex: none;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg); transition: transform .3s ease;
+}
+.stats-details[open] summary::before { transform: rotate(135deg); }
+.stats-details summary:hover {
+    color: var(--leaf-deep); border-color: var(--leaf);
+    box-shadow: var(--shadow-hover); transform: translateY(-2px); text-decoration: none;
+}
+
+.stats-table-scroll {
+    margin-top: 18px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: var(--radius-l);
+    box-shadow: var(--shadow-card);
+}
+.stats-details[open] .stats-table-scroll { animation: detailsIn .4s ease both; }
+@keyframes detailsIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: none; }
+}
+
+table.tour-stats {
+    width: 100%; min-width: 680px;
+    border-collapse: collapse; font-size: 14px;
+}
+/* 表头：淡蓝底 + 深蓝字 */
+.tour-stats thead th {
+    padding: 13px 16px; white-space: nowrap;
+    font-size: 13px; font-weight: 700; letter-spacing: .05em;
+    color: var(--sky-deep); background: var(--tint-blue);
+    border-bottom: 2px solid var(--sky);
+}
+.tour-stats th:not(:first-child), .tour-stats td:not(:first-child) { text-align: center; }
+.tour-stats tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-2); font-variant-numeric: tabular-nums;
+}
+.tour-stats tbody tr { transition: background .18s; }
+.tour-stats tbody tr:nth-child(even):not(.total-row) { background: var(--tint-green); }
+.tour-stats tbody tr:hover:not(.total-row) { background: #FDF6E0; }
+.tour-stats td:first-child { color: var(--ink); font-weight: 600; }
+/* 数字：粗体 + 语义色，不加底色 */
+.tour-stats .count-val {
+    font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.tour-stats td:nth-child(2), .tour-stats td:nth-child(3) { color: var(--sky-deep); }
+.tour-stats td:nth-child(4) { color: var(--leaf-deep); }
+.tour-stats td:nth-child(5) { color: #B07A1A; }
+/* 合计行：深绿底 + 白字 */
+.tour-stats tr.total-row td {
+    padding: 13px 16px;
+    background: var(--leaf-deep);
+    border-bottom: none;
+    color: #fff; font-weight: 700;
+}
+.tour-stats .total-row td:first-child { color: #fff; font-size: 15px; }
+
+@media (max-width: 640px) {
+    .stats-details summary { padding: 9px 20px; font-size: 13px; }
+    .tour-stats { font-size: 13px; }
+    .tour-stats thead th, .tour-stats tbody td, .tour-stats .total-row td { padding: 10px 12px; }
+}
 
 /* ==================== 地图区 ==================== */
 .map-card {
