@@ -1,4 +1,4 @@
-# 林子祥 & 叶蒨文 ❤️ 白头到老 · We Are One 巡演足迹站
+# 林子祥 & 叶蒨文 ❤️ 白头到老 · We Are One
 
 > George Lam & Sally Yeh · 《白头到老 / We Are One》世界巡回演唱会 2025–2026 · 野生观察站
 
