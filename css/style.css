@@ -688,7 +688,7 @@ footer .angel-line {
     .setlist-welcome { grid-template-columns: 1fr; }
 }
 
-/* ==================== 章节卡片流（预习曲目） ==================== */
+/* ==================== 预习曲目：章节平铺展示 ==================== */
 .chapters { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 16px 0; }
 .chapter-card {
     background: var(--surface); border: 1px solid var(--line);
@@ -696,12 +696,107 @@ footer .angel-line {
 }
 .chapter-card .band { height: 6px; background: linear-gradient(90deg, var(--sky), var(--angel-blue)); }
 .chapter-card:nth-child(even) .band { background: linear-gradient(90deg, var(--leaf), #7cc47f); }
+.chapter-card.sl-appendix .band { background: var(--line); }
 .chapter-card .body { padding: 14px 20px 18px; }
+.chapter-card .ch-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .chapter-card h4 {
     font-family: var(--serif); font-size: 19px; color: var(--ink);
-    margin: 4px 0 10px;
+    margin: 4px 0 0;
 }
+.chapter-card .ch-count {
+    font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--ink-2);
+    border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px; white-space: nowrap;
+}
+.chapter-card .ch-idea { color: var(--ink-2); font-size: 13px; line-height: 1.7; margin: 6px 0 10px; }
+.chapter-card .content-body { margin: 0; }
 .chapter-card table { margin: 4px 0 0; box-shadow: none; }
+
+/* ==================== 预习曲目：章节卡片模式（备用，当前未启用） ==================== */
+.songlist-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0 18px; }
+@media (max-width: 960px) { .songlist-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .songlist-cards { grid-template-columns: 1fr; } }
+.songlist-card {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+    text-align: left; cursor: pointer; position: relative; overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    padding: 16px 16px 14px;
+    font-family: var(--sans); color: var(--ink);
+    box-shadow: var(--shadow-card);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+.songlist-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--sky), var(--angel-blue));
+}
+.songlist-card:nth-child(even)::before { background: linear-gradient(90deg, var(--leaf), #7cc47f); }
+.songlist-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--sky); }
+.songlist-card.picked { border-color: var(--sky); background: var(--tint-blue); transform: none; box-shadow: var(--shadow-card); }
+.songlist-card .sl-no {
+    font-size: 12px; font-weight: 700; letter-spacing: 1.2px;
+    color: var(--sky-deep); text-transform: uppercase;
+}
+.songlist-card .sl-title { font-family: var(--serif); font-size: 16px; font-weight: 600; line-height: 1.5; }
+.songlist-card .sl-idea { font-size: 12px; color: var(--ink-2); line-height: 1.6; }
+.songlist-card .sl-count {
+    margin-top: auto; font-size: 12px; font-weight: 600; color: var(--ink-2);
+    border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px;
+}
+.songlist-card.picked .sl-count { border-color: var(--sky); color: var(--sky-deep); background: var(--surface); }
+/* 附录卡（未正式出演）：弱化视觉，与正式章节区分 */
+.songlist-card.sl-appendix::before { background: var(--line); }
+.songlist-card.sl-appendix .sl-no { color: var(--ink-2); }
+/* 章节详情头 */
+.sl-detail-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 6px 0 2px; }
+.sl-detail-title { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--ink); }
+.sl-detail-head .sl-count {
+    font-size: 12px; font-weight: 600; color: var(--sky-deep);
+    border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px;
+}
+.sl-detail-idea { color: var(--ink-2); font-size: 13px; line-height: 1.7; margin: 0 0 10px; }
+#songlistDetail .content-body { margin-top: 4px; }
+
+/* 关于曲目选择 · Sally 语录气泡 */
+.quote-bubble { display: flex; gap: 12px; align-items: flex-start; margin: 14px 0; }
+.quote-bubble .qb-avatar {
+    flex: none; width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sky), var(--angel-pink));
+    color: #fff; font-family: var(--serif); font-weight: 600; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(27, 122, 194, .18);
+}
+.quote-bubble .qb-body {
+    position: relative; flex: 1; min-width: 0;
+    background: var(--tint-blue);
+    border: 1px solid var(--line);
+    border-radius: 4px var(--radius-m) var(--radius-m) var(--radius-m);
+    padding: 14px 18px;
+}
+.quote-bubble .qb-body::before {
+    content: ""; position: absolute; left: -6px; top: 20px;
+    width: 10px; height: 10px; background: var(--tint-blue);
+    border-left: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    transform: rotate(45deg);
+}
+.quote-bubble .qb-body p { margin: 0; line-height: 1.9; color: var(--ink); }
+.quote-bubble .qb-foot {
+    display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+    margin-top: 8px; font-size: 12px; color: var(--ink-2);
+}
+.quote-bubble .qb-link { color: var(--sky-deep); font-weight: 500; text-decoration: none; }
+.quote-bubble .qb-link:hover { text-decoration: underline; }
+
+/* 曲目一览 · 资料说明注脚卡 */
+.source-notes {
+    background: var(--surface);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-m);
+    padding: 12px 16px;
+    margin: 12px 0 4px;
+}
+.source-notes .sn-label { font-size: 12px; font-weight: 500; color: var(--ink-2); margin-bottom: 4px; }
+.source-notes ol { margin: 0; padding-left: 18px; font-size: 12px; color: var(--ink-2); line-height: 1.9; }
 
 /* 预习曲目表格：与演出歌单表同风格（发丝线 + 淡蓝表头 + 白/浅灰斑马纹 + 浅蓝悬浮），直角外框 */
 #content .songlist-view table {
@@ -730,6 +825,13 @@ footer .angel-line {
 #content .songlist-view tbody tr:nth-child(even) { background: #F5F7F8; }
 #content .songlist-view tbody tr:nth-child(n):hover { background: var(--tint-blue); }
 #content .songlist-view tr:last-child td { border-bottom: none; }
+/* 列宽约定（原 songlist.md 内联样式收敛至此）：曲目 16% | 演唱 8% | 作曲 18% | 作词 18% | OT 18% | 备注 20% */
+#content .songlist-view table th:nth-of-type(1) { width: 16%; }
+#content .songlist-view table th:nth-of-type(2) { width: 8%; }
+#content .songlist-view table th:nth-of-type(3) { width: 18%; }
+#content .songlist-view table th:nth-of-type(4) { width: 18%; }
+#content .songlist-view table th:nth-of-type(5) { width: 18%; }
+#content .songlist-view table th:nth-of-type(6) { width: 20%; }
 
 /* 合唱曲目标记（双天使色） */
 .duet { display: inline-flex; margin-right: 6px; vertical-align: middle; }

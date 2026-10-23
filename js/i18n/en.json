@@ -26,6 +26,8 @@
   "loading.credits": "Loading credits...",
   "loading.bonus": "Loading bonus content...",
   "bonus.selectPrompt": "👆 Click a card above to view the bonus content",
+  "songlist.selectPrompt": "👆 Click a chapter card to view its tracklist",
+  "songlist.songUnit": "songs",
   "loading.about": "Loading about page...",
   "about.latest": "Latest",
   "loading.setlist.cities": "Loading cities...",

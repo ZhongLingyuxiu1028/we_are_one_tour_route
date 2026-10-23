@@ -26,6 +26,8 @@
   "loading.credits": "正在加載致謝名單...",
   "loading.bonus": "正在加載彩蛋環節...",
   "bonus.selectPrompt": "👆 點擊上方卡片，查看對應彩蛋內容",
+  "songlist.selectPrompt": "👆 點擊章節卡片，查看該章節的曲目一覽",
+  "songlist.songUnit": "首",
   "loading.about": "正在加載關於本站...",
   "about.latest": "最新",
   "loading.setlist.cities": "正在加載演出城市列表...",

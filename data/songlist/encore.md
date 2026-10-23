@@ -1,0 +1,16 @@
+## Encore
+
+[//]: # (> 设计思路：)
+
+| 曲目                                                                                                           | 演唱     | 作曲                            | 作词        | OT（原曲）                                                | 备注     |
+|--------------------------------------------------------------------------------------------------------------|-----------|-------------------------------|-----------|-------------------------------------------------------|--------|
+| <span class="lyric-trigger" data-lyric-file="encore/ecxiaosazouyihui.md">潇洒走一回 <strong>\[国]</strong></span>  | 叶蒨文       | 陈大力 / 陈秀男                     | 陈乐融 / 王蕙玲 | <br />                                                | <br /> |
+| <span class="lyric-trigger" data-lyric-file="encore/eclanhuacao.md">兰花草 <strong>\[国]</strong></span>         | 叶蒨文       | 陈贤德 / 张弼                      | 胡适        | 兰花草 (银霞)                                              | 非常驻曲目  |
+| <span class="lyric-trigger" data-lyric-file="encore/ecshuzirensheng.md">数字人生</span>                          | 林子祥 & 叶蒨文 | Sandy Linzer / Denny Randell  | 潘源良       | A Lover's Concerto (the Toys)                         | <br /> |
+| <span class="lyric-trigger" data-lyric-file="encore/ecyouaichangcun.md">友爱长存</span>                          | 林子祥 & 叶蒨文 | Andrew Lloyd Webber           | 潘伟源       | Amigos Para Siempre (José Carreras / Sarah Brightman) | 非常驻曲目  |
+| <span class="lyric-trigger" data-lyric-file="encore/ecahlamriji.md">Ah Lam 日记</span>                         | 林子祥 & 叶蒨文 | Enrique Elias Garcia          | 林子祥       | Conga (Miami Sound Machine)                           | 非常驻曲目  |
+| <span class="lyric-trigger" data-lyric-file="encore/ecfenfenzhongxuyaoni.md">分分钟需要你</span>                   | 林子祥 & 叶蒨文 | 林子祥                           | 郑国江       | <br />                                                | <br /> |
+| <span class="lyric-trigger" data-lyric-file="encore/ecxuanze.md">选择 <strong>\[国]</strong></span>             | 林子祥 & 叶蒨文 | 陈秀男 / 陈大力                     | 陈大力       | <br />                                                | <br /> |
+| <span class="lyric-trigger" data-lyric-file="encore/ecganaiganzuo.md">敢爱敢做（Encore版）</span>                   | 林子祥 & 叶蒨文 | Albert Hammond / Diane Warren | 潘伟源       | Nothing's Gonna Stop Us Now (Starship)                | <br /> |
+| <span class="lyric-trigger" data-lyric-file="encore/echaishishenlou.md">海市蜃楼</span>                          | 林子祥 & 叶蒨文 | 林子祥                           | 郑国江       | <br />                                                | 非常驻曲目  |
+| <span class="lyric-trigger" data-lyric-file="encore/ecjiangxiao.md">讲笑</span>                                | 林子祥 & 叶蒨文 | 林子祥                           | 郑国江       | <br />                                                | <br /> |

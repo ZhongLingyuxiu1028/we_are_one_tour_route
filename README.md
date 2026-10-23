@@ -19,7 +19,7 @@
 ├── data/
 │   ├── json/itinerary.json        # 巡演行程（站点/日期/坐标）
 │   ├── json/statistical-table.json# 进度看板统计
-│   ├── songlist.md                # 预习曲目
+│   ├── songlist/                 # 预习曲目（intro 导览 + 各章节曲目表，每章一篇）
 │   ├── diary.md                   # 巡演日记
 │   ├── about/                     # 大事记 / 站点说明（按日期多篇）
 │   ├── bonus/                     # 彩蛋环节（图文，多篇）

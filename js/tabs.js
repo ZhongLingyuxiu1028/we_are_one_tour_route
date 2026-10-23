@@ -294,9 +294,8 @@ document.addEventListener('i18nReady', () => {
                 contentEl.innerHTML = `<div class="content-body">${html}</div>`;
                 // 绑定歌词触发器
                 bindLyricTriggers();
-                // 表格横向滚动包裹；预习曲目额外做章节卡片化
+                // 表格横向滚动包裹
                 wrapTablesForScroll(contentEl);
-                if (files.some(f => f.includes('songlist'))) enhanceSonglist(contentEl);
                 if (files.some(f => f.includes('credits'))) enhanceCredits(contentEl);
 
                 const contentDiv = document.getElementById('content');
@@ -352,10 +351,8 @@ document.addEventListener('i18nReady', () => {
         loadMarkdownTab(btnDiary, 'data/diary.md', 'loading.diary')
     );*/
 
-    // 预习曲目
-    btnSonglist.addEventListener('click', () =>
-        loadMarkdownTab(btnSonglist, 'data/songlist.md', 'loading.songlist')
-    );
+    // 预习曲目：章节卡片 + 详情（数据拆分至 data/songlist/）
+    btnSonglist.addEventListener('click', () => loadSonglistTab(btnSonglist));
 
     // 致谢名单
     btnCredits.addEventListener('click', () =>
@@ -795,14 +792,91 @@ document.addEventListener('i18nReady', () => {
         });
     }
 
-    function enhanceSonglist(contentEl) {
-        const body = contentEl.querySelector('.content-body');
-        if (!body) return;
-        // 打上视图标记：预习曲目表格套用与歌单表一致的风格（见 style.css .songlist-view）
-        body.classList.add('songlist-view');
+    // ==================== 预习曲目：章节卡片 + 点击查看曲目表（数据拆分至 data/songlist/） ====================
+    // 章节文件约定：H2 = 「编号 · 标题」，首条 blockquote「> 设计思路：…」，表格行数自动统计为曲数
+    const SONGLIST_CHAPTERS = [
+        { file: 'data/songlist/chapter1.md' },
+        { file: 'data/songlist/chapter2.md' },
+        { file: 'data/songlist/chapter3.md' },
+        { file: 'data/songlist/chapter4a.md' },
+        { file: 'data/songlist/chapter4b.md' },
+        { file: 'data/songlist/chapter5.md' },
+        { file: 'data/songlist/chapter6.md' },
+        { file: 'data/songlist/encore.md' },
+        { file: 'data/songlist/unofficial.md', variant: 'sl-appendix' }
+    ];
 
-        // 复制歌单名按钮：写入剪贴板并给出「已复制」反馈
-        body.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+    async function loadSonglistTab(button) {
+        window.activeTabButton = button;
+        setActive(button);
+        showContent();
+        contentEl.innerHTML = `<div class="loading">${i18n.t('loading.songlist')}</div>`;
+
+        try {
+            const responses = await Promise.all([
+                fetch('data/songlist/intro.md'),
+                ...SONGLIST_CHAPTERS.map(c => fetch(c.file))
+            ]);
+            if (!responses.every(r => r.ok)) throw new Error('songlist files not found');
+
+            // 导览区：关于曲目选择 + 歌单入口 + 曲目一览说明
+            const introHtml = marked.parse(await responses[0].text());
+
+            // 章节元信息 + 正文（H2 与设计思路行剔除，详情区改用自定义头渲染）
+            const entries = await Promise.all(responses.slice(1).map(async (res, i) => {
+                const text = await res.text();
+                const titleMatch = text.match(/^##\s+(.+)$/m);
+                const rawTitle = titleMatch ? titleMatch[1].trim() : SONGLIST_CHAPTERS[i].file;
+                const sepIdx = rawTitle.indexOf('·');
+                const no = sepIdx > -1 ? rawTitle.slice(0, sepIdx).trim() : rawTitle;
+                const name = sepIdx > -1 ? rawTitle.slice(sepIdx + 1).trim() : '';
+                const ideaMatch = text.match(/^>\s*设计思路[：:]\s*(.+)$/m);
+                const html = marked.parse(text)
+                    .replace(/<h2[^>]*>[\s\S]*?<\/h2>\s*/, '')
+                    .replace(/^<blockquote>[\s\S]*?<\/blockquote>\s*/, '');
+                const count = new DOMParser().parseFromString(html, 'text/html')
+                    .querySelectorAll('table tbody tr').length;
+                return { no, title: name || no, idea: ideaMatch ? ideaMatch[1].trim() : '', count, html };
+            }));
+
+            // 平铺展示：各章节表格全部直接渲染（章节卡片模式暂不启用）
+            contentEl.innerHTML = `
+                <div class="content-body songlist-view">${introHtml}</div>
+                <div class="chapters">
+                    ${entries.map((e, i) => `
+                        <div class="chapter-card${SONGLIST_CHAPTERS[i].variant ? ' ' + SONGLIST_CHAPTERS[i].variant : ''}">
+                            <div class="band"></div>
+                            <div class="body">
+                                <div class="ch-head">
+                                    <h4>${e.title === e.no ? e.no : e.no + ' · ' + e.title}</h4>
+                                    <span class="ch-count">${e.count} ${i18n.t('songlist.songUnit')}</span>
+                                </div>
+                                ${e.idea ? `<p class="ch-idea">设计思路：${e.idea}</p>` : ''}
+                                <div class="content-body songlist-view">${e.html}</div>
+                            </div>
+                        </div>`).join('')}
+                </div>
+            `;
+
+            bindCopyButtons(contentEl);
+            addSingerDots(contentEl);
+            bindLyricTriggers();
+            wrapTablesForScroll(contentEl);
+            enhanceContentImages(contentEl);
+
+            const contentDiv = document.getElementById('content');
+            if (window.BackToTop && contentDiv) {
+                window.BackToTop.bind(contentDiv);
+            }
+        } catch (err) {
+            console.error('Failed to load songlist:', err);
+            contentEl.innerHTML = `<div class="error">${i18n.t('error.loadFailed')}</div>`;
+        }
+    }
+
+    // 复制歌单名按钮：写入剪贴板并给出「已复制」反馈
+    function bindCopyButtons(scope) {
+        scope.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const text = btn.getAttribute('data-copy');
                 if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
@@ -815,37 +889,11 @@ document.addEventListener('i18nReady', () => {
                 }, 1500);
             });
         });
+    }
 
-        const heads = Array.from(body.querySelectorAll('h4'))
-            .filter(h => /^(Chapter|Encore)/i.test(h.textContent.trim()));
-        const cards = [];
-
-        heads.forEach(h => {
-            const card = document.createElement('div');
-            card.className = 'chapter-card';
-            const band = document.createElement('div');
-            band.className = 'band';
-            const inner = document.createElement('div');
-            inner.className = 'body';
-            card.appendChild(band);
-            card.appendChild(inner);
-
-            h.parentNode.insertBefore(card, h);
-            inner.appendChild(h);
-            while (card.nextSibling && !(card.nextSibling.nodeType === 1 && /^H[34]$/.test(card.nextSibling.tagName))) {
-                inner.appendChild(card.nextSibling);
-            }
-            cards.push(card);
-        });
-
-        if (cards.length) {
-            const grid = document.createElement('div');
-            grid.className = 'chapters';
-            cards[0].parentNode.insertBefore(grid, cards[0]);
-            cards.forEach(c => grid.appendChild(c));
-        }
-
-        body.querySelectorAll('table tr').forEach(tr => {
+    // 演唱人色点：曲目单元格前插入 合唱/林/叶 标记
+    function addSingerDots(scope) {
+        scope.querySelectorAll('table tr').forEach(tr => {
             const tds = tr.querySelectorAll('td');
             if (tds.length < 2 || tds[0].querySelector('.duet, .solo')) return;
             const singer = tds[1].textContent;
