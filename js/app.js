@@ -146,18 +146,29 @@ async function loadSongList(setlistName, item, isLanguageUpdate = false) {
     const contentEl = document.getElementById('songListContent');
     if (!contentEl) return;
 
-    // 回填演出信息卡片中的歌单曲数（按首场非空曲目计）
+    // 回填演出信息卡片中的歌单组数（按组曲计，单城市多场次全部展示）
     const fillSongsCount = () => {
         const cell = document.querySelector('.ci-v-songs');
         if (!cell) return;
-        let songCount = 0;
+        const labelHeader = contentEl.querySelector('.setlist-table tr.label-header');
+        let groups = labelHeader ? labelHeader.children.length / 3 : 1;
+        if (!Number.isInteger(groups) || groups < 1) groups = 1;
+        const rows = [];
         contentEl.querySelectorAll('.setlist-table tr').forEach(tr => {
             if (tr.classList.contains('date-header') || tr.classList.contains('label-header') || tr.classList.contains('chapter-row')) return;
-            const tds = tr.children;
-            if (tds.length >= 3 && (tds[1].textContent || '').trim()) songCount++;
+            rows.push(tr.children);
         });
-        cell.textContent = songCount
-            ? `${songCount} ${i18nInstance ? i18nInstance.t('setlist.info.songUnit') : '首'}`
+        const counts = [];
+        for (let g = 0; g < groups; g++) {
+            let count = 0;
+            rows.forEach(tds => {
+                const name = tds[g * 3 + 1];
+                if (name && (name.textContent || '').trim()) count++;
+            });
+            if (count) counts.push(count);
+        }
+        cell.textContent = counts.length
+            ? `${counts.join(' / ')} ${i18nInstance ? i18nInstance.t('setlist.info.songUnit') : '组'}`
             : (i18nInstance ? i18nInstance.t('setlist.info.collected') : '已收录');
     };
     const clearSongsCount = () => {

@@ -418,6 +418,8 @@ document.addEventListener('i18nReady', () => {
                 contentEl.querySelectorAll('.bonus-card').forEach(c => c.classList.remove('picked'));
                 card.classList.add('picked');
                 detailEl.innerHTML = `<div class="content-body">${entries[card.dataset.index].html}</div>`;
+                // 表格样式统一为歌单「参考目录」表风格（见 setlistStyle.css .reference-table）
+                detailEl.querySelectorAll('table').forEach(t => t.classList.add('reference-table'));
                 // 表格横向滚动包裹 + 图片灯箱
                 wrapTablesForScroll(detailEl);
                 enhanceContentImages(detailEl);
@@ -734,18 +736,29 @@ document.addEventListener('i18nReady', () => {
                     <div class="content-body">${html}</div>
                 `;
 
-                // 填充歌单曲数：按首场（第一组）非空曲目计（须在 enhance 之后，表格才有 .setlist-table 标记）
+                // 填充歌单组数：按组曲计，单城市多场次全部展示（须在 enhance 之后，表格才有 .setlist-table 标记）
                 const fillSongsCount = () => {
                     const songsCell = songListContent.querySelector('.ci-v-songs');
                     if (!songsCell) return;
-                    let songCount = 0;
+                    const labelHeader = songListContent.querySelector('.setlist-table tr.label-header');
+                    let groups = labelHeader ? labelHeader.children.length / 3 : 1;
+                    if (!Number.isInteger(groups) || groups < 1) groups = 1;
+                    const rows = [];
                     songListContent.querySelectorAll('.setlist-table tr').forEach(tr => {
                         if (tr.classList.contains('date-header') || tr.classList.contains('label-header') || tr.classList.contains('chapter-row')) return;
-                        const tds = tr.children;
-                        if (tds.length >= 3 && (tds[1].textContent || '').trim()) songCount++;
+                        rows.push(tr.children);
                     });
-                    songsCell.textContent = songCount
-                        ? `${songCount} ${i18n.t("setlist.info.songUnit")}`
+                    const counts = [];
+                    for (let g = 0; g < groups; g++) {
+                        let count = 0;
+                        rows.forEach(tds => {
+                            const name = tds[g * 3 + 1];
+                            if (name && (name.textContent || '').trim()) count++;
+                        });
+                        if (count) counts.push(count);
+                    }
+                    songsCell.textContent = counts.length
+                        ? `${counts.join(' / ')} ${i18n.t("setlist.info.songUnit")}`
                         : i18n.t("setlist.info.collected");
                 };
                 enhanceCompareTables(songListContent);
