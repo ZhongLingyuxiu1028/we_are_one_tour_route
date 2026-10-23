@@ -290,6 +290,10 @@ table.tour-stats {
     color: var(--leaf-deep); font-weight: 700;
 }
 .tour-stats .total-row td:first-child { color: var(--leaf-deep); font-size: 15px; }
+/* 合计行数字列与数据行保持一致的语义色 */
+.tour-stats tr.total-row td:nth-child(2),
+.tour-stats tr.total-row td:nth-child(3) { color: var(--sky-deep); }
+.tour-stats tr.total-row td:nth-child(5) { color: #B07A1A; }
 
 @media (max-width: 640px) {
     .stats-details summary { padding: 9px 20px; font-size: 13px; }
