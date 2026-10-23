@@ -752,8 +752,9 @@ document.addEventListener('i18nReady', () => {
                     for (let g = 0; g < groups; g++) {
                         let count = 0;
                         rows.forEach(tds => {
-                            const name = tds[g * 3 + 1];
-                            if (name && (name.textContent || '').trim()) count++;
+                            // 只取数字序号行：如重庆「彩蛋」等非序号行不计入
+                            const no = tds[g * 3];
+                            if (no && /^\d+$/.test((no.textContent || '').trim())) count++;
                         });
                         if (count) counts.push(count);
                     }
