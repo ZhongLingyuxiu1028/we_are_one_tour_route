@@ -1,11 +1,9 @@
-### 关于曲目选择
-
 <div class="quote-bubble">
     <div class="qb-avatar" aria-hidden="true">Sally</div>
     <div class="qb-body">
         <p>其实免不了选了为人熟悉的歌，<br/>也想选大家在这几年听过的歌，<br/>因为亲切，而且听熟了。</p>
         <div class="qb-foot">
-            <span>— Sally · 关于曲目选择</span>
+            <span>— 关于曲目选择 · TVB《与你相约到白头》</span>
             <a class="qb-link" href="https://www.bilibili.com/video/BV14tJ9zaE8c/" target="_blank" rel="noopener noreferrer">📺 观看原视频，避免断章取义 ↗</a>
         </div>
     </div>

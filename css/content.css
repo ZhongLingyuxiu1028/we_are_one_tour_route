@@ -6,7 +6,7 @@
     max-width: 1120px;
     margin: 0 auto;
     border-radius: var(--radius-m);
-    padding: 16px 8px 16px;
+    padding: 8px 8px 16px;
     display: none;
 }
 /* 统一各 Tab 首屏内容与上方 Tabs 栏的间距（首个子元素不再额外撑开留白） */

@@ -67,7 +67,7 @@
     position: relative; flex: 1; min-width: 0;
     background: var(--tint-blue);
     border: 1px solid var(--line);
-    border-radius: 4px var(--radius-m) var(--radius-m) var(--radius-m);
+    border-radius: var(--radius-m);
     padding: 14px 18px;
 }
 .quote-bubble .qb-body::before {
