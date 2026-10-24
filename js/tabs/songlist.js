@@ -1,4 +1,4 @@
-// js/tabs/songlist.js · 预习曲目 Tab：章节卡片 + 点击查看曲目表（数据拆分至 data/songlist/）
+// js/tabs/songlist.js · 预习曲目 Tab：导览 + 章节平铺（章节标识内嵌表格首行，数据拆分至 data/songlist/）
 // 章节文件约定：H2 = 「编号 · 标题」，首条 blockquote「> 设计思路：…」，表格行数自动统计为曲数
 
 import { setActive, setActiveTabButton, showContent, getContentEl } from './core.js';
@@ -17,7 +17,7 @@ const SONGLIST_CHAPTERS = [
     { file: 'data/songlist/chapter5.md' },
     { file: 'data/songlist/chapter6.md' },
     { file: 'data/songlist/encore.md' },
-    { file: 'data/songlist/unofficial.md', variant: 'sl-appendix' }
+    { file: 'data/songlist/unofficial.md' }
 ];
 
 export async function loadSonglistTab(button) {
@@ -37,7 +37,7 @@ export async function loadSonglistTab(button) {
         // 导览区：关于曲目选择 + 歌单入口 + 曲目一览说明
         const introHtml = marked.parse(await responses[0].text());
 
-        // 章节元信息 + 正文（H2 与设计思路行剔除，详情区改用自定义头渲染）
+        // 章节元信息 + 正文（H2 与设计思路行剔除，章节标识并入表格首行）
         const entries = await Promise.all(responses.slice(1).map(async (res, i) => {
             const text = await res.text();
             const titleMatch = text.match(/^##\s+(.+)$/m);
@@ -49,28 +49,39 @@ export async function loadSonglistTab(button) {
             const html = marked.parse(text)
                 .replace(/<h2[^>]*>[\s\S]*?<\/h2>\s*/, '')
                 .replace(/^<blockquote>[\s\S]*?<\/blockquote>\s*/, '');
-            const count = new DOMParser().parseFromString(html, 'text/html')
-                .querySelectorAll('table tbody tr').length;
-            return { no, title: name || no, idea: ideaMatch ? ideaMatch[1].trim() : '', count, html };
+
+            // 章节行 + 列头行并入 tbody（结构对齐舞台变化点表：sl-chapter-row / sl-head-row），
+            // 曲数统计取并入前的数据行数
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const table = doc.querySelector('table');
+            const tbody = table ? table.querySelector('tbody') : null;
+            const count = tbody ? tbody.querySelectorAll('tr').length : 0;
+            if (tbody) {
+                const cols = table.querySelectorAll('thead th').length || 6;
+                const label = name ? `${no} · ${name}` : no;
+                const chapterRow = doc.createElement('tr');
+                chapterRow.className = 'sl-chapter-row';
+                chapterRow.innerHTML =
+                    `<td colspan="${cols}"><span class="sl-chapter-name">${label}</span>` +
+                    `<span class="sl-chapter-count">${count} ${window.i18n.t('songlist.songUnit')}</span></td>`;
+                tbody.insertBefore(chapterRow, tbody.firstChild);
+                const headRow = table.querySelector('thead tr');
+                if (headRow) {
+                    headRow.classList.add('sl-head-row');
+                    chapterRow.after(headRow);
+                }
+            }
+            return { idea: ideaMatch ? ideaMatch[1].trim() : '', count, html: doc.body.innerHTML };
         }));
 
-        // 平铺展示：各章节表格全部直接渲染（章节卡片模式暂不启用）
+        // 平铺展示：章节不做外层卡片包裹，章节标识为表格首行绿色章节行（同舞台变化点表），
+        // 设计思路为表格上方纯文本段落
         contentEl.innerHTML = `
             <div class="content-body songlist-view">${introHtml}</div>
-            <div class="chapters">
-                ${entries.map((e, i) => `
-                    <div class="chapter-card${SONGLIST_CHAPTERS[i].variant ? ' ' + SONGLIST_CHAPTERS[i].variant : ''}">
-                        <div class="band"></div>
-                        <div class="body">
-                            <div class="ch-head">
-                                <h4>${e.title === e.no ? e.no : e.no + ' · ' + e.title}</h4>
-                                <span class="ch-count">${e.count} ${window.i18n.t('songlist.songUnit')}</span>
-                            </div>
-                            ${e.idea ? `<p class="ch-idea">设计思路：${e.idea}</p>` : ''}
-                            <div class="content-body songlist-view">${e.html}</div>
-                        </div>
-                    </div>`).join('')}
-            </div>
+            ${entries.map(e => `
+                ${e.idea ? `<p class="ch-idea">设计思路：${e.idea}</p>` : ''}
+                <div class="content-body songlist-view">${e.html}</div>
+            `).join('')}
         `;
 
         bindCopyButtons(contentEl);

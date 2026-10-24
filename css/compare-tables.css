@@ -1,14 +1,20 @@
 /* =========================================================
-   舞台变化点对比表 · 与歌单表同风格
-   （发丝横线 + 细竖线 + 淡蓝表头 + 白/浅灰斑马纹 + 浅蓝悬浮）
+   舞台变化点对比表 · 歌单同款「极简留白」（方案A · 分章）
+   无竖线 + 发丝横线 + 绿色章节行 + 白/浅灰斑马纹 + 浅蓝悬浮；
+   列头为白底衬线粗体，底色强调只留给章节行。
+   结构由 js/tabs/setlist.js 的 rebuildChangePoints 生成：
+   总体块表（cp-overall） + 每章一张表（表首 cp-chapter-row，
+   列头行自 thead 移入 tbody 并标记 cp-head-row）。
    保留原有列宽约定。
    ========================================================= */
 
-/* 外框：边框与圆角挂在滚动容器上（同歌单 sl-wrap 做法，圆角用 --radius-s 6px，对齐歌单主表） */
+/* 外框：边框与圆角挂在滚动容器上（同歌单 sl-wrap 做法），负责横向滚动兜底 */
 #content .table-scroll:has(> .compare-table) {
-    margin: 16px 0;
+    margin: 0 0 14px;
     border: 1px solid var(--line);
+    border-radius: var(--radius-s);
     background: var(--surface);
+    overflow: hidden;
 }
 
 #content .compare-table {
@@ -18,40 +24,147 @@
     table-layout: fixed;
     box-shadow: none;
     border-radius: 0;
-    border: 1px solid var(--line);
-}
-/* 应用内已被 .table-scroll 包裹：外框交给容器，表格自身去边框、去外边距 */
-#content .table-scroll > .compare-table {
-    margin: 0;
     border: none;
 }
+#content .table-scroll > .compare-table { margin: 0; }
 
+/* 基线：无竖线，仅发丝横线，紧凑内距 */
 #content .compare-table th,
 #content .compare-table td {
     border: none;
     border-bottom: 1px solid var(--line);
-    border-right: 1px solid var(--line);
-    padding: 7px 10px;
+    padding: 6px 8px;
     text-align: left;
-    vertical-align: middle;
+    vertical-align: top;
+    line-height: 1.5;
 }
-#content .compare-table th:last-child,
-#content .compare-table td:last-child { border-right: none; }
+#content .compare-table tr:last-child td { border-bottom: none; }
 
+/* 列头行：淡蓝底 + 2px 天蓝底线（同演出信息横幅/歌单日期头），衬线粗体主题色 */
 #content .compare-table th {
     background: var(--tint-blue);
     color: var(--sky-deep);
+    font-family: var(--serif);
     font-weight: 600;
-    text-align: left;
+    font-size: 13px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--sky);
 }
 
-#content .compare-table tbody tr:nth-child(odd) { background: #FFFFFF; }
-#content .compare-table tbody tr:nth-child(even) { background: #F5F7F8; }
-#content .compare-table tbody tr:nth-child(n):hover { background: var(--tint-blue); }
-#content .compare-table tr:last-child td { border-bottom: none; }
+/* 章节行：淡绿主题底 + 衬线（同歌单 chapter-row 位置，字体统一为衬线） */
+#content .compare-table tr.cp-chapter-row td {
+    background: var(--tint-green);
+    color: var(--leaf-deep);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: 1px;
+    padding: 6px 10px;
+}
+
+/* 总体块纯文本行（单格 colspan） */
+#content .compare-table td.cp-plain-cell {
+    padding: 8px 12px;
+    line-height: 1.9;
+    background: #FFFFFF;
+}
+
+/* 斑马纹 + 悬浮：跳过章节行 / 列头行 / 总体纯文本行 */
+#content .compare-table tbody tr:nth-child(odd):not(.cp-chapter-row):not(.cp-head-row):not(.cp-plain-row) { background: #FFFFFF; }
+#content .compare-table tbody tr:nth-child(even):not(.cp-chapter-row):not(.cp-head-row):not(.cp-plain-row) { background: #F5F7F8; }
+#content .compare-table tbody tr:nth-child(n):not(.cp-chapter-row):not(.cp-head-row):not(.cp-plain-row):hover { background: var(--tint-blue); }
 
 /* 列宽比例：曲目 25%｜变化点 10%｜变化点说明 35%｜备注 30% */
 .compare-table .col-track     { width: 25%; }
 .compare-table .col-change    { width: 10%; }
 .compare-table .col-detail    { width: 35%; }
 .compare-table .col-note      { width: 30%; }
+
+/* 变化点类型：纯色文字（呼应歌单演唱人配色语言），由 colorizeChangeColumn 打标 */
+#content .compare-table .tv { font-size: 12px; font-weight: 500; white-space: nowrap; }
+#content .compare-table .tv-light  { color: #8A6414; }
+#content .compare-table .tv-new    { color: var(--leaf-deep); }
+#content .compare-table .tv-screen { color: var(--sky-deep); }
+#content .compare-table .tv-dog    { color: #C2537F; }
+#content .compare-table .tv-talk   { color: var(--ink-2); }
+#content .compare-table .tv-dance  { color: #6A4FB6; }
+#content .compare-table .tv-makeup { color: #B3402F; }
+#content .compare-table .tv-sep    { color: var(--ink-2); }
+#content .compare-table .cp-dash   { color: #A8B8B0; }
+
+/* =========================================================
+   舞台变化点 · 整体折叠（默认收起）
+   结构由 js/tabs/setlist.js 的 wrapChangePoints 生成：
+   .cp-section > .cp-head（h3 + 摘要 + 箭头） + .cp-clip > .cp-body
+   无外层容器：标题栏自带边框圆角，展开后章节表格直接落在页面上，
+   与歌单主表 / 参考目录同宽对齐。
+   ========================================================= */
+#content .cp-section {
+    margin: 18px 0 16px;
+}
+
+#content .cp-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 16px;
+    background: var(--tint-blue);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-s);
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s ease;
+}
+#content .cp-head:hover { background: #DDEEFA; }
+#content .cp-head:focus-visible {
+    outline: 2px solid var(--sky);
+    outline-offset: -2px;
+}
+
+/* 标题沿用 h3 的衬线体与主题色，去掉独立下划线，交由头部条承担 */
+#content .cp-head h3 {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 16px;
+    flex: 0 0 auto;
+}
+
+#content .cp-meta {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ink-2);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+}
+
+#content .cp-arrow {
+    flex: 0 0 auto;
+    color: var(--sky-deep);
+    font-size: 13px;
+    transition: transform .3s ease;
+}
+#content .is-collapsed .cp-arrow { transform: rotate(-90deg); }
+
+/* 展开动画：JS 实测高度过渡（wrapChangePoints 里同步 inline height），
+   grid 0fr→1fr 插值在部分内核上会把目标解析为 0，故不采用 */
+#content .cp-clip {
+    overflow: hidden;
+    transition: height .35s ease;
+}
+#content .is-collapsed .cp-clip { height: 0; }
+
+#content .cp-body {
+    overflow: hidden;
+    padding: 12px 0 0;
+}
+/* 末尾表格的下边距交给区块外边距，避免与参考目录间距过大 */
+#content .cp-body > :last-child { margin-bottom: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+    #content .cp-clip { transition: none; }
+}
+
+@media (max-width: 640px) {
+    #content .cp-meta { display: none; }
+}

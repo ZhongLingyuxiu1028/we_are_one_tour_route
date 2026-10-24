@@ -384,4 +384,282 @@ export function enhanceCompareTables(container) {
             });
         });
     });
+
+    // 舞台变化点整体折叠（默认折叠；歌单主表不参与，参考目录 h3 仅作为折叠边界）
+    wrapChangePoints(container);
+    // 参考目录不渲染标题栏：移除 h3，表格以自身外框直接跟在区块后展示
+    removeReferenceTocHead(container);
+}
+
+// 清掉元素紧邻上方的 <br/> 与空白文本节点（数据文件用 br 充当旧版式的间距手段）
+function stripPrecedingBreaks(el) {
+    let n = el.previousSibling;
+    while (n) {
+        if (n.nodeType === Node.ELEMENT_NODE && n.tagName === 'BR') {
+            const prev = n.previousSibling;
+            n.remove();
+            n = prev;
+        } else if (n.nodeType === Node.TEXT_NODE && !n.textContent.trim()) {
+            const prev = n.previousSibling;
+            n.remove();
+            n = prev;
+        } else break;
+    }
+}
+
+// 「参考目录」不再单独渲染标题栏：h3 直接移除，区块标识交给表格自身的列头
+function removeReferenceTocHead(container) {
+    container.querySelectorAll('h3').forEach(h3 => {
+        if (!(h3.textContent || '').includes('参考目录')) return;
+        if (h3.closest('.cp-head')) return;
+        stripPrecedingBreaks(h3);
+        h3.remove();
+    });
+}
+
+// ==================== 舞台变化点折叠 ====================
+// 把 <h3>舞台变化点</h3> 到 <h3>参考目录</h3>（或容器末尾）之间的内容
+// 包进 .cp-section 折叠容器：h3 变为可点击头部，默认收起，数据文件零改动
+function wrapChangePoints(container) {
+    const h3s = Array.from(container.querySelectorAll('h3'));
+    const start = h3s.find(h => (h.textContent || '').includes('舞台变化点'));
+    if (!start || start.closest('.cp-section')) return;
+    const end = h3s.find(h => h !== start && (h.textContent || '').includes('参考目录'));
+    const parent = start.parentNode;
+    if (!parent) return;
+
+    // 收集头部之后、边界（参考目录）之前的所有节点（含文本节点，总体说明为纯文本）
+    const bodyNodes = [];
+    let node = start.nextSibling;
+    while (node && node !== end) {
+        bodyNodes.push(node);
+        node = node.nextSibling;
+    }
+
+    const section = document.createElement('div');
+    section.className = 'cp-section is-collapsed';
+
+    // 数据文件在标题前后放置的 <br/> 是旧版式的间距手段，
+    // 新版式由区块外边距承担，清掉紧邻的空行避免出现大段死空间
+    stripPrecedingBreaks(start);
+    if (end) stripPrecedingBreaks(end);
+
+    const head = document.createElement('div');
+    head.className = 'cp-head';
+    head.setAttribute('role', 'button');
+    head.setAttribute('tabindex', '0');
+    head.setAttribute('aria-expanded', 'false');
+
+    const meta = document.createElement('span');
+    meta.className = 'cp-meta';
+
+    const arrow = document.createElement('span');
+    arrow.className = 'cp-arrow';
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.textContent = '▾';
+
+    const clip = document.createElement('div');
+    clip.className = 'cp-clip';
+    clip.setAttribute('aria-hidden', 'true');
+    const body = document.createElement('div');
+    body.className = 'cp-body';
+
+    section.append(head, clip);
+    clip.appendChild(body);
+    // 先插入 section（此时 h3 仍在原位，可作定位锚点），再把 h3、摘要与内容移入
+    parent.insertBefore(section, start);
+    head.append(start, meta, arrow);
+    body.append(...bodyNodes);
+    // 节点移入后再统计（表格可能已被包进 .table-scroll，需从 body 整体查询）
+    meta.textContent = buildChangePointsMeta(body);
+    // 重排为方案A版式：总体块表 + 每章一张表（章节行入表、列头移入表体）
+    rebuildChangePoints(body);
+
+    const toggle = () => {
+        const collapsed = section.classList.toggle('is-collapsed');
+        head.setAttribute('aria-expanded', String(!collapsed));
+        if (collapsed) {
+            clip.setAttribute('aria-hidden', 'true');
+            clip.style.height = '0px';
+        } else {
+            clip.removeAttribute('aria-hidden');
+            clip.style.height = clip.scrollHeight + 'px';
+        }
+        // 过渡结束后清掉 inline 高度交还 auto，内容后续增高（如图片加载）不受限
+        clearTimeout(clip.__cpTimer);
+        const settle = () => {
+            clip.removeEventListener('transitionend', settle);
+            if (!section.classList.contains('is-collapsed')) clip.style.height = '';
+        };
+        clip.addEventListener('transitionend', settle);
+        clip.__cpTimer = setTimeout(settle, 450); // reduced-motion 等场景下 transitionend 不触发的兜底
+    };
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+        }
+    });
+}
+
+// 折叠头部摘要：总体 + N 个章节 · M 条变化点（无表格时退化为纯说明文案）
+function buildChangePointsMeta(root) {
+    let chapters = 0;
+    root.querySelectorAll(':scope > strong').forEach(n => {
+        const text = (n.textContent || '').trim();
+        if (/^Chapter/i.test(text) || /^Encore/i.test(text)) chapters++;
+    });
+    const rows = root.querySelectorAll('tbody tr').length;
+
+    if (chapters > 0 && rows > 0) {
+        return window.i18n.t('setlist.cp.metaChapters', { n: chapters, m: rows });
+    }
+    if (rows > 0) return window.i18n.t('setlist.cp.metaRows', { m: rows });
+    return window.i18n.t('setlist.cp.metaNotes');
+}
+
+// ==================== 变化点版式（方案A · 分章 · 歌单同款） ====================
+// 把「总体说明 + ChapterN： + 对比表」的平铺结构重排为：
+// 总体块表（绿章行 + 纯文本格） + 每章一张表（表首为绿色章节行，列头行随其后）；
+// 无章节标签的表格与零散节点按原样兜底保留。
+function rebuildChangePoints(body) {
+    const nodes = Array.from(body.childNodes);
+    const isEl = n => n.nodeType === Node.ELEMENT_NODE;
+    const textOf = n => (n.textContent || '').trim();
+    const isChapterStrong = n => isEl(n) && n.tagName === 'STRONG' && /^(Chapter|Encore)/i.test(textOf(n));
+    const isOverallStrong = n => isEl(n) && n.tagName === 'STRONG' && /^总体/.test(textOf(n));
+    // 表格可能被包在 .table-scroll 里（enhanceCompareTables 所为）
+    const tableIn = n => {
+        if (!isEl(n)) return null;
+        if (n.tagName === 'TABLE') return n;
+        if (n.classList.contains('table-scroll')) return n.querySelector('table');
+        return null;
+    };
+
+    const consumed = new Set();
+    const chapterNameByTable = new Map();
+
+    // 总体块：总体 strong 起到第一个章节 strong / 表格止
+    let overallHtml = '';
+    const overallStrong = nodes.find(isOverallStrong);
+    if (overallStrong) {
+        consumed.add(overallStrong);
+        const parts = [];
+        for (let i = nodes.indexOf(overallStrong) + 1; i < nodes.length; i++) {
+            const n = nodes[i];
+            if (tableIn(n) || isChapterStrong(n)) break;
+            parts.push(n);
+            consumed.add(n);
+        }
+        while (parts.length && isEl(parts[0]) && parts[0].tagName === 'BR') parts.shift();
+        while (parts.length && isEl(parts[parts.length - 1]) && parts[parts.length - 1].tagName === 'BR') parts.pop();
+        overallHtml = parts.map(n => isEl(n) ? n.outerHTML : n.textContent).join('').trim();
+    }
+
+    // 章节：strong 标签与其后第一个表格配对，中间的 br / 非空白文本丢弃
+    nodes.forEach((n, i) => {
+        if (!isChapterStrong(n)) return;
+        consumed.add(n);
+        for (let j = i + 1; j < nodes.length; j++) {
+            const m = nodes[j];
+            const t = tableIn(m);
+            if (t) { chapterNameByTable.set(t, textOf(n).replace(/[：:]\s*$/, '')); break; }
+            if (isChapterStrong(m) || isOverallStrong(m)) break;
+            if (isEl(m) || textOf(m)) consumed.add(m);
+        }
+    });
+
+    const out = [];
+    if (overallHtml) {
+        const wrap = document.createElement('div');
+        wrap.className = 'table-scroll';
+        const table = document.createElement('table');
+        table.className = 'compare-table cp-overall';
+        table.innerHTML = `<tbody><tr class="cp-chapter-row"><td>总体</td></tr>` +
+            `<tr class="cp-plain-row"><td class="cp-plain-cell">${overallHtml}</td></tr></tbody>`;
+        wrap.appendChild(table);
+        out.push(wrap);
+    }
+    nodes.forEach(n => {
+        const t = tableIn(n);
+        if (t && chapterNameByTable.has(t)) {
+            prependChangePointsHeader(t, chapterNameByTable.get(t));
+            colorizeChangeColumn(t);
+            out.push(n); // n 为 .table-scroll 包裹层或表格本身
+        }
+    });
+    // 未识别的零散节点按原顺序兜底保留（空白文本与 br 除外）
+    nodes.forEach(n => {
+        if (consumed.has(n) || out.includes(n)) return;
+        const t = tableIn(n);
+        if (t) { if (!chapterNameByTable.has(t)) out.push(n); return; }
+        if (isEl(n)) { if (n.tagName !== 'BR') out.push(n); return; }
+        if (textOf(n)) out.push(n);
+    });
+
+    body.replaceChildren(...out);
+}
+
+// 列头行自 thead 移入 tbody（标记 cp-head-row），表首插入绿色章节行
+function prependChangePointsHeader(table, name) {
+    const tbody = table.tBodies[0];
+    if (!tbody) return;
+    const thead = table.tHead;
+    let colCount = 4;
+    if (thead) {
+        const headRows = Array.from(thead.rows);
+        if (headRows.length) colCount = headRows[0].cells.length || colCount;
+        headRows.reverse().forEach(tr => {
+            tr.classList.add('cp-head-row');
+            tbody.insertBefore(tr, tbody.firstChild);
+        });
+        thead.remove();
+    }
+    const tr = document.createElement('tr');
+    tr.className = 'cp-chapter-row';
+    const td = document.createElement('td');
+    td.colSpan = colCount;
+    td.textContent = name;
+    tr.appendChild(td);
+    tbody.insertBefore(tr, tbody.firstChild);
+}
+
+// 变化点列按类型着色（呼应歌单演唱人的纯色文字语言），未知类型退化为灰字
+const CP_TV_RULES = [
+    [/灯光|灯效/, 'tv-light'],
+    [/新曲/, 'tv-new'],
+    [/舞美/, 'tv-screen'],
+    [/狗粮|求婚/, 'tv-dog'],
+    [/Talking/i, 'tv-talk'],
+    [/伴舞/, 'tv-dance'],
+    [/妆造|妆发/, 'tv-makeup']
+];
+function colorizeChangeColumn(table) {
+    table.querySelectorAll('tbody tr').forEach(tr => {
+        if (tr.classList.contains('cp-chapter-row') || tr.classList.contains('cp-head-row')) return;
+        const td = tr.cells[1];
+        if (!td) return;
+        const raw = (td.textContent || '').trim();
+        if (raw === '-') {
+            td.classList.add('cp-dash');
+            return;
+        }
+        if (!raw) return;
+        const tokens = raw.split(/[、，,]/).map(s => s.trim()).filter(Boolean);
+        td.textContent = '';
+        tokens.forEach((tok, i) => {
+            if (i) {
+                const sep = document.createElement('span');
+                sep.className = 'tv-sep';
+                sep.textContent = ' · ';
+                td.appendChild(sep);
+            }
+            const span = document.createElement('span');
+            const hit = CP_TV_RULES.find(([re]) => re.test(tok));
+            span.className = 'tv ' + (hit ? hit[1] : 'tv-talk');
+            span.textContent = tok;
+            td.appendChild(span);
+        });
+    });
 }

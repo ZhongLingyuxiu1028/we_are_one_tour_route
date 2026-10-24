@@ -53,13 +53,14 @@
 /* 字段行（No./名称/演唱人）隐藏，列含义由样式自解释 */
 #content .setlist-table tr.label-header { display: none; }
 
-/* 章节行：淡绿主题底 */
+/* 章节行：淡绿主题底 + 衬线体（同舞台变化点表 / 预习曲目章节行），场次间细线分隔 */
 #content .setlist-table tr.chapter-row td {
     background: var(--tint-green);
     color: var(--leaf-deep);
+    font-family: var(--serif);
     font-size: 12px;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-align: left;
     padding: 6px 8px;
 }
@@ -98,12 +99,14 @@
 #content .setlist-table td.sg.sally { color: #C2537F; }
 #content .setlist-table td.sg.both  { color: var(--leaf-deep); }
 
-/* ---------- 参考目录表：与歌单表同风格（发丝线 + 淡蓝表头 + 斑马纹）
-   外框：边框与圆角挂在滚动容器上（同歌单 sl-wrap 做法，圆角用 --radius-s 6px，对齐歌单主表） ---------- */
+/* ---------- 参考目录表：与舞台变化点表同风格（无竖线 + 发丝横线 + 白底衬线列头 + 斑马纹）
+   外框：边框与圆角挂在滚动容器上（同歌单 sl-wrap 做法，圆角用 --radius-s 6px） ---------- */
 #content .table-scroll:has(> .reference-table) {
     margin: 16px 0;
     border: 1px solid var(--line);
+    border-radius: var(--radius-s);
     background: var(--surface);
+    overflow: hidden;
 }
 
 #content .reference-table {
@@ -112,31 +115,32 @@
     font-size: 13px;
     box-shadow: none;
     border-radius: 0;
-    border: 1px solid var(--line);
+    border: none;
 }
 /* 应用内已被 .table-scroll 包裹（彩蛋表复用此样式）：外框交给容器，表格自身去边框、去外边距 */
 #content .table-scroll > .reference-table {
     margin: 0;
-    border: none;
 }
 
 #content .reference-table th,
 #content .reference-table td {
     border: none;
     border-bottom: 1px solid var(--line);
-    border-right: 1px solid var(--line);
-    padding: 7px 10px;
+    padding: 6px 8px;
     text-align: left;
     vertical-align: middle;
+    line-height: 1.5;
 }
-#content .reference-table th:last-child,
-#content .reference-table td:last-child { border-right: none; }
 
+/* 列头：淡蓝底 + 2px 天蓝底线（同舞台变化点表 / 演出信息横幅） */
 #content .reference-table th {
     background: var(--tint-blue);
     color: var(--sky-deep);
+    font-family: var(--serif);
     font-weight: 600;
-    text-align: left;
+    font-size: 13px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--sky);
 }
 
 #content .reference-table tbody tr:nth-child(odd) { background: #FFFFFF; }
@@ -149,3 +153,10 @@
 .reference-table .col-content   { width: 42%; }
 .reference-table .col-author    { width: 35%; }
 .reference-table .col-form      { width: 15%; }
+
+/* 序号列：同歌单表序号列（setlist-table）样式——小号灰字、等宽数字，对齐随整体居左 */
+#content .reference-table tbody td:first-child {
+    color: var(--ink-2);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+}

@@ -83,5 +83,8 @@
   "btn.copyLyric": "复制歌词",
   "btn.copied": "已复制 ✓",
   "filter.all": "全部",
-  "setlist.diffHighlight": "高亮各场独有曲目"
+  "setlist.diffHighlight": "高亮各场独有曲目",
+  "setlist.cp.metaChapters": "总体 + {n} 个章节 · {m} 条变化点",
+  "setlist.cp.metaRows": "{m} 条变化点",
+  "setlist.cp.metaNotes": "总体观察说明"
 }

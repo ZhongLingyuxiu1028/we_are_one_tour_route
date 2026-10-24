@@ -83,5 +83,8 @@
   "btn.copyLyric": "Copy Lyrics",
   "btn.copied": "Copied ✓",
   "filter.all": "All",
-  "setlist.diffHighlight": "Highlight tracks unique to a show"
+  "setlist.diffHighlight": "Highlight tracks unique to a show",
+  "setlist.cp.metaChapters": "Overall + {n} chapters · {m} change notes",
+  "setlist.cp.metaRows": "{m} change notes",
+  "setlist.cp.metaNotes": "Overall notes"
 }
