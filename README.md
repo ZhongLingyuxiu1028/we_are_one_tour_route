@@ -8,10 +8,10 @@
 
 ```text
 ├── index.html            # 单页入口（地图 + 展厅骨架）
-├── css/                  # 样式（tokens / style / setlist / 对比表 / 统计表 / 灯箱 / 回到顶部等）
+├── css/                  # 样式（tokens / base / map / content / sections / responsive / setlist / 对比表 / 统计表 / 灯箱 / 回到顶部等）
 ├── js/
 │   ├── app.js            # 地图渲染、行程解析、站点点击 → 歌单
-│   ├── tabs.js           # 展厅 Tab、hash 路由、内容增强（章节卡/对比表/歌词抽屉等）
+│   ├── tabs/             # 展厅 ES modules：main.js 入口 + core/nav/scrollspy/setlist/songlist 等模块
 │   ├── i18n.js + i18n/   # 多语言（zh-CN / zh-HK / en）
 │   ├── statistical-table.js  # 进度看板渲染
 │   ├── emoji-effect.js   # 点击爱心特效

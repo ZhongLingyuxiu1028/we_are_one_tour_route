@@ -820,7 +820,7 @@ window.addEventListener('resize', function () {
     }
 });
 
-// 暴露函数给全局，供 tabs.js 调用
+// 暴露函数给全局，供 js/tabs/ ES modules 调用
 window.renderMap = renderMap;
 window.switchMap = switchMap;
 window.itineraryData = itineraryData;

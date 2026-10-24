@@ -2,7 +2,7 @@
    歌单表格 · 「极简留白」方案（紧凑密度）
    去底色、去胶囊、去竖线：仅发丝横线 + 场次中缝分隔线，
    演唱人为纯色文字（Lam 蓝 / Sally 粉 / 合唱绿），信息密度最大化。
-   配合 js/tabs.js 的 enhanceCompareTables：
+   配合 js/tabs/setlist.js 的 enhanceCompareTables（挂载于 window）：
    - 歌单主表会被添加 .setlist-table 类、外层 .sl-wrap
    - 演唱人单元格自动打标 td.sg.lam / .sally / .both
    数据文件（data/setlist/*.html）零改动。

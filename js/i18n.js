@@ -14,6 +14,8 @@ class I18n {
         this.setupLangSwitch();
 
         // 通知 i18n 已就绪
+        // 置位标记供 ES module 入口兜底（模块延迟执行，可能错过本事件）
+        window.__i18nReady = true;
         document.dispatchEvent(new CustomEvent('i18nReady', {
             detail: { lang: this.currentLang }
         }));
