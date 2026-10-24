@@ -98,7 +98,14 @@
 #content .setlist-table td.sg.sally { color: #C2537F; }
 #content .setlist-table td.sg.both  { color: var(--leaf-deep); }
 
-/* ---------- 参考目录表：与歌单表同风格（发丝线 + 淡蓝表头 + 斑马纹），直角外框 ---------- */
+/* ---------- 参考目录表：与歌单表同风格（发丝线 + 淡蓝表头 + 斑马纹）
+   外框：边框与圆角挂在滚动容器上（同歌单 sl-wrap 做法，圆角用 --radius-s 6px，对齐歌单主表） ---------- */
+#content .table-scroll:has(> .reference-table) {
+    margin: 16px 0;
+    border: 1px solid var(--line);
+    background: var(--surface);
+}
+
 #content .reference-table {
     width: 100%;
     border-collapse: collapse;
@@ -106,6 +113,11 @@
     box-shadow: none;
     border-radius: 0;
     border: 1px solid var(--line);
+}
+/* 应用内已被 .table-scroll 包裹（彩蛋表复用此样式）：外框交给容器，表格自身去边框、去外边距 */
+#content .table-scroll > .reference-table {
+    margin: 0;
+    border: none;
 }
 
 #content .reference-table th,

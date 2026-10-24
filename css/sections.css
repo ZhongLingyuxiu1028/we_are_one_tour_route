@@ -24,7 +24,6 @@
 }
 .chapter-card .ch-idea { color: var(--ink-2); font-size: 13px; line-height: 1.7; margin: 6px 0 10px; }
 .chapter-card .content-body { margin: 0; }
-.chapter-card table { margin: 4px 0 0; box-shadow: none; }
 
 /* ==================== 预习曲目：章节卡片模式（备用，当前未启用） ==================== */
 .songlist-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0 18px; }
@@ -113,13 +112,22 @@
 .source-notes .sn-label { font-size: 12px; font-weight: 500; color: var(--ink-2); margin-bottom: 4px; }
 .source-notes ol { margin: 0; padding-left: 18px; font-size: 12px; color: var(--ink-2); line-height: 1.9; }
 
-/* 预习曲目表格：与演出歌单表同风格（发丝线 + 淡蓝表头 + 白/浅灰斑马纹 + 浅蓝悬浮），直角外框 */
-#content .songlist-view table {
+/* 预习曲目表格：与演出歌单表同风格（发丝线 + 淡蓝表头 + 白/浅灰斑马纹 + 浅蓝悬浮）
+   外框：边框与圆角挂在滚动容器上（同歌单 sl-wrap 做法，圆角用 --radius-s 6px，对齐歌单主表） */
+#content .songlist-view .table-scroll {
+    margin: 16px 0;
+    border: 1px solid var(--line);
+    background: var(--surface);
+}
+#content .songlist-view .table-scroll > table {
+    margin: 0;
     font-size: 13px;
     box-shadow: none;
     border-radius: 0;
-    border: 1px solid var(--line);
+    border: none;
 }
+/* 章节卡片内：沿用原表格 4px 顶距（置于其后以覆盖上方 16px 外边距） */
+#content .chapter-card .table-scroll { margin: 4px 0 0; }
 #content .songlist-view th,
 #content .songlist-view td {
     border: none;
