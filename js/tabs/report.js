@@ -589,13 +589,20 @@ function renderReport() {
 
     if (r.songCount) {
         const v = r.voice, vt = v.lam + v.sally + v.duet;
-        const w = (x) => vt ? (x / vt * 100).toFixed(1) : 0;
+        // 旋律波形：细圆条按声部比例着色，高度沿固定波形图案起伏
+        const segOf = vt
+            ? (p) => p < v.lam / vt ? 'rp-voice-lam'
+                : p < (v.lam + v.sally) / vt ? 'rp-voice-sally' : 'rp-voice-duet'
+            : () => 'rp-voice-duet';
+        const BARS = 180;
+        let wave = '';
+        for (let i = 0; i < BARS; i++) {
+            const h = Math.min(100, Math.round(34 + 46 * Math.abs(Math.sin(i * .9)) + 18 * Math.abs(Math.sin(i * .33))));
+            wave += `<i class="${segOf((i + .5) / BARS)}" style="height:${h}%; animation-delay:${(i % 12) * 70}ms"></i>`;
+        }
         html += `<div class="rp-sec"><h4 class="rp-sec-title">💫 ${esc(t('report.sec.voices'))}</h4>` +
-            `<div class="rp-voice-bar" role="img" aria-label="${esc(t('report.voice.aria', { lam: v.lam, sally: v.sally, duet: v.duet }))}">` +
-            (v.lam ? `<span class="rp-voice-lam" style="width:${w(v.lam)}%"></span>` : '') +
-            (v.sally ? `<span class="rp-voice-sally" style="width:${w(v.sally)}%"></span>` : '') +
-            (v.duet ? `<span class="rp-voice-duet" style="width:${w(v.duet)}%"></span>` : '') +
-            `</div><div class="rp-voice-legend">` +
+            `<div class="rp-wave" role="img" aria-label="${esc(t('report.voice.aria', { lam: v.lam, sally: v.sally, duet: v.duet }))}">${wave}</div>` +
+            `<div class="rp-voice-legend">` +
             `<span><i class="rp-voice-dot rp-voice-lam"></i>${esc(t('report.voice.lam', { n: v.lam }))}</span>` +
             `<span><i class="rp-voice-dot rp-voice-sally"></i>${esc(t('report.voice.sally', { n: v.sally }))}</span>` +
             `<span><i class="rp-voice-dot rp-voice-duet"></i>${esc(t('report.voice.duet', { n: v.duet }))}</span>` +
@@ -648,12 +655,6 @@ function renderReport() {
             html += `<div class="rp-empty">${esc(t('report.coverage.done'))}</div>`;
         }
         html += `</div>`;
-    }
-
-    if (r.versionList.length >= 2) {
-        html += `<div class="rp-sec"><h4 class="rp-sec-title">🥋 ${esc(t('report.sec.versions', { v: r.versionList.length }))}</h4>` +
-            `<p class="rp-sec-sub">${esc(t('report.versions.sub'))}</p><div class="rp-stamps">` +
-            r.versionList.map(v => `<span class="rp-stamp">${esc(v)}</span>`).join('') + `</div></div>`;
     }
 
     html += `<div class="rp-sec"><h4 class="rp-sec-title">🎧 ${esc(t('report.sec.bgm'))}</h4>` +

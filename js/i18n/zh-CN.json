@@ -138,8 +138,6 @@
   "report.coverage.etc": " 等",
   "report.coverage.more": "……还有 {n} 首",
   "report.coverage.done": "全巡演曲库已集齐——你就是最完整的白头到老见证人。",
-  "report.sec.versions": "《男儿当自强》版本收集 × {v}",
-  "report.versions.sub": "每一站都有自己的舞台版本。",
   "report.sec.guests": "舞台上的点点星光",
   "report.sec.bgm": "这一程的 BGM",
   "report.bgm.sub": "从你听过的 {k} 首歌里，选出最爱的一首——我们替你写下一句话，并印在分享卡片上。",

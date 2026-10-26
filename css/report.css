@@ -101,11 +101,6 @@
 .rp-guest-name { font-family: var(--serif); font-size: 14px; display: block; }
 .rp-guest-where { display: block; font-size: 11px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
 
-/* ---- 版本集邮（邮票样式） ---- */
-.rp-stamps { display: flex; flex-wrap: wrap; gap: 12px 10px; }
-.rp-stamp { position: relative; font-family: var(--serif); font-size: 13px; letter-spacing: .05em; color: var(--sky-deep); background: var(--tint-blue); border: 1px dashed var(--angel-blue); border-radius: 6px; padding: 10px 18px; }
-.rp-stamp::after { content: ''; position: absolute; inset: 3px; border: 1px solid var(--angel-blue); border-radius: 4px; opacity: .45; pointer-events: none; }
-
 /* ---- 独家记忆 ---- */
 .rp-solo { background: var(--tint-pink); border-radius: var(--radius-m); padding: 14px 16px; display: grid; gap: 8px; }
 .rp-solo-item { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; column-gap: 14px; }
@@ -114,12 +109,13 @@
 .rp-rare-pill { font-size: 11px; background: var(--sun); color: #5B4300; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
 .rp-empty { background: var(--tint-green); border-radius: var(--radius-m); padding: 14px 16px; color: var(--ink-2); }
 
-/* ---- 声音构成 ---- */
-.rp-voice-bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--line); }
-.rp-voice-bar span { height: 100%; }
+/* ---- 声音构成（旋律细线波形） ---- */
+.rp-wave { display: flex; align-items: center; justify-content: space-between; gap: 2px; height: 48px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-m); padding: 8px 14px; }
+.rp-wave i { flex: 0 0 2px; width: 2px; border-radius: 2px; animation: rp-wave-breathe 2.6s ease-in-out infinite; transform-origin: center; }
 .rp-voice-lam { background: var(--angel-blue); }
 .rp-voice-sally { background: var(--angel-pink); }
-.rp-voice-duet { background: linear-gradient(90deg, var(--angel-blue), var(--angel-pink)); }
+.rp-voice-duet { background: linear-gradient(180deg, var(--angel-blue), var(--angel-pink)); }
+@keyframes rp-wave-breathe { 0%, 100% { transform: scaleY(.72); } 50% { transform: scaleY(1); } }
 .rp-voice-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
 .rp-voice-dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; }
 
@@ -215,6 +211,11 @@
 
 /* ---- 响应式 ---- */
 /* ---- 响应式 ---- */
+@media (max-width: 920px) {
+    /* 平板宽度：细线减为 2/3，保持声波密度 */
+    .rp-wave i:nth-child(3n) { display: none; }
+}
+
 @media (max-width: 600px) {
     .rp-root { padding: 22px 14px; }
     /* 吸底操作条：计数独占一行，清空/生成上下两行各占满宽（生成置底更顺手） */
@@ -245,10 +246,15 @@
     .rp-citylist { padding: 10px 10px; }
     .rp-cityfoot { font-size: 14px; }
     .rp-city-sep { margin: 0 8px; }
+
+    /* 旋律波形：窄屏隐藏部分细线保持密度与比例 */
+    .rp-wave { gap: 1px; padding: 8px 8px; }
+    .rp-wave i:nth-child(odd) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .rp-spinner { animation: none; }
+    .rp-wave i { animation: none; }
 }
 
 /* ---- 打印 / 另存为 PDF：只输出完整报告 ---- */
@@ -263,7 +269,7 @@
         padding: 0; max-width: 100%;
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
     }
-    .rp-report-head, .rp-solo, .rp-voice-bar, .rp-voice-lam, .rp-voice-sally,
+    .rp-report-head, .rp-solo, .rp-wave, .rp-voice-lam, .rp-voice-sally,
     .rp-voice-duet, .rp-sharecard, .rp-rare-pill, .rp-ach.is-on, .rp-cov-fill,
-    .rp-tag, .rp-citylist, .rp-guest, .rp-stamp, .rp-empty { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .rp-tag, .rp-citylist, .rp-guest, .rp-empty { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }

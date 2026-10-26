@@ -138,8 +138,6 @@
   "report.coverage.etc": " etc.",
   "report.coverage.more": "...and {n} more",
   "report.coverage.done": "You've collected the entire tour setlist — the truest witness of We Are One.",
-  "report.sec.versions": "《男儿当自强》 stage versions × {v}",
-  "report.versions.sub": "Every city has its own stage version.",
   "report.sec.guests": "Little stars on the stage",
   "report.sec.bgm": "Your BGM of the journey",
   "report.bgm.sub": "Pick your favourite from the {k} songs you heard — we'll write a line for it and print it on the share card.",
