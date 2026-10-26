@@ -7,7 +7,8 @@ export const TAB_HASH = {
     btnSonglist: 'songlist',
     btnSetlist: 'setlist',
     btnCredits: 'credits',
-    btnBonus: 'bonus'
+    btnBonus: 'bonus',
+    btnReport: 'report'
 };
 
 // Tab 按钮集合（元素为 index.html 静态节点）
@@ -18,7 +19,8 @@ export function getTabButtons() {
         document.getElementById('btnSonglist'),
         document.getElementById('btnSetlist'),
         document.getElementById('btnCredits'),
-        document.getElementById('btnBonus')
+        document.getElementById('btnBonus'),
+        document.getElementById('btnReport')
     ];
 }
 

@@ -11,7 +11,7 @@
 ├── css/                  # 样式（tokens / base / map / content / sections / responsive / setlist / 对比表 / 统计表 / 灯箱 / 回到顶部等）
 ├── js/
 │   ├── app.js            # 地图渲染、行程解析、站点点击 → 歌单
-│   ├── tabs/             # 展厅 ES modules：main.js 入口 + core/nav/scrollspy/setlist/songlist 等模块
+│   ├── tabs/             # 展厅 ES modules：main.js 入口 + core/nav/scrollspy/setlist/songlist/report 等模块
 │   ├── i18n.js + i18n/   # 多语言（zh-CN / zh-HK / en）
 │   ├── statistical-table.js  # 进度看板渲染
 │   ├── emoji-effect.js   # 点击爱心特效
@@ -19,6 +19,7 @@
 ├── data/
 │   ├── json/itinerary.json        # 巡演行程（站点/日期/坐标）
 │   ├── json/statistical-table.json# 进度看板统计
+│   ├── json/report-data.json      # 观演回忆录数据（tools/gen-report-data.js 生成）
 │   ├── songlist/                 # 预习曲目（intro 导览 + 各章节曲目表，每章一篇）
 │   ├── diary.md                   # 巡演日记
 │   ├── about/                     # 大事记 / 站点说明（按日期多篇）
@@ -29,7 +30,7 @@
 ├── img/                  # 图片素材（头像 / 彩蛋 / 日记照片 / 工作人员等）
 ├── fonts/                # 子集化字体（woff2）
 ├── lib/                  # 第三方库（ECharts + 中国/世界地图 GeoJSON、marked、灯箱）
-├── tools/subset-fonts.js # 字体子集化脚本
+├── tools/                # 构建脚本（subset-fonts.js 字体子集化 / gen-report-data.js 生成回忆录数据）
 └── docs/                 # 设计文档 + README 截图（docs/screenshots/）
 ```
 

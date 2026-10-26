@@ -1,5 +1,8 @@
 // js/i18n.js
 
+// 文案缓存版本号：i18n JSON 有增删时同步升级，避免浏览器 fetch 缓存旧文案
+const I18N_VER = '20261026-1';
+
 class I18n {
     constructor() {
         this.defaultLang = 'zh-CN';
@@ -23,7 +26,7 @@ class I18n {
 
     async loadTranslations(lang) {
         try {
-            const response = await fetch(`js/i18n/${lang}.json`);
+            const response = await fetch(`js/i18n/${lang}.json?v=${I18N_VER}`);
             if (!response.ok) throw new Error(`Language file ${lang}.json not found`);
             this.translations = await response.json();
             this.currentLang = lang;

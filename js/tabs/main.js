@@ -9,6 +9,7 @@
 //   songlist.js      预习曲目 Tab
 //   setlist.js       演出歌单 Tab（含多日对比差异高亮）
 //   bonus.js         彩蛋环节 Tab
+//   report.js        我的观演回忆录 Tab（互动板块：勾选场次 → 生成观演报告）
 //   about.js         关于本站时间线（独立板块）
 //   credits.js       致谢名单卡片视图增强
 //
@@ -27,6 +28,7 @@ import { loadMarkdownTab } from './markdown.js';
 import { loadSetlistTab, enhanceCompareTables } from './setlist.js';
 import { loadSonglistTab } from './songlist.js';
 import { loadBonusTab } from './bonus.js';
+import { loadReportTab } from './report.js';
 import { initAboutSection } from './about.js';
 
 // ---- 滚动恢复（原 tabs.js 顶层逻辑；模块于 DOM 解析后、load 事件前执行，时序一致）----
@@ -72,6 +74,7 @@ function initTabs() {
     const btnSetlist = document.getElementById('btnSetlist');
     const btnCredits = document.getElementById('btnCredits');
     const btnBonus = document.getElementById('btnBonus');
+    const btnReport = document.getElementById('btnReport');
 
     // 先记录 URL hash，再执行默认激活（setActive 会改写 hash）
     const initialHash = location.hash.replace('#', '');
@@ -115,6 +118,9 @@ function initTabs() {
 
     // 彩蛋环节
     btnBonus.addEventListener('click', () => loadBonusTab(btnBonus));
+
+    // 我的观演回忆录（互动板块，数据 data/json/report-data.json）
+    btnReport.addEventListener('click', () => loadReportTab(btnReport));
 
     // 关于本站：独立板块时间线
     initAboutSection();
