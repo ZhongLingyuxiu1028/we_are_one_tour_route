@@ -561,7 +561,7 @@ function renderReport() {
     html += `<div class="rp-report-head">` +
         `<div class="rp-badges"><span class="rp-badge rp-badge-tier">${esc(tierText)}${tierTags ? ' · ' + esc(tierTags) : ''}</span></div>` +
         `<h3 class="rp-report-title">${headTitle}</h3>` +
-        `<p class="rp-meta">${fullDate(firstS.date)} — ${fullDate(lastS.date)} · ${esc(t('report.meta', { n: r.n }))}</p>` +
+        `<p class="rp-meta">${fullDate(firstS.date)} — ${fullDate(lastS.date)}</p>` +
         `</div>`;
 
     const daysUnit = t('report.stat.days');
@@ -572,12 +572,17 @@ function renderReport() {
         `<div class="rp-stat"><b>${r.spanDays}${daysUnit ? `<span style="font-size:13px"> ${esc(daysUnit)}</span>` : ''}</b><span>${esc(t('report.stat.span'))}</span></div>` +
         `</div>`;
 
-    html += `<div class="rp-sec"><h4 class="rp-sec-title">🗺️ ${esc(t('report.sec.cities', { m: r.m }))}</h4><div class="rp-chips-row">` +
-        r.cityChips.map(c => `<span class="rp-citychip">${esc(c.label)} <b>×${c.count}</b></span>`).join('') +
-        `</div></div>`;
+    const showUnit = t('report.unit.shows');
+    const cityCountTxt = (n) => window.i18n.currentLang === 'en'
+        ? `(${n} show${n > 1 ? 's' : ''})`
+        : `（${n} ${showUnit}）`;
+    html += `<div class="rp-sec"><h4 class="rp-sec-title">🗺️ ${esc(t('report.sec.cities'))}</h4>` +
+        `<p class="rp-citylist">` +
+        r.cityChips.map(c => `<span class="rp-cityfoot">${esc(c.label)}<small>${esc(cityCountTxt(c.count))}</small></span>`).join('<i class="rp-city-sep">·</i>') +
+        `</p></div>`;
 
     if (r.themed.length) {
-        html += `<div class="rp-sec"><h4 class="rp-sec-title">🎉 ${esc(t('report.sec.themed'))}</h4><div class="rp-chips-row">` +
+        html += `<div class="rp-sec"><h4 class="rp-sec-title">🎉 ${esc(t('report.sec.themed'))}</h4><div class="rp-chips-grid">` +
             r.themed.map(x => `<span class="rp-tag">${x.theme.emoji} ${esc(x.theme.name)} <small>· ${esc(x.where)}</small></span>`).join('') +
             `</div></div>`;
     }
@@ -595,6 +600,14 @@ function renderReport() {
             `<span><i class="rp-voice-dot rp-voice-sally"></i>${esc(t('report.voice.sally', { n: v.sally }))}</span>` +
             `<span><i class="rp-voice-dot rp-voice-duet"></i>${esc(t('report.voice.duet', { n: v.duet }))}</span>` +
             (v.guest ? `<span>${esc(t('report.voice.guest', { n: v.guest }))}</span>` : '') +
+            `</div></div>`;
+    }
+
+    if (r.guestList.length) {
+        html += `<div class="rp-sec"><h4 class="rp-sec-title">✨ ${esc(t('report.sec.guests'))}</h4><div class="rp-guests">` +
+            r.guestList.map(g => `<div class="rp-guest"><span class="rp-guest-star">✦</span>` +
+                `<div><span class="rp-guest-name">${esc(g.name)}</span>` +
+                `<small class="rp-guest-where">${esc(g.where)}</small></div></div>`).join('') +
             `</div></div>`;
     }
 
@@ -639,13 +652,8 @@ function renderReport() {
 
     if (r.versionList.length >= 2) {
         html += `<div class="rp-sec"><h4 class="rp-sec-title">🥋 ${esc(t('report.sec.versions', { v: r.versionList.length }))}</h4>` +
-            `<p class="rp-sec-sub">${esc(t('report.versions.sub'))}</p><div class="rp-chips-row">` +
-            r.versionList.map(v => `<span class="rp-tag">${esc(v)}</span>`).join('') + `</div></div>`;
-    }
-    if (r.guestList.length) {
-        html += `<div class="rp-sec"><h4 class="rp-sec-title">🎤 ${esc(t('report.sec.guests'))}</h4><div class="rp-chips-row">` +
-            r.guestList.map(g => `<span class="rp-tag">${esc(g.name)} <small>· ${esc(g.where)}</small></span>`).join('') +
-            `</div></div>`;
+            `<p class="rp-sec-sub">${esc(t('report.versions.sub'))}</p><div class="rp-stamps">` +
+            r.versionList.map(v => `<span class="rp-stamp">${esc(v)}</span>`).join('') + `</div></div>`;
     }
 
     html += `<div class="rp-sec"><h4 class="rp-sec-title">🎧 ${esc(t('report.sec.bgm'))}</h4>` +

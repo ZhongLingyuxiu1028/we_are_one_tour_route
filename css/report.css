@@ -85,17 +85,33 @@
 .rp-sec-title { font-family: var(--serif); font-size: 16px; margin: 0 0 6px; }
 .rp-sec-sub { font-size: 12px; color: var(--ink-2); margin: 0 0 12px; }
 .rp-chips-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.rp-citychip { background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 13px; }
-.rp-citychip b { font-variant-numeric: tabular-nums; }
+.rp-citylist { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-m); margin: 8px 0 0; padding: 12px 16px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 4px 0; line-height: 2.2; }
+.rp-cityfoot { font-family: var(--serif); font-size: 15px; white-space: nowrap; }
+.rp-cityfoot small { font-family: var(--sans); font-size: 11px; color: var(--ink-2); margin-left: 5px; font-variant-numeric: tabular-nums; }
+.rp-city-sep { font-style: normal; color: var(--ink-2); opacity: .55; margin: 0 12px; }
 .rp-tag { background: var(--tint-blue); color: var(--sky-deep); border-radius: 999px; padding: 4px 12px; font-size: 13px; }
 .rp-tag small { color: inherit; opacity: .75; }
+.rp-chips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.rp-chips-grid .rp-tag { display: inline-flex; align-items: center; justify-content: center; text-align: center; white-space: nowrap; }
+
+/* ---- 点点星光（嘉宾） ---- */
+.rp-guests { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.rp-guest { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-m); padding: 10px 14px; }
+.rp-guest-star { color: var(--sun); font-size: 15px; line-height: 1; flex: 0 0 auto; text-shadow: 0 0 6px rgba(246, 196, 83, .55); }
+.rp-guest-name { font-family: var(--serif); font-size: 14px; display: block; }
+.rp-guest-where { display: block; font-size: 11px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* ---- 版本集邮（邮票样式） ---- */
+.rp-stamps { display: flex; flex-wrap: wrap; gap: 12px 10px; }
+.rp-stamp { position: relative; font-family: var(--serif); font-size: 13px; letter-spacing: .05em; color: var(--sky-deep); background: var(--tint-blue); border: 1px dashed var(--angel-blue); border-radius: 6px; padding: 10px 18px; }
+.rp-stamp::after { content: ''; position: absolute; inset: 3px; border: 1px solid var(--angel-blue); border-radius: 4px; opacity: .45; pointer-events: none; }
 
 /* ---- 独家记忆 ---- */
 .rp-solo { background: var(--tint-pink); border-radius: var(--radius-m); padding: 14px 16px; display: grid; gap: 8px; }
-.rp-solo-item { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.rp-solo-song { font-family: var(--serif); font-size: 15px; }
-.rp-solo-where { font-size: 12px; color: var(--ink-2); }
-.rp-rare-pill { margin-left: auto; font-size: 11px; background: var(--sun); color: #5B4300; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+.rp-solo-item { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; column-gap: 14px; }
+.rp-solo-song { font-family: var(--serif); font-size: 15px; overflow-wrap: anywhere; }
+.rp-solo-where { font-size: 12px; color: var(--ink-2); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rp-rare-pill { font-size: 11px; background: var(--sun); color: #5B4300; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
 .rp-empty { background: var(--tint-green); border-radius: var(--radius-m); padding: 14px 16px; color: var(--ink-2); }
 
 /* ---- 声音构成 ---- */
@@ -224,6 +240,11 @@
     .rp-ach-emoji { font-size: 14px; flex: 0 0 auto; }
     .rp-ach-name { font-size: 13px; flex: 0 0 auto; }
     .rp-ach-cond { flex: 1 1 auto; min-width: 0; margin: 0; font-size: 11px; text-align: right; }
+
+    /* 城市注脚：窄屏收窄容器与间距，城市名降一档 */
+    .rp-citylist { padding: 10px 10px; }
+    .rp-cityfoot { font-size: 14px; }
+    .rp-city-sep { margin: 0 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -244,5 +265,5 @@
     }
     .rp-report-head, .rp-solo, .rp-voice-bar, .rp-voice-lam, .rp-voice-sally,
     .rp-voice-duet, .rp-sharecard, .rp-rare-pill, .rp-ach.is-on, .rp-cov-fill,
-    .rp-tag, .rp-citychip, .rp-empty { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .rp-tag, .rp-citylist, .rp-guest, .rp-stamp, .rp-empty { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
