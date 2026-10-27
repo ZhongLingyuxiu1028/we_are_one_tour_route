@@ -16,6 +16,8 @@ const LOADING_STEPS = ['loading1', 'loading2', 'loading3'];
 const LOADING_EMOJIS = ['🎧', '🗺️', '✨'];
 const NAME_MAX = 20;
 const MSG_MAX = 120;
+// 成就分组与展示顺序（组内顺序 = ACH_DEFS 定义顺序，组名文案 key 见 i18n report.ach.grp.*）
+const ACH_GROUPS = ['milestone', 'city', 'special', 'stage'];
 
 let cachedData = null;          // report-data.json（每页加载取一次）
 let showsById = {};
@@ -26,6 +28,7 @@ let msgText = '';               // 送给 Lam & Sally 的留言
 let bgmVariant = 0;             // BGM 句式轮播序号
 let bgmCustom = '';             // 用户自写的 BGM 一句话
 let lastView = 'select';        // 语言切换重载时恢复所在视图
+let favDDOutside = null;        // BGM 下拉「点击外部关闭」的文档级监听（重渲染时替换，避免堆积）
 
 const t = (key, params) => window.i18n.t(key, params);
 const esc = (s) => String(s).replace(/[&<>"']/g, c => (
@@ -400,29 +403,31 @@ function computeReport() {
     const fullDomestic = domesticAll > 0 && domesticSel === domesticAll;
     const fullTour = cachedData.shows.length > 0 && n === cachedData.shows.length;
 
+    // ACH_DEFS 顺序 = 展示顺序，按 grp 分组排列
     const ACH_DEFS = [
-        { emoji: '🌱', key: 'meet', on: n >= 1 },
-        { emoji: '🏙️', key: 'twin', on: m >= 2 },
-        { emoji: '🚄', key: 'chase', on: m >= 3 },
-        { emoji: '🌏', key: 'world', on: hasOversea },
-        { emoji: '🎂', key: 'birthday', on: themed.some(x => x.theme.name === '生日场') },
-        { emoji: '🐼', key: 'panda', on: shows.some(s => s.key === 'chengdu') },
-        { emoji: '💍', key: 'proposal', on: shows.some(s => s.id === 'guangzhou0') },  // 广州 5/9 Danny 求婚场
-        { emoji: '🎉', key: 'themed', on: themed.length >= 2 },
-        { emoji: '💎', key: 'solo', on: solo.length >= 1 },
-        { emoji: '🥋', key: 'versions', on: versionList.length >= 3 },
-        { emoji: '🎤', key: 'guest', on: guestList.length >= 1 },
-        { emoji: '🏟️', key: 'fullhouse', on: Object.keys(cityShows).some(key => {
+        { emoji: '🌱', key: 'meet', grp: 'milestone', on: n >= 1 },
+        { emoji: '💞', key: 'weareone', grp: 'milestone', on: n >= 5 },
+        { emoji: '👩‍❤️‍💋‍👨', key: 'witness', grp: 'milestone', on: n >= 10 },
+        { emoji: '🇨🇳', key: 'china', grp: 'milestone', on: fullDomestic },
+        { emoji: '👑', key: 'fulltour', grp: 'milestone', on: fullTour },
+        { emoji: '🏙️', key: 'twin', grp: 'city', on: m >= 2 },
+        { emoji: '🚄', key: 'chase', grp: 'city', on: m >= 3 },
+        { emoji: '🐼', key: 'panda', grp: 'city', on: shows.some(s => s.key === 'chengdu') },
+        { emoji: '🌏', key: 'world', grp: 'city', on: hasOversea },
+        { emoji: '🏟️', key: 'fullhouse', grp: 'city', on: Object.keys(cityShows).some(key => {
             const all = cachedData.shows.filter(s => s.key === key);
             return all.length >= 2 && cityShows[key].length === all.length;
         }) },
-        { emoji: '💞', key: 'weareone', on: n >= 5 },
-        { emoji: '👩‍❤️‍💋‍👨', key: 'witness', on: n >= 10 },
-        { emoji: '🇨🇳', key: 'china', on: fullDomestic },
-        { emoji: '👑', key: 'fulltour', on: fullTour }
+        { emoji: '🎂', key: 'birthday', grp: 'special', on: themed.some(x => x.theme.name === '生日场') },
+        { emoji: '💍', key: 'proposal', grp: 'special', on: shows.some(s => s.id === 'guangzhou0') },  // 广州 5/9 Danny 求婚场
+        { emoji: '🎉', key: 'themed', grp: 'special', on: themed.length >= 2 },
+        { emoji: '💎', key: 'solo', grp: 'stage', on: solo.length >= 1 },
+        { emoji: '🥋', key: 'versions', grp: 'stage', on: versionList.length >= 3 },
+        { emoji: '🎤', key: 'guest', grp: 'stage', on: guestList.length >= 1 }
     ];
     const achievements = ACH_DEFS.map(d => ({
         emoji: d.emoji,
+        grp: d.grp,
         name: t(`report.ach.${d.key}`),
         cond: t(`report.ach.${d.key}.cond`),
         on: d.on
@@ -660,12 +665,21 @@ function renderReport() {
     html += `<div class="rp-sec"><h4 class="rp-sec-title">🎧 ${esc(t('report.sec.bgm'))}</h4>` +
         `<p class="rp-sec-sub">${esc(t('report.bgm.sub', { k: r.songCount }))}</p>` +
         `<div class="rp-bgm-controls">` +
-        `<select class="rp-select" id="rpFav" aria-label="${esc(t('report.bgm.aria'))}">` +
-        `<option value="">${esc(t('report.bgm.placeholder'))}</option>` +
+        `<div class="rp-dd" id="rpFavDD">` +
+        `<button type="button" class="rp-select rp-dd-toggle${favSong ? ' is-set' : ''}" id="rpFav" aria-haspopup="listbox" aria-expanded="false" aria-label="${esc(t('report.bgm.aria'))}">` +
+        `<span class="rp-dd-label">${favSong ? `《${esc(favSong)}》` : esc(t('report.bgm.placeholder'))}</span>` +
+        `<svg class="rp-dd-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6.2 8 10.2l4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>` +
+        `</button>` +
+        `<div class="rp-dd-panel" id="rpFavPanel" hidden>` +
+        `<input type="text" class="rp-dd-search" id="rpFavSearch" autocomplete="off" placeholder="${esc(t('report.bgm.search'))}" aria-label="${esc(t('report.bgm.search'))}">` +
+        `<div class="rp-dd-list" id="rpFavList" role="listbox" aria-label="${esc(t('report.bgm.aria'))}">` +
         r.songOrder.map(name =>
-            `<option value="${esc(name)}"${favSong === name ? ' selected' : ''}>《${esc(name)}》</option>`
+            `<button type="button" class="rp-dd-opt${favSong === name ? ' is-active' : ''}" role="option" aria-selected="${favSong === name}" data-value="${esc(name)}">《${esc(name)}》</button>`
         ).join('') +
-        `</select>` +
+        `</div>` +
+        `<div class="rp-dd-empty" hidden>${esc(t('report.bgm.none'))}</div>` +
+        `</div>` +
+        `</div>` +
         `<button type="button" class="rp-btn rp-btn-ghost" id="rpShuffle" hidden>🔄 ${esc(t('report.bgm.shuffle'))}</button>` +
         `<input type="text" id="rpBgmCustom" class="rp-bgm-custom" maxlength="60" hidden placeholder="${esc(t('report.bgm.customPlaceholder'))}">` +
         `</div>` +
@@ -676,13 +690,19 @@ function renderReport() {
         `</div>`;
 
     const unlocked = r.achievements.filter(a => a.on).length;
-    html += `<div class="rp-sec"><h4 class="rp-sec-title">🏆 ${esc(t('report.sec.ach', { x: unlocked, t: r.achievements.length }))}</h4><div class="rp-achs">` +
-        r.achievements.map(a =>
-            `<div class="rp-ach${a.on ? ' is-on' : ''}"${a.on ? '' : ` title="${esc(t('report.ach.locked', { cond: a.cond }))}"`}>` +
-            `<div class="rp-ach-emoji">${a.on ? '✅ ' : ''}${a.emoji}</div>` +
-            `<div class="rp-ach-name">${esc(a.name)}</div>` +
-            `<div class="rp-ach-cond">${esc(a.cond)}</div></div>`
-        ).join('') + `</div></div>`;
+    html += `<div class="rp-sec"><h4 class="rp-sec-title">🏆 ${esc(t('report.sec.ach', { x: unlocked, t: r.achievements.length }))}</h4>` +
+        ACH_GROUPS.map(g => {
+            const list = r.achievements.filter(a => a.grp === g);
+            if (!list.length) return '';
+            return `<div class="rp-ach-grp">${esc(t(`report.ach.grp.${g}`))}</div>` +
+                `<div class="rp-achs">` +
+                list.map(a =>
+                    `<div class="rp-ach${a.on ? ' is-on' : ''}"${a.on ? '' : ` title="${esc(t('report.ach.locked', { cond: a.cond }))}"`}>` +
+                    `<div class="rp-ach-emoji">${a.on ? '✅ ' : ''}${a.emoji}</div>` +
+                    `<div class="rp-ach-name">${esc(a.name)}</div>` +
+                    `<div class="rp-ach-cond">${esc(a.cond)}</div></div>`
+                ).join('') + `</div>`;
+        }).join('') + `</div>`;
 
     html += `<div class="rp-quote"><p class="rp-quote-main">${esc(r.quote)}</p>` +
         `<p class="rp-quote-sign">${esc(t('report.quote.sign1'))}<br>${esc(t('report.quote.sign2'))}</p></div>`;
@@ -759,15 +779,22 @@ function scrollRootTop() {
 
 function wireReport(r, defaultShareSolo) {
     const root = document.getElementById('rpRoot');
-    // BGM 选歌联动（句式轮播 + 自定义句优先）
-    const favSel = root.querySelector('#rpFav');
+    // BGM 选歌联动（句式轮播 + 自定义句优先）；下拉为自定义弹层（原生 select 弹层不可定制，曲目多时难翻找）
+    const favDD = root.querySelector('#rpFavDD');
+    const favToggle = root.querySelector('#rpFav');
+    const favLabel = favDD.querySelector('.rp-dd-label');
+    const favPanel = root.querySelector('#rpFavPanel');
+    const favSearch = root.querySelector('#rpFavSearch');
+    const favList = root.querySelector('#rpFavList');
+    const favEmpty = favDD.querySelector('.rp-dd-empty');
     const favResult = root.querySelector('#rpFavResult');
     const favLine = root.querySelector('#rpFavLine');
     const favMeta = root.querySelector('#rpFavMeta');
     const bgmTools = [root.querySelector('#rpShuffle'), root.querySelector('#rpBgmCustom')];
     const shareSoloEl = root.querySelector('#rpShareSolo');
+    let ddValue = '';                          // 当前选中展示名（空 = 未选）
     function applyFav(save) {
-        const song = favSel.value;                 // 展示名（可能含首唱/装饰标记）
+        const song = ddValue;                  // 展示名（可能含首唱/装饰标记）
         const id = songIdentity(song);             // 曲目身份
         if (song && r.songInfo[id]) {
             favSong = song;
@@ -784,7 +811,7 @@ function wireReport(r, defaultShareSolo) {
         if (save) persist();
     }
     function applyLine() {
-        const name = favSel.value;
+        const name = ddValue;
         const info = r.songInfo[songIdentity(name)];
         if (!info) return;
         favMeta.textContent = t('report.bgm.meta', {
@@ -799,18 +826,81 @@ function wireReport(r, defaultShareSolo) {
             if (req === lyricReq && !bgmCustom && line) favLine.textContent = line;
         });
     }
+    // ---- 自定义下拉交互 ----
+    function setFav(name, save) {
+        ddValue = name;
+        favToggle.classList.toggle('is-set', !!name);
+        favLabel.textContent = name ? `《${name}》` : t('report.bgm.placeholder');
+        favList.querySelectorAll('.rp-dd-opt').forEach(o => {
+            const on = o.dataset.value === name;
+            o.classList.toggle('is-active', on);
+            o.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        applyFav(save);
+    }
+    const visibleOpts = () => Array.from(favList.querySelectorAll('.rp-dd-opt')).filter(o => !o.hidden);
+    function filterFav(q) {
+        q = q.trim().toLowerCase();
+        let any = false;
+        favList.querySelectorAll('.rp-dd-opt').forEach(o => {
+            const hit = !q || o.dataset.value.toLowerCase().includes(q);
+            o.hidden = !hit;
+            if (hit) any = true;
+        });
+        favEmpty.hidden = any;
+    }
+    function openFavDD() {
+        favPanel.hidden = false;
+        favDD.classList.add('is-open');
+        favToggle.setAttribute('aria-expanded', 'true');
+        favSearch.value = '';
+        filterFav('');
+        const cur = favList.querySelector('.rp-dd-opt.is-active');
+        if (cur) cur.scrollIntoView({ block: 'nearest' });
+        // 桌面端聚焦搜索框便于直接输入；触屏设备不弹键盘，保持列表完整可见
+        if (matchMedia('(hover: hover) and (pointer: fine)').matches) favSearch.focus();
+    }
+    function closeFavDD() {
+        favPanel.hidden = true;
+        favDD.classList.remove('is-open');
+        favToggle.setAttribute('aria-expanded', 'false');
+    }
+    function stepFavFocus(cur, dir) {
+        const opts = visibleOpts();
+        if (!opts.length) return;
+        const i = opts.indexOf(cur);
+        opts[i === -1 ? (dir > 0 ? 0 : opts.length - 1) : (i + dir + opts.length) % opts.length].focus();
+    }
+    favToggle.addEventListener('click', () => (favPanel.hidden ? openFavDD() : closeFavDD()));
+    favToggle.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); openFavDD(); }
+    });
+    favSearch.addEventListener('input', () => filterFav(favSearch.value));
+    favList.addEventListener('click', e => {
+        const opt = e.target.closest('.rp-dd-opt');
+        if (!opt) return;
+        setFav(opt.dataset.value, true);
+        closeFavDD();
+        favToggle.focus();
+    });
+    [favSearch, favList].forEach(el => el.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { e.preventDefault(); closeFavDD(); favToggle.focus(); return; }
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        e.preventDefault();
+        stepFavFocus(e.target.closest('.rp-dd-opt'), e.key === 'ArrowDown' ? 1 : -1);
+    }));
+    // 点击弹层外关闭（重渲染时替换文档级监听，避免堆积）
+    if (favDDOutside) document.removeEventListener('pointerdown', favDDOutside);
+    favDDOutside = e => { if (!favDD.contains(e.target)) closeFavDD(); };
+    document.addEventListener('pointerdown', favDDOutside);
+
     if (favSong) {
         // 恢复上次选择：优先精确匹配展示名，否则按曲目身份匹配
         const fid = songIdentity(favSong);
-        const match = Array.from(favSel.options).find(o => songIdentity(o.value) === fid);
-        if (match) {
-            favSel.value = match.value;
-            applyFav(false);
-        } else {
-            favSong = '';
-        }
+        const match = Array.from(favList.querySelectorAll('.rp-dd-opt')).find(o => songIdentity(o.dataset.value) === fid);
+        if (match) setFav(match.dataset.value, false);
+        else favSong = '';
     }
-    favSel.addEventListener('change', () => applyFav(true));
 
     // 换一句：句式轮播（清空自定义句，回到系统句式）
     root.querySelector('#rpShuffle').addEventListener('click', () => {

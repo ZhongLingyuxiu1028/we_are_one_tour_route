@@ -116,7 +116,7 @@
 .rp-voice-sally { background: var(--angel-pink); }
 .rp-voice-duet { background: linear-gradient(180deg, var(--angel-blue), var(--angel-pink)); }
 @keyframes rp-wave-breathe { 0%, 100% { transform: scaleY(.72); } 50% { transform: scaleY(1); } }
-.rp-voice-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
+.rp-voice-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
 .rp-voice-dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; }
 
 /* ---- 曲库覆盖度 ---- */
@@ -133,8 +133,22 @@
 /* hidden 保险：模块内按钮/输入框自带 display 规则，避免覆盖 hidden 属性 */
 .rp-root [hidden] { display: none !important; }
 .rp-bgm-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.rp-select { flex: 1 1 260px; min-width: 0; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; padding: 7px 16px; }
+/* ---- BGM 自定义下拉（原生 select 弹层不可定制，曲目多时滚动窗口小、难翻找） ---- */
+.rp-dd { position: relative; flex: 1 1 260px; min-width: 0; }
+.rp-select { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; padding: 7px 16px; cursor: pointer; }
 .rp-select:focus { outline: 2px solid var(--sky); outline-offset: 1px; border-color: transparent; }
+.rp-dd-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-2); }
+.rp-dd-toggle.is-set .rp-dd-label { color: var(--ink); }
+.rp-dd-arrow { flex: 0 0 auto; width: 14px; height: 14px; color: var(--ink-2); transition: transform .18s ease; }
+.rp-dd.is-open .rp-dd-arrow { transform: rotate(180deg); }
+.rp-dd-panel { position: absolute; z-index: 30; top: calc(100% + 6px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 12px 32px rgba(27, 122, 194, .16); padding: 8px; }
+.rp-dd-search { width: 100%; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--ink); font: inherit; font-size: 13px; padding: 6px 14px; margin-bottom: 6px; }
+.rp-dd-search:focus { outline: 2px solid var(--sky); outline-offset: 1px; border-color: transparent; }
+.rp-dd-list { max-height: 288px; overflow-y: auto; overscroll-behavior: contain; display: grid; gap: 2px; }
+.rp-dd-opt { border: none; background: none; font: inherit; font-size: 13px; color: var(--ink); text-align: left; border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+.rp-dd-opt:hover, .rp-dd-opt:focus-visible { background: var(--tint-blue); outline: none; }
+.rp-dd-opt.is-active { background: var(--tint-blue); color: var(--sky-deep); font-weight: 600; }
+.rp-dd-empty { font-size: 12px; color: var(--ink-2); text-align: center; padding: 14px 0 10px; }
 .rp-bgm-controls .rp-btn { flex: 0 0 auto; }
 .rp-bgm-custom { flex: 1 1 100%; min-width: 0; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-size: 13px; padding: 6px 14px; }
 .rp-bgm-custom:focus { outline: 2px solid var(--sky); outline-offset: 1px; border-color: transparent; }
@@ -143,6 +157,7 @@
 .rp-bgm-meta { font-size: 12px; color: var(--ink-2); margin: 8px 0 0; padding-top: 8px; border-top: 1px dashed rgba(27, 122, 194, .3); font-variant-numeric: tabular-nums; }
 
 /* ---- 成就墙 ---- */
+.rp-ach-grp { font-size: 12px; font-weight: 600; color: var(--ink-2); margin: 16px 0 8px; }
 .rp-achs { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); grid-auto-rows: 1fr; gap: 8px; }
 .rp-ach { border-radius: var(--radius-m); padding: 10px 12px; border: 1px solid var(--line); background: var(--surface); }
 .rp-ach.is-on { background: var(--tint-green); border-color: var(--leaf); }
@@ -227,7 +242,8 @@
     .rp-city-all { padding: 6px 8px; }
 
     /* BGM 模块：下拉独占一行（换一句+自写句共享下一行），收窄内边距与字号 */
-    .rp-select { flex: 1 1 100%; }
+    .rp-dd { flex: 1 1 100%; }
+    .rp-dd-list { max-height: 236px; }
     .rp-bgm-custom { flex: 1 1 160px; }
     .rp-bgm-result { padding: 11px 13px; }
     .rp-bgm-line { font-size: 14px; }
@@ -236,6 +252,7 @@
     .rp-sharecard-top { white-space: normal; }
 
     /* 成就墙：窄屏从大卡片切换为紧凑单行列表（emoji+名称靠左，条件靠右） */
+    .rp-ach-grp { margin: 12px 0 6px; }
     .rp-achs { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 6px; }
     .rp-ach { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; }
     .rp-ach-emoji { font-size: 14px; flex: 0 0 auto; }
