@@ -20,7 +20,9 @@
 .rp-head { text-align: center; }
 .rp-kicker { font-size: 11px; letter-spacing: .18em; color: var(--ink-2); margin-bottom: 8px; }
 .rp-title { font-family: var(--serif); font-size: 25px; margin: 0 0 8px; }
-.rp-sub { color: var(--ink-2); margin: 0 auto; max-width: 560px; }
+/* 标题内的 <br class="rp-br"> 仅移动端生效（i18n 文案里的 \n），PC 端保持单行 */
+.rp-title .rp-br { display: none; }
+.rp-sub { color: var(--ink-2); margin: 0 auto; max-width: 560px; font-size: 13px; }
 .rp-steps { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 18px 0 20px; flex-wrap: wrap; }
 .rp-step { font-size: 12px; color: var(--ink-2); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
 .rp-step.is-active { background: var(--tint-blue); border-color: var(--sky); color: var(--sky-deep); }
@@ -284,18 +286,18 @@
 .rp-msg-label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
 .rp-msg-input { width: 100%; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; padding: 8px 12px; }
 .rp-msg-input:focus { outline: 2px solid var(--sky); outline-offset: 1px; border-color: transparent; }
-.rp-sharecard { width: fit-content; min-width: 250px; max-width: 100%; border-radius: 16px; background: linear-gradient(150deg, var(--sky) 0%, var(--angel-pink) 100%); color: #fff; padding: 20px 18px; text-align: center; }
+.rp-sharecard { width: fit-content; min-width: 260px; max-width: min(440px, 100%); box-sizing: border-box; border-radius: 18px; background: linear-gradient(150deg, var(--sky) 0%, var(--angel-pink) 100%); border: 1px solid rgba(255, 255, 255, .35); color: #fff; padding: 24px 22px; text-align: center; }
 .rp-sharecard-top { font-size: 10px; letter-spacing: .14em; opacity: .85; white-space: nowrap; }
 .rp-sharecard-tier { font-family: var(--serif); font-size: 24px; margin: 10px 0 4px; }
 .rp-sharecard-nums { font-size: 12px; opacity: .95; font-variant-numeric: tabular-nums; }
 .rp-sharecard-miles { font-size: 12px; opacity: .95; font-variant-numeric: tabular-nums; }
-.rp-sharecard-solo { font-size: 11px; margin-top: 10px; background: rgba(255, 255, 255, .18); border-radius: 8px; padding: 6px 8px; }
-.rp-sharecard-msg { font-family: var(--serif); font-size: 12px; line-height: 1.5; margin-top: 10px; background: rgba(255, 255, 255, .18); border-radius: 8px; padding: 7px 9px; }
-.rp-sharecard-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; font-size: 10px; opacity: .95; }
-.rp-foot-txt { display: grid; gap: 2px; text-align: left; }
-.rp-foot-txt span { display: block; }
-.rp-sharecard-date { font-size: 9px; opacity: .75; margin-top: 6px; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
-.rp-qr { flex: 0 0 auto; width: 48px; height: 48px; background: #fff; border-radius: 8px; padding: 4px; box-sizing: border-box; }
+.rp-sharecard-solo { font-family: var(--serif); font-size: 12px; line-height: 1.8; margin-top: 14px; background: rgba(255, 255, 255, .2); border: 1px solid rgba(255, 255, 255, .28); border-radius: 12px; padding: 10px 14px; white-space: pre-line; }
+.rp-sharecard-msg { font-family: var(--serif); font-size: 13px; line-height: 1.7; margin-top: 10px; background: rgba(255, 255, 255, .2); border: 1px solid rgba(255, 255, 255, .28); border-radius: 12px; padding: 9px 12px; }
+.rp-sharecard-foot { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .35); font-size: 10px; }
+.rp-foot-txt { display: grid; gap: 3px; text-align: center; letter-spacing: .08em; opacity: .95; }
+.rp-foot-txt span:first-child { font-weight: 600; }
+.rp-sharecard-date { font-size: 9px; opacity: .8; margin-top: 10px; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.rp-qr { flex: 0 0 auto; width: 56px; height: 56px; background: #fff; border-radius: 10px; padding: 5px; box-sizing: border-box; }
 .rp-qr svg { width: 100%; height: 100%; display: block; }
 .rp-share-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
@@ -312,7 +314,25 @@
 
 @media (max-width: 600px) {
     .rp-root { padding: 22px 14px; }
+
+    /* 标题第二行：启用 i18n 文案中的换行（相遇过的夜晚 独占一行） */
+    .rp-title { font-size: 22px; }
+    .rp-title .rp-br { display: inline; }
+    .rp-sub { font-size: 12px; }
+
+    /* 步骤药丸：收窄后保持一行，不再 2+1 折行 */
+    .rp-steps { flex-wrap: nowrap; gap: 5px; }
+    .rp-step { padding: 4px 9px; font-size: 11px; white-space: nowrap; }
+
+    /* 居住地与称呼输入框等宽：包裹层撑满后 100% 才有参照（inline-block 收缩包裹会让 % 失效） */
+    .rp-home-wrap { display: block; }
+    .rp-home-box { display: flex; width: min(280px, 100%); margin: 0 auto; }
+    .rp-home-input { width: 100%; }
+    /* ✕ 的定位基准是 .rp-home-box，box 已收窄到与输入框同宽，right 即相对输入框右缘的内缩距离 */
+    .rp-home-x { right: 12px; }
+
     /* 吸底操作条：计数独占一行，清空/生成上下两行各占满宽（生成置底更顺手） */
+    .rp-bar-row { justify-content: center; }
     .rp-bar-actions { margin-left: 0; width: 100%; flex-direction: column; align-items: stretch; gap: 8px; }
     .rp-bar-actions .rp-btn { width: 100%; }
 

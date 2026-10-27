@@ -254,7 +254,7 @@ function renderSelect() {
     root.innerHTML =
         `<div class="rp-head">` +
         `<div class="rp-kicker">WE ARE ONE · MY MEMORY</div>` +
-        `<h2 class="rp-title">${esc(t('report.head.title'))}</h2>` +
+        `<h2 class="rp-title">${esc(t('report.head.title')).replace(/\n/g, '<br class="rp-br">')}</h2>` +
         `<p class="rp-sub">${esc(t('report.sub1'))}<br>${esc(t('report.sub2'))}</p></div>` +
         stepsHTML(1) +
         `<div class="rp-name">` +
@@ -1033,11 +1033,11 @@ function renderReport() {
         `<div class="rp-sharecard-nums">${esc(t('report.share.nums', { n: r.n, m: r.m, k: r.songCount }))}</div>` +
         (home && r.miles.rows.length
             ? `<div class="rp-sharecard-miles">${esc(t('report.share.miles', { km: fmtKm(r.miles.total) }))}</div>` : '') +
-        `<div class="rp-sharecard-solo" id="rpShareSolo">${esc(favSong ? t('report.share.bgm', { song: favSong }) : defaultShareSolo)}</div>` +
+        `<div class="rp-sharecard-solo" id="rpShareSolo">${esc(defaultShareSolo)}</div>` +
         `<div class="rp-sharecard-msg" id="rpShareMsg" hidden></div>` +
         `<div class="rp-sharecard-foot">` +
-        `<div class="rp-foot-txt"><span>${esc(t('report.share.foot1'))}</span><span>${esc(t('report.share.foot2'))}</span></div>` +
         `<span class="rp-qr" id="rpQr" aria-hidden="true"></span>` +
+        `<div class="rp-foot-txt"><span>${esc(t('report.share.foot1'))}</span><span>${esc(t('report.share.foot2'))}</span></div>` +
         `</div>` +
         `<div class="rp-sharecard-date">${esc(t('report.share.date', { date: genDate }))}</div>` +
         `</div>` +
@@ -1118,6 +1118,10 @@ function wireReport(r, defaultShareSolo) {
     const favMeta = root.querySelector('#rpFavMeta');
     const bgmTools = [root.querySelector('#rpShuffle'), root.querySelector('#rpBgmCustom')];
     const shareSoloEl = root.querySelector('#rpShareSolo');
+    // 歌词金句在卡片上分两行：歌词独占首行，生成句换行展示（规则句式无「」引号，保持单行）
+    const setShareSolo = (text) => {
+        shareSoloEl.textContent = text.replace(/([」”])\s*(——|—)\s*/, '$1\n$2');
+    };
     let ddValue = '';                          // 当前选中展示名（空 = 未选）
     function applyFav(save) {
         const song = ddValue;                  // 展示名（可能含首唱/装饰标记）
@@ -1126,13 +1130,12 @@ function wireReport(r, defaultShareSolo) {
             favSong = song;
             favResult.hidden = false;
             bgmTools.forEach(el => { el.hidden = false; });
-            applyLine();
-            shareSoloEl.textContent = t('report.share.bgm', { song });
+            applyLine();                       // 生成句同步写入预览框与分享卡片
         } else {
             favSong = '';
             favResult.hidden = true;
             bgmTools.forEach(el => { el.hidden = true; });
-            shareSoloEl.textContent = defaultShareSolo;
+            setShareSolo(defaultShareSolo);
         }
         if (save) persist();
     }
@@ -1143,13 +1146,21 @@ function wireReport(r, defaultShareSolo) {
         favMeta.textContent = t('report.bgm.meta', {
             n: info.userShows, m: info.userCities.length, x: info.freq, t: r.total
         });
-        if (bgmCustom) { favLine.textContent = bgmCustom; return; }
+        if (bgmCustom) {
+            favLine.textContent = bgmCustom;
+            setShareSolo(bgmCustom);                // 自定义句 → 分享卡片
+            return;
+        }
         // 歌词金句优先（本地小文件通常即时返回）；返回前先以规则句式兜底，避免闪空
         const ruleLine = songLine(name, info, bgmVariant, r.total);
         const req = ++lyricReq;
         favLine.textContent = ruleLine;
+        setShareSolo(ruleLine);                     // 规则句 → 分享卡片（同步兜底）
         lyricLine(name, bgmVariant).then(line => {
-            if (req === lyricReq && !bgmCustom && line) favLine.textContent = line;
+            if (req === lyricReq && !bgmCustom && line) {
+                favLine.textContent = line;
+                setShareSolo(line);                 // 歌词金句 → 分享卡片
+            }
         });
     }
     // ---- 自定义下拉交互 ----
@@ -1225,7 +1236,7 @@ function wireReport(r, defaultShareSolo) {
         const fid = songIdentity(favSong);
         const match = Array.from(favList.querySelectorAll('.rp-dd-opt')).find(o => songIdentity(o.dataset.value) === fid);
         if (match) setFav(match.dataset.value, false);
-        else favSong = '';
+        else { favSong = ''; setShareSolo(defaultShareSolo); }  // 曲目已不在歌单：卡片回退默认文案
     }
 
     // 换一句：句式轮播（清空自定义句，回到系统句式）
