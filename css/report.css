@@ -288,6 +288,7 @@
 .rp-sharecard-top { font-size: 10px; letter-spacing: .14em; opacity: .85; white-space: nowrap; }
 .rp-sharecard-tier { font-family: var(--serif); font-size: 24px; margin: 10px 0 4px; }
 .rp-sharecard-nums { font-size: 12px; opacity: .95; font-variant-numeric: tabular-nums; }
+.rp-sharecard-miles { font-size: 12px; opacity: .95; font-variant-numeric: tabular-nums; }
 .rp-sharecard-solo { font-size: 11px; margin-top: 10px; background: rgba(255, 255, 255, .18); border-radius: 8px; padding: 6px 8px; }
 .rp-sharecard-msg { font-family: var(--serif); font-size: 12px; line-height: 1.5; margin-top: 10px; background: rgba(255, 255, 255, .18); border-radius: 8px; padding: 7px 9px; }
 .rp-sharecard-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; font-size: 10px; opacity: .95; }

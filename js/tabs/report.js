@@ -73,7 +73,7 @@ const LOADING_EMOJIS = ['🎧', '🗺️', '✨'];
 const NAME_MAX = 20;
 const MSG_MAX = 120;
 // 成就分组与展示顺序（组内顺序 = ACH_DEFS 定义顺序，组名文案 key 见 i18n report.ach.grp.*）
-const ACH_GROUPS = ['milestone', 'city', 'special', 'stage'];
+const ACH_GROUPS = ['milestone', 'city', 'mileage', 'special', 'stage'];
 
 let cachedData = null;          // report-data.json（每页加载取一次）
 let showsById = {};
@@ -605,6 +605,10 @@ function computeReport() {
             const all = cachedData.shows.filter(s => s.key === key);
             return all.length >= 2 && cityShows[key].length === all.length;
         }) },
+        // 观演里程（按「居住地 ⇄ 场馆」往返合计，同城不计；未填居住地则不点亮）
+        { emoji: '🚗', key: 'miles100', grp: 'mileage', on: miles.total >= 50 },
+        { emoji: '🚄', key: 'miles500', grp: 'mileage', on: miles.total >= 500 },
+        { emoji: '✈️', key: 'miles5000', grp: 'mileage', on: miles.total >= 5000 },
         { emoji: '🎂', key: 'birthday', grp: 'special', on: themed.some(x => x.theme.name === '生日场') },
         { emoji: '💍', key: 'proposal', grp: 'special', on: shows.some(s => s.id === 'guangzhou0') },  // 广州 5/9 Danny 求婚场
         { emoji: '🎉', key: 'themed', grp: 'special', on: themed.length >= 2 },
@@ -1027,6 +1031,8 @@ function renderReport() {
         `<div class="rp-sharecard-top">${shareTop}</div>` +
         `<div class="rp-sharecard-tier">${esc(tierText)}${tierTags ? ' · ' + esc(tierTags) : ''}</div>` +
         `<div class="rp-sharecard-nums">${esc(t('report.share.nums', { n: r.n, m: r.m, k: r.songCount }))}</div>` +
+        (home && r.miles.rows.length
+            ? `<div class="rp-sharecard-miles">${esc(t('report.share.miles', { km: fmtKm(r.miles.total) }))}</div>` : '') +
         `<div class="rp-sharecard-solo" id="rpShareSolo">${esc(favSong ? t('report.share.bgm', { song: favSong }) : defaultShareSolo)}</div>` +
         `<div class="rp-sharecard-msg" id="rpShareMsg" hidden></div>` +
         `<div class="rp-sharecard-foot">` +
