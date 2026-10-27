@@ -1,7 +1,7 @@
 // js/i18n.js
 
 // 文案缓存版本号：i18n JSON 有增删时同步升级，避免浏览器 fetch 缓存旧文案
-const I18N_VER = '20261026-1';
+const I18N_VER = '20261027-9';
 
 class I18n {
     constructor() {

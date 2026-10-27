@@ -32,6 +32,24 @@
 .rp-name-input { width: min(280px, 100%); border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; padding: 8px 16px; text-align: center; }
 .rp-name-input:focus { outline: 2px solid var(--sky); outline-offset: 1px; border-color: transparent; }
 
+/* ---- 居住地输入（用于观演里程估算） ---- */
+.rp-home { text-align: center; margin-bottom: 16px; }
+.rp-home-wrap { position: relative; display: inline-block; }
+.rp-home-label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
+.rp-home-box { position: relative; display: inline-flex; }
+.rp-home-input { width: min(280px, 64vw); border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; padding: 8px 32px 8px 16px; text-align: center; }
+.rp-home-input:focus { outline: 2px solid var(--sky); outline-offset: 1px; border-color: transparent; }
+.rp-home-wrap.is-set .rp-home-input { border-color: var(--sky); background: var(--tint-blue); color: var(--sky-deep); font-weight: 500; }
+.rp-home-x { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); border: none; background: none; color: var(--ink-2); cursor: pointer; font: inherit; font-size: 12px; line-height: 1; padding: 3px 4px; border-radius: 50%; }
+.rp-home-x:hover { color: var(--sky-deep); background: var(--tint-blue); }
+.rp-home-panel { position: absolute; z-index: 40; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); width: min(320px, 88vw); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 12px 32px rgba(27, 122, 194, .16); padding: 6px; text-align: left; }
+.rp-home-list { max-height: 264px; overflow-y: auto; overscroll-behavior: contain; display: grid; gap: 2px; }
+.rp-home-opt { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; width: 100%; border: none; background: none; font: inherit; font-size: 13px; color: var(--ink); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+.rp-home-opt:hover, .rp-home-opt:focus-visible { background: var(--tint-blue); outline: none; }
+.rp-home-opt small { color: var(--ink-2); font-size: 11px; white-space: nowrap; }
+.rp-home-empty { font-size: 12px; color: var(--ink-2); text-align: center; padding: 12px 0 8px; }
+.rp-home-note { font-size: 11px; color: var(--ink-2); margin: 6px 0 0; }
+
 /* ---- 城市卡片与场次 chips ---- */
 .rp-citygrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
 .rp-city { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-m); padding: 12px 14px; }
@@ -85,14 +103,74 @@
 .rp-sec-title { font-family: var(--serif); font-size: 16px; margin: 0 0 6px; }
 .rp-sec-sub { font-size: 12px; color: var(--ink-2); margin: 0 0 12px; }
 .rp-chips-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.rp-citylist { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-m); margin: 8px 0 0; padding: 12px 16px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 4px 0; line-height: 2.2; }
-.rp-cityfoot { font-family: var(--serif); font-size: 15px; white-space: nowrap; }
-.rp-cityfoot small { font-family: var(--sans); font-size: 11px; color: var(--ink-2); margin-left: 5px; font-variant-numeric: tabular-nums; }
-.rp-city-sep { font-style: normal; color: var(--ink-2); opacity: .55; margin: 0 12px; }
 .rp-tag { background: var(--tint-blue); color: var(--sky-deep); border-radius: 999px; padding: 4px 12px; font-size: 13px; }
 .rp-tag small { color: inherit; opacity: .75; }
 .rp-chips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
 .rp-chips-grid .rp-tag { display: inline-flex; align-items: center; justify-content: center; text-align: center; white-space: nowrap; }
+
+/* ---- 巡演时光轴（横向 · 双年月份网格，样式与图例沿用原型；点位只展示城市名，悬浮查看日期与场次） ---- */
+.rp-tlh-scroll { overflow-x: auto; margin-top: 4px; padding-bottom: 4px; }
+.rp-tlh-inner { position: relative; min-width: 680px; padding-left: 52px; padding-right: 24px; }
+.rp-tlh-plot { position: relative; }
+.rp-tlh-grid { position: absolute; top: 24px; bottom: 26px; width: 1px; background: var(--line); opacity: .5; }
+.rp-tlh-mon { position: absolute; top: 2px; transform: translateX(-50%); font-size: 11px; color: var(--ink-2); }
+.rp-tlh-line { position: absolute; height: 2px; border-radius: 2px; background: var(--line); transform: translateY(-50%); }
+.rp-tlh-year { position: absolute; left: -46px; transform: translateY(-50%); font-family: var(--serif); font-size: 14px; color: var(--ink-2); }
+/* 站点药丸长条：长度=场次数，颜色按到场次数从浅到深（inline 背景），起点对齐首场日期 */
+.rp-tlh-pill { position: absolute; height: 10px; border-radius: 999px; transform: translateY(-50%); cursor: default; box-sizing: border-box; background: var(--surface); border: 2px solid var(--line); transition: box-shadow .15s ease; }
+.rp-tlh-pill:hover { box-shadow: 0 0 0 3px rgba(27, 122, 194, .18); }
+.rp-tlh-pill.is-future { border-style: dashed; border-color: var(--sky); background: transparent; }
+/* 悬浮气泡：三行（站点 / 时间 / 到场数） */
+.rp-tlh-tip {
+    position: absolute; bottom: calc(100% + 11px); left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    background: var(--ink); color: #F4FAFC; padding: 8px 14px; border-radius: 10px;
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+    box-shadow: 0 6px 18px rgba(34, 51, 59, .28);
+    opacity: 0; visibility: hidden; transition: opacity .15s ease, visibility .15s ease;
+    pointer-events: none; z-index: 10;
+}
+.rp-tlh-tip::after {
+    content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%) rotate(45deg);
+    width: 9px; height: 9px; border-radius: 2px; background: var(--ink);
+}
+.rp-tlh-tip b { font-size: 13px; font-weight: 600; line-height: 1.4; }
+.rp-tlh-tip span { font-size: 12px; opacity: .85; line-height: 1.4; }
+.rp-tlh-tip em { font-style: normal; font-size: 11px; color: #B9C6CC; line-height: 1.4; }
+.rp-tlh-tip.is-on em { color: #9FD6A4; font-weight: 600; }
+.rp-tlh-pill:hover .rp-tlh-tip { opacity: 1; visibility: visible; }
+/* 悬浮药丸时淡化全部城市标签与引线，避免气泡与文字重叠影响查看 */
+.rp-tlh-lab, .rp-tlh-stem { transition: opacity .15s ease; }
+.rp-tlh-inner:has(.rp-tlh-pill:hover) .rp-tlh-lab,
+.rp-tlh-inner:has(.rp-tlh-pill:hover) .rp-tlh-stem { opacity: .15; }
+/* 最末站点的气泡贴右对齐，避免被横向滚动容器裁剪 */
+.rp-tlh-pill.is-last .rp-tlh-tip { left: auto; right: -6px; transform: none; }
+.rp-tlh-pill.is-last .rp-tlh-tip::after { left: auto; right: 8px; }
+.rp-tlh-stem { position: absolute; width: 1px; background: var(--line); }
+.rp-tlh-lab { position: absolute; font-size: 12px; white-space: nowrap; color: var(--ink); cursor: default; }
+.rp-tlh-lab.is-on { color: var(--leaf-deep); font-weight: 600; }
+.rp-tlh-lab.is-future { color: var(--sky-deep); }
+.rp-tlh-today { position: absolute; top: 40px; bottom: 24px; width: 0; border-left: 2px dashed #E87FAC; }
+.rp-tlh-legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; font-size: 12px; color: var(--ink-2); }
+.rp-tlh-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; box-sizing: border-box; margin-right: 5px; vertical-align: -1px; background: var(--surface); border: 2px solid var(--line); }
+.rp-tlh-legend i.rp-lg-scale { width: 26px; border-radius: 999px; border: none; background: linear-gradient(90deg, rgba(67, 160, 71, .32), #43A047); }
+.rp-tlh-legend i.is-future { border-style: dashed; border-color: var(--sky); }
+.rp-tlh-legend i.rp-tlh-today-demo { width: 0; height: 12px; border-radius: 0; border: none; border-left: 2px dashed #E87FAC; vertical-align: -2px; }
+
+/* ---- 观演里程（未填居住地时整节隐藏，渲染层直接不输出） ---- */
+.rp-miles-head { background: linear-gradient(120deg, var(--tint-blue), var(--tint-green)); border-radius: var(--radius-m); padding: 18px 18px 16px; text-align: center; }
+.rp-miles-big { font-family: var(--serif); font-size: 32px; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.rp-miles-big small { font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--ink-2); margin-left: 4px; }
+.rp-miles-sub { font-size: 12px; color: var(--ink-2); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.rp-miles-extremes { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 10px; font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.rp-miles-extremes span b { font-family: var(--serif); font-size: 13px; font-weight: 600; color: var(--ink); margin: 0 2px; }
+.rp-miles-ext-sep { width: 1px; height: 12px; background: var(--line); }
+.rp-miles-slogan { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed rgba(27, 122, 194, .25); font-family: var(--serif); font-size: 14px; letter-spacing: .05em; color: var(--sky-deep); white-space: nowrap; }
+.rp-miles-slogan::before { content: "「"; margin-right: 3px; opacity: .55; }
+.rp-miles-slogan::after { content: "」"; margin-left: 3px; opacity: .55; }
+.rp-miles-toggle { display: flex; justify-content: center; margin-top: 10px; }
+.rp-miles-rows { margin-top: 10px; }
+.rp-miles-rows .rp-row-where { white-space: nowrap; }
 
 /* ---- 点点星光（嘉宾） ---- */
 .rp-guests { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
@@ -259,10 +337,8 @@
     .rp-ach-name { font-size: 13px; flex: 0 0 auto; }
     .rp-ach-cond { flex: 1 1 auto; min-width: 0; margin: 0; font-size: 11px; text-align: right; }
 
-    /* 城市注脚：窄屏收窄容器与间距，城市名降一档 */
-    .rp-citylist { padding: 10px 10px; }
-    .rp-cityfoot { font-size: 14px; }
-    .rp-city-sep { margin: 0 8px; }
+    /* 城市注脚已并入时光轴；里程歌词窄屏降一档字号并按 \n 分两行展示 */
+    .rp-miles-slogan { font-size: 13px; letter-spacing: .04em; white-space: pre-line; line-height: 1.9; }
 
     /* 旋律波形：窄屏隐藏部分细线保持密度与比例 */
     .rp-wave { gap: 1px; padding: 8px 8px; }
@@ -281,6 +357,9 @@
     #hall > .wrap > .tabs-bar, #about, footer, #backToTopBtn,
     .rp-msg-block, .rp-share-actions, .rp-toast, .rp-steps { display: none !important; }
     #content { display: block !important; }
+    /* 里程明细打印时强制展开（页面上的折叠状态不影响纸质输出） */
+    .rp-miles-rows { display: block !important; }
+    .rp-miles-toggle { display: none !important; }
     .rp-root {
         border: none; box-shadow: none; border-radius: 0;
         padding: 0; max-width: 100%;
@@ -288,5 +367,6 @@
     }
     .rp-report-head, .rp-solo, .rp-wave, .rp-voice-lam, .rp-voice-sally,
     .rp-voice-duet, .rp-sharecard, .rp-rare-pill, .rp-ach.is-on, .rp-cov-fill,
-    .rp-tag, .rp-citylist, .rp-guest, .rp-empty { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .rp-tag, .rp-guest, .rp-empty, .rp-miles-head,
+    .rp-tlh-pill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }

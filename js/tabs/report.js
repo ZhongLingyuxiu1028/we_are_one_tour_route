@@ -8,6 +8,62 @@ import { setActive, setActiveTabButton, showContent, getContentEl } from './core
 
 const STORE_KEY = 'waone-report-selection';
 const OVERSEA_KEYS = ['kualalumpur', 'singapore', 'lasvegas', 'california'];
+// 各站场馆经纬度（lng, lat）· 与 data/json/itinerary.json 的 coord 一致，用于观演里程估算
+const VENUE_COORDS = {
+    hongkong: [114.181944, 22.301389],
+    foshan: [113.140953, 22.959949],
+    chengdu: [104.13, 30.53],
+    wuhan: [114.133882, 30.63674],
+    hangzhou: [120.230349, 30.228173],
+    macau: [113.566, 22.145],
+    kualalumpur: [101.6931889, 3.0538522],
+    singapore: [103.879092, 1.349985],
+    xi_an: [108.547289, 34.182937],
+    guangzhou: [113.602685, 23.116052],
+    shanghai: [121.475, 31.15528],
+    beijing: [116.390218, 39.996251],
+    shenzhen: [114.226888, 22.699762],
+    chongqing: [106.508538, 29.38039],
+    nanjing: [118.663643, 32.049184],
+    lasvegas: [-115.1797, 36.1078],
+    california: [-121.3136, 38.8405]
+};
+// 居住地候选城市（中文名, 区域, 拼音, lng, lat）· 供居住地下拉选择，坐标为城市中心点
+const HOME_CITIES = [
+    ['广州', '广东', 'guangzhou', 113.264, 23.129], ['深圳', '广东', 'shenzhen', 114.058, 22.543],
+    ['佛山', '广东', 'foshan', 113.122, 23.029], ['东莞', '广东', 'dongguan', 113.752, 23.021],
+    ['珠海', '广东', 'zhuhai', 113.577, 22.271], ['中山', '广东', 'zhongshan', 113.393, 22.517],
+    ['惠州', '广东', 'huizhou', 114.413, 23.112], ['江门', '广东', 'jiangmen', 113.078, 22.578],
+    ['汕头', '广东', 'shantou', 116.682, 23.354], ['湛江', '广东', 'zhanjiang', 110.359, 21.271],
+    ['香港', '中国香港', 'xianggang', 114.169, 22.319], ['澳门', '中国澳门', 'aomen', 113.549, 22.199],
+    ['北京', '北京', 'beijing', 116.407, 39.904], ['上海', '上海', 'shanghai', 121.474, 31.230],
+    ['天津', '天津', 'tianjin', 117.201, 39.085], ['重庆', '重庆', 'chongqing', 106.551, 29.563],
+    ['成都', '四川', 'chengdu', 104.066, 30.572], ['武汉', '湖北', 'wuhan', 114.306, 30.593],
+    ['杭州', '浙江', 'hangzhou', 120.155, 30.274], ['南京', '江苏', 'nanjing', 118.797, 32.061],
+    ['西安', '陕西', 'xian', 108.940, 34.342], ['长沙', '湖南', 'changsha', 112.982, 28.194],
+    ['郑州', '河南', 'zhengzhou', 113.625, 34.747], ['合肥', '安徽', 'hefei', 117.286, 31.864],
+    ['南昌', '江西', 'nanchang', 115.858, 28.683], ['福州', '福建', 'fuzhou', 119.297, 26.074],
+    ['厦门', '福建', 'xiamen', 118.089, 24.479], ['泉州', '福建', 'quanzhou', 118.589, 24.913],
+    ['济南', '山东', 'jinan', 117.121, 36.652], ['青岛', '山东', 'qingdao', 120.383, 36.067],
+    ['石家庄', '河北', 'shijiazhuang', 114.515, 38.043], ['太原', '山西', 'taiyuan', 112.549, 37.857],
+    ['沈阳', '辽宁', 'shenyang', 123.432, 41.806], ['大连', '辽宁', 'dalian', 121.615, 38.914],
+    ['长春', '吉林', 'changchun', 125.324, 43.886], ['哈尔滨', '黑龙江', 'haerbin', 126.534, 45.803],
+    ['昆明', '云南', 'kunming', 102.833, 24.880], ['贵阳', '贵州', 'guiyang', 106.630, 26.648],
+    ['南宁', '广西', 'nanning', 108.366, 22.817], ['桂林', '广西', 'guilin', 110.290, 25.274],
+    ['海口', '海南', 'haikou', 110.199, 20.044], ['三亚', '海南', 'sanya', 109.512, 18.253],
+    ['兰州', '甘肃', 'lanzhou', 103.834, 36.061], ['乌鲁木齐', '新疆', 'wulumuqi', 87.617, 43.793],
+    ['苏州', '江苏', 'suzhou', 120.585, 31.299], ['无锡', '江苏', 'wuxi', 120.302, 31.571],
+    ['宁波', '浙江', 'ningbo', 121.622, 29.874], ['温州', '浙江', 'wenzhou', 120.699, 27.994],
+    ['台北', '台湾', 'taibei', 121.565, 25.033],
+    ['吉隆坡', '马来西亚', 'jilongpo', 101.687, 3.139], ['新加坡', '新加坡', 'xinjiapo', 103.820, 1.352],
+    ['曼谷', '泰国', 'mangu', 100.502, 13.756], ['东京', '日本', 'dongjing', 139.692, 35.690],
+    ['首尔', '韩国', 'shouer', 126.978, 37.566], ['伦敦', '英国', 'lundun', -0.128, 51.507],
+    ['巴黎', '法国', 'bali', 2.352, 48.857], ['纽约', '美国', 'niuyue', -74.006, 40.713],
+    ['洛杉矶', '美国', 'luoshanji', -118.244, 34.052], ['旧金山', '美国', 'jiujinshan', -122.419, 37.775],
+    ['拉斯维加斯', '美国', 'lasiweijiasi', -115.139, 36.175], ['西雅图', '美国', 'xiyatu', -122.332, 47.606],
+    ['多伦多', '加拿大', 'duolunduo', -79.383, 43.653], ['温哥华', '加拿大', 'wengehua', -123.121, 49.283],
+    ['悉尼', '澳大利亚', 'xini', 151.209, -33.868], ['墨尔本', '澳大利亚', 'moerben', 144.963, -37.814]
+];
 // 分享卡片二维码指向线上报告页（扫码直达）
 const REPORT_URL = 'https://zhonglingyuxiu1028.github.io/we_are_one_tour_route/#report';
 const GUEST_RE = /黄博|侧田|李昊|Hacken|Adam Lee|Alex|Eason/;      // test / match 用（无状态）
@@ -23,17 +79,51 @@ let cachedData = null;          // report-data.json（每页加载取一次）
 let showsById = {};
 let sel = new Set();            // 已勾选场次 id
 let userName = '';
+let home = null;                // 居住地 { cn, region, lng, lat }，空则隐藏观演里程板块
 let favSong = '';               // BGM 选歌
 let msgText = '';               // 送给 Lam & Sally 的留言
 let bgmVariant = 0;             // BGM 句式轮播序号
 let bgmCustom = '';             // 用户自写的 BGM 一句话
 let lastView = 'select';        // 语言切换重载时恢复所在视图
 let favDDOutside = null;        // BGM 下拉「点击外部关闭」的文档级监听（重渲染时替换，避免堆积）
+let homeDDOutside = null;       // 居住地下拉同上
 
 const t = (key, params) => window.i18n.t(key, params);
 const esc = (s) => String(s).replace(/[&<>"']/g, c => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
+const fmtKm = (n) => Math.round(n).toLocaleString('en-US');
+// 球面直线距离（Haversine，单位 km）· 里程仅供参考
+function hav(lng1, lat1, lng2, lat2) {
+    const R = 6371, rad = Math.PI / 180;
+    const dLat = (lat2 - lat1) * rad, dLng = (lng2 - lng1) * rad;
+    const a = Math.sin(dLat / 2) ** 2 +
+        Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLng / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(a));
+}
+// ---- 巡演时光轴（横向双年月份网格）工具 ----
+const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const dayOfYear = (d) => Math.round((d - new Date(d.getFullYear(), 0, 1)) / 86400000) + 1;
+// 同城日期段合并：连续日 →「10/9–13」，多段用分隔符连接（悬浮提示里的日期）
+function dateRangeLabel(list, sep) {
+    const runs = [];
+    list.forEach(s => {
+        const m = shortDate(s.date).match(/(\d{1,2})\/(\d{1,2})/);
+        if (!m) return;
+        const mo = +m[1], d = +m[2];
+        const last = runs[runs.length - 1];
+        if (last && last.m === mo && d === last.d2 + 1) last.d2 = d;
+        else runs.push({ m: mo, d, d2: d });
+    });
+    return runs.map(r => r.d === r.d2 ? `${r.m}/${r.d}` : `${r.m}/${r.d}–${r.d2}`).join(sep || '、');
+}
+// 城市名标签半宽（%）估算：CJK/全角 ≈12.5px，其余 ≈6.2px；620px 为最窄图宽，宽屏下只会更宽松
+function labelHalfPct(st) {
+    const s = st.city.replace(/站$/, '') + (st.emoji ? ' ' + st.emoji : '');
+    let w = 6;
+    for (let i = 0; i < s.length; i++) w += s.charCodeAt(i) >= 0x2E80 ? 12.5 : 6.2;
+    return (w / 2) / 620 * 100;
+}
 const cityOf = (s) => (window.i18n.currentLang === 'en' && s.en) ? s.en : s.cn;
 const stripParens = (s) => s.replace(/（[^）]*）|\([^)]*\)/g, '').trim();
 // 曲目身份：剥离「不含『版』字的括号后缀」（与 tools/gen-report-data.js 的 freq 口径一致）——
@@ -71,6 +161,7 @@ function loadStore() {
         if (!d || !Array.isArray(d.ids)) return;
         sel = new Set(d.ids.filter(id => showsById[id]));
         userName = String(d.name || '').slice(0, NAME_MAX);
+        home = (d.home && typeof d.home.lng === 'number') ? d.home : null;
         favSong = String(d.fav || '');
         msgText = String(d.msg || '').slice(0, MSG_MAX);
         bgmCustom = String(d.bgmCustom || '').slice(0, 60);
@@ -79,7 +170,7 @@ function loadStore() {
 function persist() {
     try {
         localStorage.setItem(STORE_KEY, JSON.stringify(
-            { v: 1, ids: [...sel], name: userName, fav: favSong, msg: msgText, bgmCustom: bgmCustom }
+            { v: 1, ids: [...sel], name: userName, home, fav: favSong, msg: msgText, bgmCustom: bgmCustom }
         ));
     } catch (e) { /* 隐私模式等场景忽略 */ }
 }
@@ -170,6 +261,20 @@ function renderSelect() {
         `<label class="rp-name-label" for="rpName">${esc(t('report.name.label'))}</label>` +
         `<input type="text" id="rpName" class="rp-name-input" maxlength="${NAME_MAX}" placeholder="${esc(t('report.name.placeholder'))}">` +
         `</div>` +
+        `<div class="rp-home">` +
+        `<div class="rp-home-wrap" id="rpHomeWrap">` +
+        `<label class="rp-home-label" for="rpHome">${esc(t('report.home.label'))}</label>` +
+        `<span class="rp-home-box">` +
+        `<input type="text" id="rpHome" class="rp-home-input" autocomplete="off" placeholder="${esc(t('report.home.placeholder'))}" aria-label="${esc(t('report.home.aria'))}">` +
+        `<button type="button" class="rp-home-x" id="rpHomeClear" hidden aria-label="${esc(t('report.home.clear'))}" title="${esc(t('report.home.clear'))}">✕</button>` +
+        `</span>` +
+        `<div class="rp-home-panel" id="rpHomePanel" hidden>` +
+        `<div class="rp-home-list" id="rpHomeList" role="listbox" aria-label="${esc(t('report.home.ariaList'))}"></div>` +
+        `<div class="rp-home-empty" id="rpHomeEmpty" hidden>${esc(t('report.home.empty'))}</div>` +
+        `</div>` +
+        `</div>` +
+        `<p class="rp-home-note">${esc(t('report.home.note'))}</p>` +
+        `</div>` +
         `<div class="rp-citygrid">${cityCards}</div>` +
         `<div class="rp-bar"><p class="rp-alert" id="rpAlert" role="alert" hidden>${esc(t('report.empty'))}</p>` +
         `<div class="rp-bar-row"><span class="rp-count" id="rpCount" aria-live="polite"></span>` +
@@ -184,6 +289,51 @@ function renderSelect() {
         userName = nameInput.value.replace(/\s+/g, ' ').trim().slice(0, NAME_MAX);
         persist();
     });
+
+    // 居住地下拉（中文名/拼音过滤；选中的城市用于观演里程估算）
+    const homeWrap = root.querySelector('#rpHomeWrap');
+    const homeInput = root.querySelector('#rpHome');
+    const homePanel = root.querySelector('#rpHomePanel');
+    const homeList = root.querySelector('#rpHomeList');
+    const homeEmpty = root.querySelector('#rpHomeEmpty');
+    const homeClearBtn = root.querySelector('#rpHomeClear');
+    function syncHomeInput() {
+        homeWrap.classList.toggle('is-set', !!home);
+        homeInput.value = home ? home.cn : '';
+        homeClearBtn.hidden = !home;
+    }
+    function renderHomeList(q) {
+        q = q.trim().toLowerCase();
+        const hits = HOME_CITIES.filter(c => !q || c[0].includes(q) || c[2].includes(q));
+        homeList.innerHTML = hits.map(c =>
+            `<button type="button" class="rp-home-opt" role="option" data-cn="${esc(c[0])}">${esc(c[0])}<small>${esc(c[1])}</small></button>`
+        ).join('');
+        homeEmpty.hidden = hits.length > 0;
+    }
+    homeInput.addEventListener('focus', () => { renderHomeList(homeInput.value); homePanel.hidden = false; });
+    homeInput.addEventListener('input', () => { renderHomeList(homeInput.value); homePanel.hidden = false; });
+    homeInput.addEventListener('keydown', e => {
+        if (e.key === 'Escape') homePanel.hidden = true;
+    });
+    homeList.addEventListener('click', e => {
+        const opt = e.target.closest('.rp-home-opt');
+        if (!opt) return;
+        const c = HOME_CITIES.find(x => x[0] === opt.dataset.cn);
+        if (c) home = { cn: c[0], region: c[1], lng: c[3], lat: c[4] };
+        syncHomeInput();
+        homePanel.hidden = true;
+        persist();
+    });
+    homeClearBtn.addEventListener('click', () => {
+        home = null;
+        syncHomeInput();
+        homeInput.focus();
+        persist();
+    });
+    if (homeDDOutside) document.removeEventListener('pointerdown', homeDDOutside);
+    homeDDOutside = e => { if (!homeWrap.contains(e.target)) homePanel.hidden = true; };
+    document.addEventListener('pointerdown', homeDDOutside);
+    syncHomeInput();
 
     root.querySelector('.rp-citygrid').addEventListener('change', (e) => {
         if (!e.target.matches('input[type="checkbox"]')) return;
@@ -394,6 +544,43 @@ function computeReport() {
         return { name: g, where: locs.join('、') };
     });
 
+    // 观演里程：按「居住地 ⇄ 场馆」每座城市一次往返直线距离合计；
+    // 同城观演（居住城市=演出城市）属市内通勤，不计入；未填居住地则整节隐藏
+    const miles = { rows: [], total: 0 };
+    if (home) {
+        Object.keys(cityShows).forEach(key => {
+            if (cityShows[key][0].cn.replace(/站$/, '') === home.cn) return;   // 同城不计
+            const coord = VENUE_COORDS[key];
+            if (!coord) return;
+            const oneWay = hav(home.lng, home.lat, coord[0], coord[1]);
+            miles.rows.push({
+                city: cityOf(cityShows[key][0]), emoji: cityShows[key][0].emoji,
+                oneWay, round: oneWay * 2, cnt: cityShows[key].length
+            });
+        });
+        miles.rows.sort((a, b) => b.oneWay - a.oneWay);
+        miles.total = miles.rows.reduce((acc, row) => acc + row.round, 0);
+    }
+
+    // 巡演时光轴：全量站点 × 到场次数（每站一条药丸长条：长度=场次数，颜色按到场次数从浅到深）
+    const dateSep = window.i18n.currentLang === 'en' ? ', ' : '、';
+    const stopAll = {};
+    cachedData.shows.forEach(s => { (stopAll[s.key] = stopAll[s.key] || []).push(s); });
+    const now = new Date();
+    const timeline = Object.keys(stopAll).map(key => {
+        const list = stopAll[key].slice().sort((a, b) => parseDate(a.date) - parseDate(b.date));
+        const first = parseDate(list[0].date);
+        return {
+            key, no: list[0].no, city: cityOf(list[0]), emoji: list[0].emoji,
+            dates: dateRangeLabel(list, dateSep),
+            first,
+            firstDoy: dayOfYear(first),
+            on: list.filter(s => sel.has(s.id)).length,
+            total: list.length,
+            futureAll: list.every(s => parseDate(s.date) > now)
+        };
+    }).sort((a, b) => a.no - b.no);
+
     const n = shows.length, m = Object.keys(cityCount).length;
     const tier = n >= 10 ? 'report.tier.5' : n >= 7 ? 'report.tier.4' : n >= 4 ? 'report.tier.3' : n >= 2 ? 'report.tier.2' : 'report.tier.1';
     const hasOversea = shows.some(s => OVERSEA_KEYS.includes(s.key));
@@ -441,13 +628,9 @@ function computeReport() {
         });
 
     return {
-        n, m, songCount, spanDays, total, themed, voice, coverage,
+        n, m, songCount, spanDays, total, themed, voice, coverage, miles, timeline,
         solo, versionList, guestList, tier, hasOversea, fullDomestic, fullTour, achievements, quote,
         firstShow: first.s, lastShow: last.s,
-        cityChips: Object.keys(cityCount).map(key => {
-            const s0 = cityShows[key][0];
-            return { label: `${cityOf(s0)} ${s0.emoji}`.trim(), count: cityCount[key] };
-        }),
         songOrder: heardOrder, songInfo: heardInfo
     };
 }
@@ -538,6 +721,113 @@ async function lyricLine(name, variant) {
 }
 
 // ---- ③ 报告 ----
+// 巡演时光轴（横向 · 双年月份网格，样式与图例沿用原型）：
+// 每站一条药丸长条——长度=场次数、颜色按到场次数从浅到深（未到场空心 / 未上演虚线）；
+// 药丸起点对齐首场日期，悬浮显示三行气泡（站点 / 时间 / 到场数），无点击交互
+function timelineHTML(r) {
+    const isEn = window.i18n.currentLang === 'en';
+    const monsTxt = isEn ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] : null;
+    const days = 365;
+    const pct = (doy) => (doy - 0.5) / days * 100;
+    const years = [...new Set(r.timeline.map(st => st.first.getFullYear()))].sort();
+    const rowY = years.map((_, i) => 72 + i * 124);
+    const plotH = 72 + (years.length - 1) * 124 + 68;
+    const DOT = 9, GAP = 2, REF_W = 620;   // 点径/点距/估宽基准（最窄图宽，宽屏下只会更宽松）
+
+    let grid = '', mons = '', cum = 0;
+    for (let mI = 0; mI < 12; mI++) {
+        if (mI > 0) grid += `<i class="rp-tlh-grid" style="left:${cum / days * 100}%"></i>`;
+        mons += `<span class="rp-tlh-mon" style="left:${(cum + MONTH_DAYS[mI] / 2) / days * 100}%">${monsTxt ? monsTxt[mI] : (mI + 1) + '月'}</span>`;
+        cum += MONTH_DAYS[mI];
+    }
+
+    let body = '';
+    years.forEach((y, ri) => {
+        const nodes = r.timeline.filter(st => st.first.getFullYear() === y);
+        if (!nodes.length) return;
+        const ly = rowY[ri];
+        // 各站药丸：leftPct = 首场日期；串宽（%）用于横线与标签锚点
+        const marks = nodes.map(nd => {
+            const wPct = (nd.total * DOT + (nd.total - 1) * GAP) / REF_W * 100;
+            return { nd, leftPct: pct(nd.firstDoy), wPct };
+        });
+        const p0 = Math.min(...marks.map(x => x.leftPct)) - DOT / 2 / REF_W * 100;
+        const p1 = Math.max(...marks.map(x => x.leftPct + x.wPct)) + DOT / 2 / REF_W * 100;
+        body += `<span class="rp-tlh-year" style="top:${ly}px">${y}</span>`;
+        body += `<i class="rp-tlh-line" style="left:${p0}%;width:${p1 - p0}%;top:${ly}px"></i>`;
+        // 标签防重叠：按估宽占位，上下交替优先，同侧放不下退到远一层
+        const placed = [];
+        const spanOf = (p, h) => {
+            const tx = (p + 2 * h > 98) ? -100 : (p < 5 ? 0 : -50);
+            return {
+                tx,
+                lo: tx === -100 ? p - 2 * h : tx === 0 ? p : p - h,
+                hi: tx === -100 ? p : tx === 0 ? p + 2 * h : p + h
+            };
+        };
+        marks.forEach((mk, i) => {
+            const nd = mk.nd;
+            const p = mk.leftPct + mk.wPct / 2;   // 标签/引线挂在药丸中心
+            const head = t('report.tl.tipHead', { no: String(nd.no).padStart(2, '0'), city: nd.city });
+            const status = t(nd.on > 0 ? 'report.tl.tipOn' : nd.futureAll ? 'report.tl.tipFuture' : 'report.tl.tipOff',
+                { on: nd.on, tt: nd.total });
+            const aria = `${head} · ${nd.dates} · ${status}`;
+            // 药丸长条：长度=场次数；填充色按到场次数从浅到深（未到场空心 / 未上演虚线）
+            const pillW = nd.total * DOT + (nd.total - 1) * GAP;
+            let pillStyle = `left:${mk.leftPct}%;top:${ly}px;width:${pillW}px`;
+            let pillCls = '';
+            if (!nd.futureAll && nd.on > 0) {
+                const ratio = nd.on / nd.total;
+                const alpha = ratio >= 1 ? 1 : 0.25 + 0.75 * ratio;
+                pillStyle += `;background:rgba(67,160,71,${alpha.toFixed(2)})` +
+                    `;border-color:rgba(46,125,50,${Math.min(1, 0.35 + 0.65 * ratio).toFixed(2)})`;
+            }
+            if (nd.futureAll) pillCls = ' is-future';
+            const isLast = nd.no === r.timeline[r.timeline.length - 1].no;   // 末位站点：气泡贴右防裁剪
+            body += `<span class="rp-tlh-pill${pillCls}${isLast ? ' is-last' : ''}" style="${pillStyle}"` +
+                ` role="img" aria-label="${esc(aria)}">` +
+                `<span class="rp-tlh-tip${nd.on > 0 ? ' is-on' : ''}" role="tooltip">` +
+                `<b>${esc(head)}</b><span>${esc(nd.dates)}</span><em>${esc(status)}</em></span></span>`;
+
+            const h = labelHalfPct(nd);
+            const prefer = i % 2 === 0 ? 'a' : 'b';
+            const cands = prefer === 'a' ? [['a', 0], ['a', 1], ['b', 0], ['b', 1]] : [['b', 0], ['b', 1], ['a', 0], ['a', 1]];
+            let side = cands[0][0], level = 0, sp = spanOf(p, h);
+            for (const c of cands) {
+                sp = spanOf(p, h);
+                const ok = !placed.some(q => q.sd === c[0] && q.lv === c[1] && sp.lo < q.hi + 1 && q.lo < sp.hi + 1);
+                if (ok) { side = c[0]; level = c[1]; break; }
+            }
+            placed.push({ sd: side, lv: level, lo: sp.lo, hi: sp.hi });
+            const above = side === 'a';
+            const labTop = above ? ly - 22 - level * 18 : ly + 22 + level * 18;
+            const stemTop = above ? ly - 22 - level * 18 : ly + 7;
+            const stemH = 15 + level * 18;
+            body += `<i class="rp-tlh-stem" style="left:${p}%;top:${stemTop}px;height:${stemH}px"></i>` +
+                `<span class="rp-tlh-lab${nd.on > 0 ? ' is-on' : nd.futureAll ? ' is-future' : ''}"` +
+                ` style="left:${p}%;top:${labTop}px;transform:translate(${sp.tx}%,${above ? -100 : 0}%)">` +
+                `${esc(nd.city.replace(/站$/, ''))}${nd.emoji ? ' ' + nd.emoji : ''}</span>`;
+        });
+    });
+    // 今天的竖虚线（当前日期落在巡演年份内才画）
+    const nowD = new Date();
+    if (years.includes(nowD.getFullYear())) {
+        body += `<i class="rp-tlh-today" style="left:${pct(dayOfYear(nowD))}%"></i>`;
+    }
+
+    return `<div class="rp-sec"><h4 class="rp-sec-title">🗓️ ${esc(t('report.sec.tl'))}</h4>` +
+        `<p class="rp-sec-sub">${esc(t('report.tl.sub', { t: cachedData.shows.length, n: r.n }))}</p>` +
+        `<div class="rp-tlh-scroll"><div class="rp-tlh-inner"><div class="rp-tlh-plot" style="height:${plotH}px">` +
+        grid + mons + body +
+        `</div></div></div>` +
+        `<div class="rp-tlh-legend">` +
+        `<span><i class="rp-lg-scale"></i>${esc(t('report.tl.legend.on'))}</span>` +
+        `<span><i></i>${esc(t('report.tl.legend.off'))}</span>` +
+        `<span><i class="is-future"></i>${esc(t('report.tl.legend.future'))}</span>` +
+        `<span><i class="rp-tlh-today-demo"></i>${esc(t('report.tl.legend.today', { date: (nowD.getMonth() + 1) + '/' + nowD.getDate() }))}</span>` +
+        `</div></div>`;
+}
+
 function renderReport() {
     lastView = 'report';
     const root = document.getElementById('rpRoot');
@@ -577,14 +867,32 @@ function renderReport() {
         `<div class="rp-stat"><b>${r.spanDays}${daysUnit ? `<span style="font-size:13px"> ${esc(daysUnit)}</span>` : ''}</b><span>${esc(t('report.stat.span'))}</span></div>` +
         `</div>`;
 
-    const showUnit = t('report.unit.shows');
-    const cityCountTxt = (n) => window.i18n.currentLang === 'en'
-        ? `(${n} show${n > 1 ? 's' : ''})`
-        : `（${n} ${showUnit}）`;
-    html += `<div class="rp-sec"><h4 class="rp-sec-title">🗺️ ${esc(t('report.sec.cities'))}</h4>` +
-        `<p class="rp-citylist">` +
-        r.cityChips.map(c => `<span class="rp-cityfoot">${esc(c.label)}<small>${esc(cityCountTxt(c.count))}</small></span>`).join('<i class="rp-city-sep">·</i>') +
-        `</p></div>`;
+    // 巡演时光轴（与「解锁城市」合并：不罗列城市，直接以时间轴呈现足迹）
+    html += timelineHTML(r);
+
+    // 观演里程：未填居住地时整节隐藏
+    if (home && r.miles.rows.length) {
+        const far = r.miles.rows[0], near = r.miles.rows[r.miles.rows.length - 1];
+        html += `<div class="rp-sec"><h4 class="rp-sec-title">🧭 ${esc(t('report.sec.miles'))}</h4>` +
+            `<div class="rp-miles-head">` +
+            `<div class="rp-miles-big">≈ ${fmtKm(r.miles.total)}<small>km</small></div>` +
+            `<div class="rp-miles-sub">${esc(t('report.miles.sub', { home: home.cn, m: r.m, n: r.n }))}</div>` +
+            `<div class="rp-miles-extremes">` +
+            `<span>${esc(t('report.miles.far'))} <b>${esc(far.city.replace(/站$/, ''))}</b> ${fmtKm(far.oneWay)} km</span>` +
+            `<i class="rp-miles-ext-sep" aria-hidden="true"></i>` +
+            `<span>${esc(t('report.miles.near'))} <b>${esc(near.city.replace(/站$/, ''))}</b> ${fmtKm(near.oneWay)} km</span>` +
+            `</div>` +
+            `<p class="rp-miles-slogan">${esc(t('report.miles.slogan'))}</p>` +
+            `</div>` +
+            `<div class="rp-miles-toggle">` +
+            `<button type="button" class="rp-btn rp-btn-ghost" id="rpMilesToggle" aria-expanded="false">▾ ${esc(t('report.miles.more'))}</button>` +
+            `</div>` +
+            `<div class="rp-miles-rows" id="rpMilesRows" hidden>` +
+            r.miles.rows.map(row =>
+                `<div class="rp-row"><span class="rp-row-name">${esc(home.cn)} → ${esc(row.city.replace(/站$/, ''))}${row.emoji ? ' ' + row.emoji : ''}</span>` +
+                `<span class="rp-row-where">${esc(t('report.miles.row', { n: row.cnt, km: fmtKm(row.round) }))}</span></div>`
+            ).join('') + `</div></div>`;
+    }
 
     if (r.themed.length) {
         html += `<div class="rp-sec"><h4 class="rp-sec-title">🎉 ${esc(t('report.sec.themed'))}</h4><div class="rp-chips-grid">` +
@@ -779,6 +1087,18 @@ function scrollRootTop() {
 
 function wireReport(r, defaultShareSolo) {
     const root = document.getElementById('rpRoot');
+    // 观演里程：各站明细默认折叠，展开按钮切换
+    const milesToggle = root.querySelector('#rpMilesToggle');
+    if (milesToggle) {
+        const milesRows = root.querySelector('#rpMilesRows');
+        milesToggle.addEventListener('click', () => {
+            const collapse = !milesRows.hidden;   // 当前展开 → 点击后收起
+            milesRows.hidden = collapse;
+            milesToggle.setAttribute('aria-expanded', String(!collapse));
+            milesToggle.textContent = (collapse ? '▾ ' : '▴ ') +
+                t(collapse ? 'report.miles.more' : 'report.miles.less');
+        });
+    }
     // BGM 选歌联动（句式轮播 + 自定义句优先）；下拉为自定义弹层（原生 select 弹层不可定制，曲目多时难翻找）
     const favDD = root.querySelector('#rpFavDD');
     const favToggle = root.querySelector('#rpFav');
