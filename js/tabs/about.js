@@ -2,6 +2,7 @@
 // 文件名含日期，如 about20261020.md；数组顺序即展示顺序（最新在前）
 
 const ABOUT_FILES = [
+    'data/about/about20261028.md',
     'data/about/about20261020.md',
     'data/about/about20260118.md',
     'data/about/about20251101.md'
