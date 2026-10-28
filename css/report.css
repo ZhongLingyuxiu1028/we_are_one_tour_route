@@ -194,6 +194,12 @@
 .rp-solo-songs, #content .rp-solo-songs { list-style: none; margin: 0; padding: 1px 0 1px 12px; border-left: 2px solid var(--line); border-radius: 0; background: transparent; display: grid; gap: 2px; }
 .rp-solo-song, #content .rp-solo-song { font-family: var(--serif); font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; margin: 0; }
 .rp-rare-pill { font-size: 11px; background: var(--sun); color: #5B4300; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+/* PC 端折中：站名/日期与歌单左右两栏，歌单铺开填充宽度（移动端维持上下堆叠） */
+@media (min-width: 640px) {
+    .rp-solo { padding: 14px 20px; }
+    .rp-solo-group { grid-template-columns: max-content 1fr; gap: 3px 22px; align-items: start; }
+    .rp-solo-where { padding-top: 1px; }
+}
 .rp-empty { background: var(--tint-green); border-radius: var(--radius-m); padding: 14px 16px; color: var(--ink-2); }
 
 /* ---- 声音构成（旋律细线波形） ---- */
