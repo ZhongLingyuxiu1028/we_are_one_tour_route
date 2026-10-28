@@ -129,6 +129,8 @@ const stripParens = (s) => s.replace(/（[^）]*）|\([^)]*\)/g, '').trim();
 // 曲目身份：剥离「不含『版』字的括号后缀」（与 tools/gen-report-data.js 的 freq 口径一致）——
 // （New！🆕）首唱标记、（👩‍❤️‍💋‍👨）/（✨）舞台装饰均并入歌曲身份；含『版』后缀（生日版/熊猫版…）为独立版本
 const songIdentity = (s) => s.replace(/（(?![^）]*版)[^）]*）/g, '').trim();
+// 展示名：去掉「（New！🆕）」首唱标记（版本后缀保留）
+const soloDisplayName = (s) => s.replace(/（\s*New！[^）]*）/g, '').trim();
 const shortDate = (d) => {
     const c = stripParens(d);
     const m = c.match(/\d{4}\/(\d{1,2})\/(\d{1,2})/);
@@ -457,7 +459,7 @@ function computeReport() {
         s.songs.forEach(([song]) => {
             const id = songIdentity(song);
             if (isSong(song) && cachedData.freq[id] === 1 && !acc.some(x => x.song === song)) {
-                acc.push({ song, where: cityOf(s) + ' ' + shortDate(s.date) });
+                acc.push({ song, city: cityOf(s), day: shortDate(s.date) });
             }
         });
         return acc;
@@ -599,19 +601,20 @@ function computeReport() {
         { emoji: '👑', key: 'fulltour', grp: 'milestone', on: fullTour },
         { emoji: '🏙️', key: 'twin', grp: 'city', on: m >= 2 },
         { emoji: '🚄', key: 'chase', grp: 'city', on: m >= 3 },
-        { emoji: '🐼', key: 'panda', grp: 'city', on: shows.some(s => s.key === 'chengdu') },
-        { emoji: '🌏', key: 'world', grp: 'city', on: hasOversea },
         { emoji: '🏟️', key: 'fullhouse', grp: 'city', on: Object.keys(cityShows).some(key => {
             const all = cachedData.shows.filter(s => s.key === key);
             return all.length >= 2 && cityShows[key].length === all.length;
         }) },
+        { emoji: '🌏', key: 'world', grp: 'city', on: hasOversea },
         // 观演里程（按「居住地 ⇄ 场馆」往返合计，同城不计；未填居住地则不点亮）
+        { emoji: '🛵', key: 'reunion', grp: 'mileage', on: home && miles.total >= 0 },
         { emoji: '🚗', key: 'miles100', grp: 'mileage', on: miles.total >= 50 },
         { emoji: '🚄', key: 'miles500', grp: 'mileage', on: miles.total >= 500 },
         { emoji: '✈️', key: 'miles5000', grp: 'mileage', on: miles.total >= 5000 },
-        { emoji: '🎂', key: 'birthday', grp: 'special', on: themed.some(x => x.theme.name === '生日场') },
-        { emoji: '💍', key: 'proposal', grp: 'special', on: shows.some(s => s.id === 'guangzhou0') },  // 广州 5/9 Danny 求婚场
         { emoji: '🎉', key: 'themed', grp: 'special', on: themed.length >= 2 },
+        { emoji: '🎂', key: 'birthday', grp: 'special', on: themed.some(x => x.theme.name === '生日场') },
+        { emoji: '🐼', key: 'panda', grp: 'special', on: shows.some(s => s.key === 'chengdu') },  // 蓉港同心：在场成都站
+        { emoji: '💍', key: 'proposal', grp: 'special', on: shows.some(s => s.id === 'guangzhou0') },  // 广州 5/9 Danny 求婚场
         { emoji: '💎', key: 'solo', grp: 'stage', on: solo.length >= 1 },
         { emoji: '🥋', key: 'versions', grp: 'stage', on: versionList.length >= 3 },
         { emoji: '🎤', key: 'guest', grp: 'stage', on: guestList.length >= 1 }
@@ -936,13 +939,26 @@ function renderReport() {
     }
 
     if (r.solo.length) {
+        // 同一场次的歌合并为一组：站名/日期只出现一次，歌名纵向列举
+        const groups = [];
+        r.solo.forEach(x => {
+            const g = groups[groups.length - 1];
+            if (g && g.city === x.city && g.day === x.day) g.songs.push(x.song);
+            else groups.push({ city: x.city, day: x.day, songs: [x.song] });
+        });
         html += `<div class="rp-sec"><h4 class="rp-sec-title">💎 ${esc(t('report.sec.solo'))}</h4>` +
             `<p class="rp-sec-sub">${esc(t('report.solo.sub'))}</p><div class="rp-solo">` +
-            r.solo.map(x =>
-                `<div class="rp-solo-item"><span class="rp-solo-song">《${esc(x.song)}》</span>` +
-                `<span class="rp-solo-where">${esc(x.where)}</span>` +
-                `<span class="rp-rare-pill">1/${r.total} ${esc(t('report.unit.shows'))}</span></div>`
-            ).join('') + `</div></div>`;
+            `<div class="rp-solo-head">` +
+            `<span class="rp-rare-pill">${esc(t('report.solo.rare', { i: 1, n: r.total }))}</span>` +
+            `<span class="rp-solo-count">${esc(t('report.solo.count', { n: r.solo.length }))}</span>` +
+            `<i class="rp-solo-rule"></i></div>` +
+            groups.map(g =>
+                `<div class="rp-solo-group">` +
+                `<div class="rp-solo-where"><span class="rp-solo-city">${esc(g.city)}</span>` +
+                `<span class="rp-solo-day">${esc(g.day)}</span></div>` +
+                `<ul class="rp-solo-songs">${g.songs.map(s => `<li class="rp-solo-song">《${esc(soloDisplayName(s))}》</li>`).join('')}</ul>` +
+                `</div>`).join('') +
+            `</div></div>`;
     } else {
         html += `<div class="rp-sec"><h4 class="rp-sec-title">💎 ${esc(t('report.sec.solo'))}</h4>` +
             `<div class="rp-empty">${esc(t('report.solo.empty'))}</div></div>`;

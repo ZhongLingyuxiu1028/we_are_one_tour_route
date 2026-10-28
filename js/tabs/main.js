@@ -28,7 +28,7 @@ import { loadMarkdownTab } from './markdown.js';
 import { loadSetlistTab, enhanceCompareTables } from './setlist.js';
 import { loadSonglistTab } from './songlist.js';
 import { loadBonusTab } from './bonus.js';
-import { loadReportTab } from './report.js';
+import { loadReportTab } from './report.js?v=20261028-1';
 import { initAboutSection } from './about.js';
 
 // ---- 滚动恢复（原 tabs.js 顶层逻辑；模块于 DOM 解析后、load 事件前执行，时序一致）----

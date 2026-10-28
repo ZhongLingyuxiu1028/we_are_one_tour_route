@@ -182,10 +182,17 @@
 .rp-guest-where { display: block; font-size: 11px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
 
 /* ---- 独家记忆 ---- */
-.rp-solo { background: var(--tint-pink); border-radius: var(--radius-m); padding: 14px 16px; display: grid; gap: 8px; }
-.rp-solo-item { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; column-gap: 14px; }
-.rp-solo-song { font-family: var(--serif); font-size: 15px; overflow-wrap: anywhere; }
-.rp-solo-where { font-size: 12px; color: var(--ink-2); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rp-solo { background: var(--tint-pink); border-radius: var(--radius-m); padding: 12px 14px; display: grid; gap: 12px; }
+.rp-solo-head { display: flex; align-items: center; gap: 10px; }
+.rp-solo-count { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+.rp-solo-rule { flex: 1; height: 1px; background: var(--line); }
+.rp-solo-group { display: grid; gap: 3px; }
+.rp-solo-where { display: flex; align-items: center; gap: 8px; }
+.rp-solo-where::before { content: '◆'; font-size: 9px; color: var(--sun); text-shadow: 0 0 6px rgba(246, 196, 83, .55); }
+.rp-solo-city { font-family: var(--serif); font-size: 14px; }
+.rp-solo-day { font-size: 11px; background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rp-solo-songs, #content .rp-solo-songs { list-style: none; margin: 0; padding: 1px 0 1px 12px; border-left: 2px solid var(--line); border-radius: 0; background: transparent; display: grid; gap: 2px; }
+.rp-solo-song, #content .rp-solo-song { font-family: var(--serif); font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; margin: 0; }
 .rp-rare-pill { font-size: 11px; background: var(--sun); color: #5B4300; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
 .rp-empty { background: var(--tint-green); border-radius: var(--radius-m); padding: 14px 16px; color: var(--ink-2); }
 
@@ -387,7 +394,7 @@
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
     }
     .rp-report-head, .rp-solo, .rp-wave, .rp-voice-lam, .rp-voice-sally,
-    .rp-voice-duet, .rp-sharecard, .rp-rare-pill, .rp-ach.is-on, .rp-cov-fill,
+    .rp-voice-duet, .rp-sharecard, .rp-rare-pill, .rp-solo-day, .rp-ach.is-on, .rp-cov-fill,
     .rp-tag, .rp-guest, .rp-empty, .rp-miles-head,
     .rp-tlh-pill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
