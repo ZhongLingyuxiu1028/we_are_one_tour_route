@@ -34,3 +34,10 @@
 - 北京站 | 致谢名单（已更新文字版）
 - 深圳站 | 致谢名单（已更新文字版）
 - <a href="https://www.bilibili.com/video/BV1nXpH6dEHs" target="_blank" rel="noopener noreferrer">重庆站 | 致谢名单（02:47:47，感谢 BV1nXpH6dEHs@这是个水印）</a>
+
+## Site Credits
+
+| 项目      | 说明                                                                                                                                         |
+|---------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| Twemoji | 本站 emoji 图形统一使用 [Twemoji](https://github.com/jdecked/twemoji)（Twitter 开源，[CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.zh)） |
+| ECharts | 地图与图表由 [Apache ECharts](https://echarts.apache.org/) 驱动（BSD-2-Clause）                                                                      |

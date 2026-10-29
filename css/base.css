@@ -18,6 +18,9 @@ body {
 a { text-decoration: none; color: var(--sky-deep); }
 a:hover { text-decoration: underline; }
 
+/* Twemoji 统一渲染（js/twemoji.js）：emoji 替换为 SVG 后与文字基线对齐 */
+img.twe { width: 1.15em; height: 1.15em; vertical-align: -0.22em; margin: 0 0.02em; }
+
 /* ==================== 吸顶顶栏 ==================== */
 .topbar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
