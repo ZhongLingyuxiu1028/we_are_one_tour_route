@@ -160,3 +160,10 @@
     font-size: 11px;
     font-variant-numeric: tabular-nums;
 }
+
+/* 致谢名单 Site Credits 表（.credits-table）：首列为项目名而非序号，保持正文字号 */
+#content .reference-table.credits-table tbody td:first-child {
+    color: var(--ink);
+    font-size: 13px;
+    font-variant-numeric: normal;
+}

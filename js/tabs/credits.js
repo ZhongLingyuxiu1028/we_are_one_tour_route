@@ -102,4 +102,16 @@ export function enhanceCredits(contentEl) {
         h.textContent = rollingP.textContent.replace(/[：:]\s*$/, '');
         rollingP.replaceWith(h);
     }
+
+    // 5. Site Credits 表格：统一为彩蛋「参考目录」表样式（见 setlistStyle.css .reference-table）
+    Array.from(body.querySelectorAll('h2')).forEach(h2 => {
+        if (!/Site Credits/i.test(h2.textContent)) return;
+        let el = h2.nextElementSibling;
+        while (el && el.tagName !== 'TABLE' && !el.classList.contains('table-scroll')) {
+            el = el.nextElementSibling;
+        }
+        if (!el) return;
+        const tbl = el.classList.contains('table-scroll') ? el.querySelector('table') : el;
+        if (tbl) tbl.classList.add('reference-table', 'credits-table');
+    });
 }
